@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<title>on-run-go</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="STATIC/CSS/global.css">
 		<script type="text/javascript" src="STATIC/JS/clock.js"></script>
 	</head>
