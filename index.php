@@ -1,29 +1,47 @@
 <?
 require_once("GLOBAL/head.php");
-?>
-<div id="menu" class="hidden">
-	<div id="ex-container">
+
+$path = "0";
+$limit = 1;
+$selection = $idFull;
+$pageName = "index";
+$stub = FALSE;
+$breadcrumbsMode = FALSE; 
+$multiColumn = 20;
+
+$hide_clock = get_cookie("hide_clock");
+
+if(!$hide_clock)
+{
+?><div class="column-container hidden"><?
+}
+else
+{
+?><div class="column-container visible"><?
+}
+?><div id="ex-container">
 		<img id="ex" src="MEDIA/SVG/ex.svg">
 	</div>
-	<div id="about" class="icon-container">on-run-go</div>
-	<a href="http://o-r-g.com">
-		<div id="wyoscan" class="icon-container">
-			<object id="wyoscan-svg" data="MEDIA/SVG/wyoscan.svg" type="image/svg+xml"></object>
-		</div>
-	</a>
-	<div id="jules" class="icon-container">
-		<img src="MEDIA/GIF/jules.gif">
-	</div>
-	<div id="multi" class="icon-container">
-		<img src="MEDIA/GIF/multi.gif">
-	</div>
+	<div id="menu">
+		<div><a href="http://dev.o-r-g.com">O-R-G</a></div><?
+		displayNavigation(	$path,
+							$limit,
+							$selection,
+							$pageName,
+							$stub,
+							$breadcrumbsMode,
+							$multiColumn);	
+	?></div>
 </div>
-
-<canvas id="clock-canvas" class="v-centre"></canvas>
-<script>init_clock("clock-canvas");</script>
-<script type="text/javascript" src="STATIC/JS/global.js"></script>
-<script src="STATIC/JS/wyoscan.js"></script>
-<script>init_wyoscan('wyoscan-svg');</script>
 <?
+if(!$id)
+{
+?><canvas id="clock-canvas" class="v-centre"></canvas>
+<script>init_clock("clock-canvas");</script>
+<script type="text/javascript" src="STATIC/JS/global.js"></script><?
+}
+else
+{
+}
 require_once("GLOBAL/foot.php");
 ?>

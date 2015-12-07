@@ -5,7 +5,7 @@
 function displayNavigation(	$path = "0", 
 							$limit = null, 
 							$selection = null, 
-							$pageName = "main", 
+							$pageName = "index", 
 							$stub = FALSE, 
 							$breadcrumbsMode = FALSE, 
 							$multiColumn = null ) {

@@ -1,6 +1,8 @@
 <?
 date_default_timezone_set("America/New_York");
 require_once("LIBRARY/systemDatabase.php");
+require_once("LIBRARY/displayNavigation.php");
+require_once("LIBRARY/systemCookie.php");
 
 // parse $id
 $id = $_REQUEST['id'];
@@ -16,6 +18,7 @@ $sql = "SELECT * from objects where id = $id";
 $res = MYSQL_QUERY($sql);
 $obj = MYSQL_FETCH_ARRAY($res);
 $name = $obj['name1'] ? $obj['name1'] : "on-run-go";
+
 ?>
 <!DOCTYPE html>
 <html>

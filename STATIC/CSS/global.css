@@ -15,7 +15,7 @@ body {
 	
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 20px;
-	line-height: 24px;
+	line-height: 25px;
 	white-space:nowrap;	
 }
 
@@ -35,7 +35,17 @@ a:active {
 
 #clock-canvas {
 	position: fixed;
+	left: 0px;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.column-container {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	width: 33vw;
+	white-space: initial;
+	padding: 20px;
 }
 
 .icon-container img {
@@ -95,3 +105,9 @@ a:active {
 }
 
 /* mobile */
+@media screen and (max-width: 768px) {
+	.column-container {
+		display: block;
+		width: 100%;
+	}
+}

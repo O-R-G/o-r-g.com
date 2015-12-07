@@ -2,12 +2,12 @@ var isHidden = true;
 
 function showHide()
 {
-	var menu = document.getElementById("menu");
+	var cols = document.getElementsByClassName("column-container");
 	if(isHidden)
 	{
 		// show the menu
-		menu.className = menu.className.replace( /(?:^|\s)hidden(?!\S)/g , ' visible' );
-		// document.getElementById('jules').scrollIntoView();
+		for(var i = 0; i < cols.length; i++)
+			cols[i].className = cols[i].className.replace( /(?:^|\s)hidden(?!\S)/g , ' visible' );
 		close_clock();
 		open_menu();
 		
@@ -15,7 +15,9 @@ function showHide()
 	else
 	{
 		// hide the menu
-		menu.className = menu.className.replace( /(?:^|\s)visible(?!\S)/g , ' hidden' );
+		for(var i = 0; i < cols.length; i++)
+			cols[i].className = cols[i].className.replace( /(?:^|\s)visible(?!\S)/g , ' hidden' );
+		
 		close_menu();
 		open_clock();
 	}
@@ -26,24 +28,30 @@ function showHide()
 
 function open_menu()
 {
-	init_wyoscan("wyoscan-svg");
+	// init_wyoscan("wyoscan-svg");
 }
 
 function close_menu()
 {
-	stop_wyoscan();
+	// stop_wyoscan();
 }
 
 function open_clock()
 {
-	document.getElementById("clock-canvas").addEventListener("click", showHide);
+	var clock = document.getElementById("clock-canvas");
+	clock.addEventListener("click", showHide);
+	clock.style.zIndex = "1";
 	init_clock("clock-canvas");
+	setCookie("hide_clock", "false", 10);
 }
 
 function close_clock()
 {
-	document.getElementById("clock-canvas").removeEventListener("click", showHide);
+	var clock = document.getElementById("clock-canvas");
+	clock.removeEventListener("click", showHide);
+	clock.style.zIndex = "-1";
 	clear_hands();
+	setCookie("hide_clock", "true", 10);
 }
 
 
@@ -63,3 +71,46 @@ function switchClasses(c1, c2)
 
 document.getElementById("clock-canvas").addEventListener("click", showHide);
 document.getElementById("ex-container").addEventListener("click", showHide);
+
+
+function setCookie(cname, cvalue, exdays)
+{
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+
+function expireCookie(name)
+{
+	if (getCookie(name) != "")
+	{
+		document.cookie = name+"=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+		return true;
+	} 
+	else
+		return false;
+}
+
+function getCookie(name)
+{
+	var cname = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i = 0; i < ca.length; i++)
+	{
+		var c = ca[i];
+		while (c.charAt(0)==' ')
+			c = c.substring(1);
+		if (c.indexOf(cname) != -1) 
+			return c.substring(cname.length,c.length);
+	}
+	return "";
+}
+
+function checkCookie(name)
+{
+	if (getCookie(name) != "")
+		return true;
+	else
+		return false;
+}
