@@ -27,7 +27,12 @@ function init_clock(canvasId)
 	window.onresize = 
 		function(event) {
 			set_size();
-			draw_clock();
+			fill_bg();
+			draw_circle();
+			if(handTimer)
+			{
+				draw_hands();
+			}
 		};
 }
 
@@ -41,6 +46,7 @@ function draw_clock()
 function clear_hands()
 {
 	window.clearInterval(handTimer);
+	handTimer = false;
 	fill_bg();
 	draw_circle();
 }

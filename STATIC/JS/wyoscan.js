@@ -8,38 +8,16 @@ var scrollback = 10;
 var prevDigit;
 var prevSegment;
 
-var timerFunction = null;
+var wyoscanTimer = null;
 
-function setup(svgid)
+var w;
+
+function init_wyoscan(svgid)
 {
-	var w = document.getElementById(svgid);
+	w = document.getElementById(svgid);
 	
-	// must wait for the svg to load
-	w.addEventListener("load", function() {
-		wsvg = w.contentDocument;
-		
-		// digits[][] holds the svg shapes that turn on & off
-		digits = new Array(6);
-		for(var i = 0; i < digits.length; i++)
-		{
-			digits[i] = new Array(7);
-			for(var j = 0; j < digits[i].length; j++)
-			{
-				var s = i.toString() + '-' + j.toString();
-				digits[i][j] = wsvg.getElementById(s);
-			}
-		}
-		
-		// hh:mm separators
-		dots = wsvg.getElementById('dots');
-		var all = wsvg.getElementsByTagName('g');
-		for(var i = 0; i < all.length; i++)
-		{
-			all[i].setAttribute('fill', 'black');
-		}
-		
-		timerFunction = setInterval(animate, 50);
-	}, false);
+	// must wait for the svg to load to start animating
+	w.addEventListener("load", wyoscan_listener);
 	
 	// numbers[][] holds which segments to show for each # at each position
 	numbers = new Array(10);
@@ -145,6 +123,39 @@ function setup(svgid)
 		prevSegment[i] = 0;
 }
 
+function wyoscan_listener()
+{
+	wsvg = w.contentDocument;
+	
+	// digits[][] holds the svg shapes that turn on & off
+	digits = new Array(6);
+	for(var i = 0; i < digits.length; i++)
+	{
+		digits[i] = new Array(7);
+		for(var j = 0; j < digits[i].length; j++)
+		{
+			var s = i.toString() + '-' + j.toString();
+			digits[i][j] = wsvg.getElementById(s);
+		}
+	}
+	
+	// hh:mm separators
+	dots = wsvg.getElementById('dots');
+	var all = wsvg.getElementsByTagName('g');
+	for(var i = 0; i < all.length; i++)
+	{
+		all[i].setAttribute('fill', 'black');
+	}
+	
+	wyoscanTimer = setInterval(animate, 50);
+}
+
+function stop_wyoscan()
+{
+	window.clearInterval(wyoscanTimer);
+	w.removeEventListener("load", wyoscan_listener);
+}
+
 function animate()
 {
 	var d = new Date();
@@ -170,15 +181,14 @@ function animate()
 	if(numbers[thisDigitValue][thisSegment+1])
 		digits[thisDigit][thisSegment].setAttribute('fill-opacity', '1.0');
 	else
-		digits[thisDigit][thisSegment].setAttribute('fill-opacity', '0.1');
+		digits[thisDigit][thisSegment].setAttribute('fill-opacity', '0.0');
 	
 	// clear previous segment
-	digits[prevDigit[0]][prevSegment[0]].setAttribute('fill-opacity', '0.1');
+	digits[prevDigit[0]][prevSegment[0]].setAttribute('fill-opacity', '0.0');
 	segmentCounter++;
 	prevDigit.shift();
 	prevDigit.push(thisDigit);
 	prevSegment.shift();
 	prevSegment.push(thisSegment);
 	
-
 }

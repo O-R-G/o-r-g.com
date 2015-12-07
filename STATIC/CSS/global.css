@@ -1,56 +1,81 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html, body {
+	height: 100%;
+}
+
 body {
 	margin: 0;
-	position: fixed;
 	width: 100%;
 	height: 100%;
 	
-	font-family: "Helvetica", sans-serif;
-	font-size: 36px;
-}
-#clock-canvas {
-	/* centre vertically */
-	position: absolute;
-	top: 50%;	
-	transform: translateY(-50%);
-	-webkit-transform: translateY(-50%);
-	-ms-transform: translateY(-50%);
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 20px;
+	line-height: 24px;
+	white-space:nowrap;	
 }
 
-img {
+a {
+    color: #000;
+    text-decoration: none;
+    border-bottom: solid 2px #000;	
+}
+
+a:hover {
+    border-bottom: solid 2px #FFF;
+}
+
+a:active {
+	color:#FFF;
+}
+
+#clock-canvas {
+	position: fixed;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.icon-container img {
 	width: 100%;
 }
 
 .icon-container {
-	max-width: 200px;
-	padding: 10px;
-	position: absolute;
+	position: relative;
+	z-index: 0;
+	width:100%;
+	/* min-height: 100%; */
+	padding-top: 50px;
+	padding-bottom: 50px;
+	padding-left: 15%;
+	padding-right: 15%;
 }
 
-#jules {
-	bottom: 0px;
+#about {
 }
 
-#multi {
-	bottom: 0px;
+#ex-container {
+	position: fixed;
 	right: 0px;
+    top: 0px;
+    z-index: 10;
+    
+    width: 40px;
+    padding: 10px;
+    height: 40px;
 }
 
-#wyoscan {
-	position: static;
-	margin-left: auto;
-}
-
-.hidden {
-	visibility: hidden;
-}
-
-.visible {
-	visibility: visible;
+#ex {
+    position: absolute;
 }
 
 #wyoscan-svg {
 	display: block;
 }
+
+/* utility classes */
 
 .v-centre {
 	position: relative;
@@ -59,3 +84,14 @@ img {
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);
 }
+
+.hidden {
+	display: none;
+	visibility: hidden;
+}
+
+.visible {
+	visibility: visible;
+}
+
+/* mobile */
