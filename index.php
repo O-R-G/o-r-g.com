@@ -14,18 +14,15 @@ $multiColumn = 20;
 
 $hide_clock = get_cookie("hide_clock");
 
-if(!$hide_clock)
+if($hide_clock)
 {
-?><div class="column-container hidden"><?
+?><div class="column-container visible"><?
 }
 else
 {
 ?><div class="column-container visible"><?
 }
-?><div id="ex-container">
-		<img id="ex" src="MEDIA/SVG/ex.svg">
-	</div>
-	<div id="menu">
+?><div id="menu">
 		<div><a href="http://dev.o-r-g.com">O-R-G</a></div><?
 		displayNavigation(	$path,
 							$limit,
@@ -38,13 +35,10 @@ else
 <?
 $rootid = $ids[0];
 
-if(!$id)
-{
 ?><canvas id="clock-canvas" class="v-centre"></canvas>
 <script>init_clock("clock-canvas");</script>
 <script type="text/javascript" src="STATIC/JS/global.js"></script><?
-}
-else
+if($id)
 {
 	// sql objects plus media plus rootname
 	$sql = "SELECT
