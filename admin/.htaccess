@@ -1,5 +1,5 @@
-AuthUserFile /Users/lily/Sites/.htpasswd
-AuthName "god save the queen"
+AuthUserFile /usr/www/users/reinfurt/O-R-G/.htpasswd
+AuthName "OPEN-RECORDS-GENERATOR"
 AuthType Basic
 Require valid-user
 # 

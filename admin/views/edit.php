@@ -59,7 +59,7 @@ if ($rr->submit != "update" && $uu->id)
 							if($item[$var])
 							{ 
 								// convert from html to markdown
-								echo html2md($item[$var]);
+								echo $item[$var];
 							}
 						?></textarea><?
 						}
