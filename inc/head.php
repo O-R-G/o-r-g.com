@@ -42,9 +42,18 @@ $nav = $oo->nav($uu->ids);
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body>
-		<div id="page">
-			<header>
-				<ul><?
+		<div id="page"><?
+			if(!$uu->id)
+			{
+			?><header class="column-container hidden"><?
+			}
+			else
+			{
+			?><header class="column-container visible"><?
+			}
+				?><ul>
+					<li><a href="http://local.org">O-R-G</a></li>
+					<ul class="nav-level"><?
 				$prevd = $nav[0]['depth'];
 				foreach($nav as $n)
 				{
@@ -66,4 +75,5 @@ $nav = $oo->nav($uu->ids);
 					$prevd = $d;
 				}
 				?></ul>
+				</ul>
 			</header>
