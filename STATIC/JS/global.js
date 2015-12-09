@@ -39,8 +39,8 @@ function close_menu()
 function open_clock()
 {
 	var clock = document.getElementById("clock-canvas");
-	clock.addEventListener("click", showHide);
-	clock.style.zIndex = "1";
+	// clock.addEventListener("click", showHide);
+	// clock.style.zIndex = "1";
 	init_clock("clock-canvas");
 	setCookie("hide_clock", "false", 10);
 }
@@ -48,8 +48,8 @@ function open_clock()
 function close_clock()
 {
 	var clock = document.getElementById("clock-canvas");
-	clock.removeEventListener("click", showHide);
-	clock.style.zIndex = "-1";
+	// clock.removeEventListener("click", showHide);
+	// clock.style.zIndex = "-1";
 	clear_hands();
 	setCookie("hide_clock", "true", 10);
 }
@@ -70,7 +70,7 @@ function switchClasses(c1, c2)
 }
 
 document.getElementById("clock-canvas").addEventListener("click", showHide);
-document.getElementById("ex-container").addEventListener("click", showHide);
+// document.getElementById("ex-container").addEventListener("click", showHide);
 
 
 function setCookie(cname, cvalue, exdays)

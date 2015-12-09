@@ -115,6 +115,15 @@ a:active {
 @media screen and (max-width: 768px) {
 	.column-container {
 		display: block;
+		padding-bottom: 0px;
 		width: 100%;
+	}
+	
+	.column-container > p:last-child {
+		margin-bottom: 0px;
+	}
+	
+	.column-container:last-child {
+		padding-bottom: 20px;
 	}
 }

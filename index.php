@@ -4,6 +4,7 @@ require_once("LIBRARY/displayMedia.php");
 require_once("LIBRARY/php-md-lib/Michelf/Markdown.inc.php");
 use \Michelf\Markdown;
 
+// menu variables
 $path = "0";
 $limit = 1;
 $selection = $idFull;
@@ -12,15 +13,24 @@ $stub = FALSE;
 $breadcrumbsMode = FALSE; 
 $multiColumn = 20;
 
+
+// mmm what to do about this?
 $hide_clock = get_cookie("hide_clock");
 
-if($hide_clock)
+// 
+$rootid = $ids[0];
+
+if(!$id)
 {
-?><div class="column-container visible"><?
+// show clock
+?><canvas id="clock-canvas" class="v-centre"></canvas>
+<script>init_clock("clock-canvas");</script>
+<script type="text/javascript" src="STATIC/JS/global.js"></script>
+<div class="column-container hidden"><?
 }
 else
 {
-?><div class="column-container visible"><?
+	?><div class="column-container visible"><?
 }
 ?><div id="menu">
 		<div><a href="http://dev.o-r-g.com">O-R-G</a></div><?
@@ -33,11 +43,6 @@ else
 							$multiColumn);	
 	?></div>
 <?
-$rootid = $ids[0];
-
-?><canvas id="clock-canvas" class="v-centre"></canvas>
-<script>init_clock("clock-canvas");</script>
-<script type="text/javascript" src="STATIC/JS/global.js"></script><?
 if($id)
 {
 	// sql objects plus media plus rootname
