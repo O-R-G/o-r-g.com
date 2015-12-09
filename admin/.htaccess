@@ -1,0 +1,21 @@
+AuthUserFile /Users/lily/Sites/.htpasswd
+AuthName "god save the queen"
+AuthType Basic
+Require valid-user
+# 
+Options +FollowSymLinks -Indexes
+IndexIgnore */*
+ 
+# Turn on the RewriteEngine
+RewriteEngine On
+# RewriteOptions Inherit
+
+# delete trailing slash
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} (.+)/$
+RewriteRule ^ %1 [L,R=301]
+
+# direct everything to index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^.*$ index.php

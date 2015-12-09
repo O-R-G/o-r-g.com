@@ -69,7 +69,7 @@ function displayNavigation(	$path = "0",
 
 		// Check if URL and whether full or partial	
 		$pattern = "/html/";			
-		$URL = $row["url"];
+		// $URL = $row["url"];
 		if (preg_match($pattern, $URL)) 
 			$fullURL = TRUE;
 			
