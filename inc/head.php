@@ -39,6 +39,7 @@ $nav = $oo->nav($uu->ids);
 		<title><? echo $title; ?></title>
 		<link rel="shortcut icon" href="<? echo $host;?>static/icon.png">
 		<link rel="stylesheet" href="<? echo $host; ?>STATIC/CSS/global.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body>
 		<div id="page">
