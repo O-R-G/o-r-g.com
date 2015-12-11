@@ -1,6 +1,4 @@
 <?
-$md = __DIR__."/../../LIBRARY/php-md-lib/Michelf/Markdown.inc.php";
-require_once($md);
 use \Michelf\Markdown;
 ?>
 <div id="body-container" class="flex-max">

@@ -11,13 +11,13 @@ html, body, #page {
 }
 
 html {
-	font-family: "Helvetica Neue", Helvetica, "Menlo", monospace;
-	font-size: 13px;
+	font-family: "Menlo", monospace;
+	font-size: 10px;
 	/* safari can't handle fonts */
 	-webkit-font-smoothing: subpixel-antialiased;
 	
-	background-color: #252525;
-	color: #fff;
+	background-color: #555555;
+	color: #000;
 }
 
 body {
@@ -49,7 +49,8 @@ body {
 }
 
 .field-name {
-	color: #FDD117;
+	color: #222;
+	background-color: #ddd;
 	padding: 2px 0;
 }
 
@@ -102,7 +103,6 @@ input[type="button"],
 input[type="submit"],
 .button:link,
 .button:visited {
-	background-color: #F7162C;
     border-radius: 1px;
     padding: 1px 4px;
     margin: 0px;
@@ -115,8 +115,6 @@ input[type="submit"],
 input[type="button"]:hover,
 input[type="submit"]:hover,
 .button:hover {
-	background-color: #426EEC;
-    color: #fff;
 }
 
 textarea {
@@ -147,22 +145,28 @@ select {
 a:link, 
 a:visited {
 	text-decoration: none;
-	color: #F7162C;
+	background-color: #d6d6d6;
+	color: #777;
 }
 
 .parent a:link, 
 .parent a:visited {
 }
 
+/* 
 .self a:link,
 .self a:visited {
 	color: #FDD117;
 }
+ */
 
 a:hover,
+.self a:link,
+.self a:visited,
 .parent a:hover,
 .self a:hover {
-	color: #426EEC;
+	color: #fff;
+	background-color: #999;
 }
 
 
@@ -226,7 +230,7 @@ a::after {
 }
 
 #header-container {
-	background-color: #111;
+	background-color: #000;
 /* 
 	flex: 0 1 auto;
 	-webkit-flex: 0 1 auto;
@@ -234,7 +238,7 @@ a::after {
 }
 
 #body-container {
-	background-color: #222;
+	background-color: #e3e3e3;
 /* 
 	flex: 1 1 auto;
 	-webkit-flex: 1 1 auto;
@@ -280,6 +284,7 @@ a::after {
 }
 #nav {
 	z-index: -1;
+	line-height: 1.4em;
 }
 .preview {
 	max-width: 100%;

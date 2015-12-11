@@ -1,11 +1,11 @@
 <?
-
-// TODO: figure out how to includ this in head.php 
-require_once("LIBRARY/php-md-lib/Michelf/Markdown.inc.php");
+// namespace stuff
 use \Michelf\Markdown;
-// end TODO
 
-
+// 1. don't mess up quotes / em-dashes / etc
+// 2. split into sections based by '++'
+// 3. trim whitespace
+// 4. convert from markdown to html
 function process_body($b)
 {
 	$b = htmlentities($b);
@@ -18,6 +18,7 @@ function process_body($b)
 	return $b_arr;
 }
 
+// if on the homepage, show the clock
 if(!$uu->id)
 {
 	// if on the homepage, show the clock
@@ -35,13 +36,13 @@ else
 	?><section id="body"><?
 	for($i = 0; $i < count($b_arr); $i++)
 	{
-	?><div class="column-container"><? 
-		echo $b_arr[$i];
-		if($i == 0 && $marr[0])
-		{
-		?><div><img src="<? echo m_url($marr[0]);?>"></div><?
-		}
-	?></div><?
+		?><div class="column-container"><? 
+			echo $b_arr[$i];
+			if($i == 0 && $marr[0])
+			{
+			?><div><img src="<? echo m_url($marr[0]);?>"></div><?
+			}
+		?></div><?
 	} 
 	?></section><?
 }
