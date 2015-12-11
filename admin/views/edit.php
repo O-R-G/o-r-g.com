@@ -57,8 +57,7 @@ if ($rr->submit != "update" && $uu->id)
 						{
 						?><textarea name='<? echo $var; ?>' class='large'><?
 							if($item[$var])
-							{ 
-								// convert from html to markdown
+							{
 								echo $item[$var];
 							}
 						?></textarea><?
@@ -154,7 +153,7 @@ else
 	foreach($vars as $var)
 	{
 		if($var == 'body')
-			$$var = md2html($rr->$var);
+			$$var = addslashes($rr->$var);
 		else
 			$$var = addslashes($rr->$var);
 	}
