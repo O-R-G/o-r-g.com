@@ -46,10 +46,15 @@ header {
 	padding-top: 20px;
 	z-index: 10;
 }
+
 ul {
 	list-style-type: none;
 	padding-left: 20px;
 	margin: 0px;
+}
+
+ul:first-child {
+	padding-left: 0px;
 }
 
 #clock-canvas {
@@ -67,45 +72,8 @@ ul {
 	padding: 20px;
 }
 
-.icon-container img {
-	width: 100%;
-}
-
-.icon-container {
-	position: relative;
-	z-index: 0;
-	width:100%;
-	/* min-height: 100%; */
-	padding-top: 50px;
-	padding-bottom: 50px;
-	padding-left: 15%;
-	padding-right: 15%;
-}
-
 #menu {
 	padding-bottom: 20px;
-}
-
-#about {
-}
-
-#ex-container {
-	position: fixed;
-	right: 0px;
-    top: 0px;
-    z-index: 10;
-    
-    width: 40px;
-    padding: 10px;
-    height: 40px;
-}
-
-#ex {
-    position: absolute;
-}
-
-#wyoscan-svg {
-	display: block;
 }
 
 /* utility classes */
