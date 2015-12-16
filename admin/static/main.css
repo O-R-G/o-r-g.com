@@ -294,3 +294,10 @@ a::after {
 }
 #header:first-child {
 }
+
+@media screen and (max-device-width: 568px) {
+	html {
+		font-size: 13px;
+		line-height: 1.5;
+	}
+}
