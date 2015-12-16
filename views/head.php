@@ -1,10 +1,11 @@
 <?
 // path to config file
-$config = __DIR__."/../admin/config/config.php";
+$config = $_SERVER["DOCUMENT_ROOT"];
+$config = $config."/admin/config/config.php";
 require_once($config);
 
 // specific to this 'app'
-$config_dir = __DIR__."/../config/";
+$config_dir = $root."/config/";
 require_once($config_dir."url.php");
 require_once($config_dir."request.php");
 

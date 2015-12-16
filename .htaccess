@@ -2,7 +2,7 @@ Options +FollowSymLinks -Indexes
 IndexIgnore */*
 
 ErrorDocument 403 "you don't even *go* here."
-# ErrorDocument 500 "is *this* thing on?"
+ErrorDocument 500 "is *this* thing on?"
 
 # Turn on the RewriteEngine
 RewriteEngine On
