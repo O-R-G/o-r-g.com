@@ -1,11 +1,11 @@
 <?
 // path to config file
-$config = __DIR__."/../../models/config.php";
-require_once($config);
+$config_dir = __DIR__."/../config/";
+require_once($config_dir."config.php");
 
 // specific to this 'app'
-require_once("url.php");
-require_once("request.php");
+require_once($config_dir."url.php");
+require_once($config_dir."request.php");
 
 // logged in user via .htaccess, .htpasswd
 $user = $_SERVER['REMOTE_USER'];
@@ -43,8 +43,8 @@ $nav = $oo->nav_clean($uu->ids);
 		<link rel="stylesheet" href="<? echo $admin_path; ?>static/main.css">
 	</head>
 	<body>
-		<div id="page" class="flex-container">
-			<div id="header-container" class="flex-min">
+		<div id="page">
+			<div id="header-container">
 				<header class="centre">
 					<div id="date-container">
 						<span id="date"><?php 
@@ -53,7 +53,7 @@ $nav = $oo->nav_clean($uu->ids);
 					</div>
 					<div id="nav">
 						<a href="<?php echo $admin_path; ?>browse"><?php 
-						echo $db_name ?> db</a>
+						echo $db_name ?> database</a>
 						<div class="nav-level"><?
 						$prevd = $nav[0]['depth'];
 						foreach($nav as $n)

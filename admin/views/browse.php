@@ -3,15 +3,15 @@ use \Michelf\Markdown;
 ?>
 <div id="body-container" class="flex-max">
 	<div id="body" class="centre">
-		<div><? echo $name; ?></div>
+		<div id="object-name"><? echo $name; ?></div>
 		<div class="button-container"><?
 			if($item)
 			{
-			?><a class="button" href="<? echo $admin_path."edit/".$uu->urls(); ?>">edit</a><?
-			?><a class="button" href="<? echo $admin_path."delete/".$uu->urls(); ?>">delete</a><?
+			?><a class="button" href="<? echo $admin_path."edit/".$uu->urls(); ?>">EDIT... </a><?
+			?><a class="button" href="<? echo $admin_path."delete/".$uu->urls(); ?>">DELETE... </a><?
 			}
-			?><a class="button" href="<? echo $admin_path."add/".$uu->urls(); ?>">add</a><?
-			?><a class="button" href="<? echo $admin_path."link/".$uu->urls(); ?>">link</a>
+			?><a class="button" href="<? echo $admin_path."add/".$uu->urls(); ?>">ADD... </a><?
+			?><a class="button" href="<? echo $admin_path."link/".$uu->urls(); ?>">LINK... </a>
 		</div><?
 		// object contents
 		if($item)
@@ -23,7 +23,7 @@ use \Michelf\Markdown;
 				{
 				?><div class="field">
 					<div class="field-name"><? echo $k; ?></div>
-					<div><? echo Markdown::defaultTransform($item[$k]); ?></div>
+					<div class="field-value"><? echo Markdown::defaultTransform($item[$k]); ?></div>
 				</div><?
 				}
 			}

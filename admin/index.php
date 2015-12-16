@@ -15,8 +15,8 @@ catch(Exception $e) {
 	$view = "views/errors/".$e->getMessage().".php";
 }
 
-require_once("inc/head.php");
+require_once("views/head.php");
 require_once($view);
-require_once("inc/foot.php"); 
+require_once("views/foot.php"); 
 
 ?>

@@ -1,11 +1,12 @@
-<?php
+<?
 // path to config file
-$config = __DIR__."/../models/config.php";
+$config = __DIR__."/../admin/config/config.php";
 require_once($config);
 
 // specific to this 'app'
-require_once("url.php");
-require_once("request.php");
+$config_dir = __DIR__."/../config/";
+require_once($config_dir."url.php");
+require_once($config_dir."request.php");
 
 $db = db_connect("guest");
 
@@ -37,8 +38,7 @@ $nav = $oo->nav($uu->ids);
 <html>
 	<head>
 		<title><? echo $title; ?></title>
-		<link rel="shortcut icon" href="<? echo $host;?>static/icon.png">
-		<link rel="stylesheet" href="<? echo $host; ?>STATIC/CSS/global.css">
+		<link rel="stylesheet" href="<? echo $host; ?>static/css/global.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body>
