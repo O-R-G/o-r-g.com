@@ -108,6 +108,10 @@ ul:first-child {
 		width: 100%;
 	}
 	
+	.hidden.column-container {
+		display: none;
+	}
+	
 	.column-container > p:last-child {
 		margin-bottom: 0px;
 	}

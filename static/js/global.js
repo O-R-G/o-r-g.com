@@ -1,15 +1,18 @@
 var isHidden = true;
+var scrollPos = 0;
 
 function showHide()
 {
 	var cols = document.getElementsByClassName("column-container");
 	if(isHidden)
 	{
+		scrollPos = document.documentElement.scrollTop || document.body.scrollTop;
 		// show the menu
 		for(var i = 0; i < cols.length; i++)
 			cols[i].className = cols[i].className.replace( /(?:^|\s)hidden(?!\S)/g , ' visible' );
 		close_clock();
 		open_menu();
+		window.scrollTo(0, 0);
 		
 	}
 	else
@@ -20,6 +23,7 @@ function showHide()
 		
 		close_menu();
 		open_clock();
+		window.scrollTo(0, scrollPos);
 	}
 	
 	isHidden = !isHidden;
