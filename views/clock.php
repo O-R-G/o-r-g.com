@@ -10,10 +10,11 @@ else
 <script>init_clock("clock-canvas", "lower-right");</script><?
 }
 ?><script type="text/javascript" src="<? echo $host; ?>static/js/global.js"></script><?
-if(empty($oo->children_ids($uu->id)))
+if($uu->id)
 {
-?><script>
-	showHide();
-	showHide();
-</script><?
+?><script>showHide();</script><?
+	if(empty($oo->children_ids($uu->id)))
+	{
+?><script>showHide();</script><?
+	}
 }
