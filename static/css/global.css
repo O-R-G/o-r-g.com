@@ -70,6 +70,10 @@ ul:first-child {
 	bottom: 0px;
 }
 
+.column-container-container {
+	display: inline;
+}
+
 .column-container {
 	position: relative;
 	display: inline-block;
@@ -105,6 +109,14 @@ ul:first-child {
 
 /* mobile */
 @media screen and (max-width: 768px) {
+	.column-container-container {
+		display: block;
+	}
+	.column-container {
+		width: 50vw;
+	}
+}
+@media screen and (max-width: 500px) {
 	.column-container {
 		display: block;
 		padding-bottom: 0px;

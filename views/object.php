@@ -24,6 +24,10 @@ $marr = $oo->media($uu->id);
 ?><section id="body"><?
 for($i = 0; $i < count($b_arr); $i++)
 {
+	if($i % 2 == 0)
+	{
+	?><div class="column-container-container"><?
+	}
 	?><div class="column-container"><? 
 		echo $b_arr[$i];
 		if($i == 0 && $marr[0])
@@ -31,5 +35,9 @@ for($i = 0; $i < count($b_arr); $i++)
 		?><div><img src="<? echo m_url($marr[0]);?>"></div><?
 		}
 	?></div><?
+	if($i % 2 == 1)
+	{
+	?></div><?
+	}
 } 
 ?></section>
