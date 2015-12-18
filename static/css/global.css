@@ -58,13 +58,15 @@ ul:first-child {
 }
 
 #clock-canvas {
-	position: fixed;
-	right: 0px;
-	/*top: 400px;*/
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-#clock-canvas.lower-right {
+#canvas-container {
+	position: fixed;
+	right: 0px;
+}
+
+#canvas-container.lower-right {
 	bottom: 0px;
 }
 
@@ -89,6 +91,7 @@ ul:first-child {
 	-webkit-transform: translateY(-50%);
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);
+
 }
 
 .hidden {

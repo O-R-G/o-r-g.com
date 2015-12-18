@@ -46,15 +46,15 @@ function init_clock(canvasId, canvasPos, canvasHands)
 			}
 		};
 	window.addEventListener("deviceorientation", function(e) {
-		var tilt = e.gamma;
+		var tilt = 0 - e.gamma;
 		device_orientation_handler(tilt);
 	}, false);
 }
 
 function device_orientation_handler(tilt)
 {
-	canvas.style.transform = "rotate("+ tilt +"deg)";
-	canvas.style.webkitTransform = "rotate("+ tilt +"deg)";
+	canvas.style.transform = " rotate("+ tilt +"deg)";
+	canvas.style.webkitTransform  = " rotate("+ tilt +"deg)";
 }
 function draw_clock()
 {
