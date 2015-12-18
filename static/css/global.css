@@ -60,6 +60,7 @@ ul:first-child {
 #clock-canvas {
 	position: fixed;
 	left: 0px;
+	/*top: 400px;*/
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 

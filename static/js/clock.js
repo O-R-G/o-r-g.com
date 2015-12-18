@@ -53,6 +53,7 @@ function clear_hands()
 
 function fill_bg()
 {
+	// set_size(250,250);
 	set_size();
 	
 	context = canvas.getContext('2d');
@@ -62,10 +63,10 @@ function fill_bg()
 }
 
 // set size variables
-function set_size()
+function set_size(width, height)
 {
-	width = window.innerWidth;
-	height = window.innerHeight * 0.9;
+	if (!width) width = window.innerWidth;
+	if (!height) height = window.innerHeight * 0.9;
 	var min = Math.min(width, height);
 	r = min * 0.8;
 	
