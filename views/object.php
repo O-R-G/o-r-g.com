@@ -21,7 +21,7 @@ $oarr = $oo->get($uu->id);
 $body = $oarr["body"];
 $b_arr = process_body($body);
 $marr = $oo->media($uu->id);
-?><section id="body"><?
+?><section id="body" class="visible"><?
 for($i = 0; $i < count($b_arr); $i++)
 {
 	if($i % 2 == 0)
