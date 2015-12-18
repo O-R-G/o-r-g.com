@@ -46,11 +46,11 @@ $nav = $oo->nav($uu->ids);
 		<div id="page"><?
 			if(!$uu->id)
 			{
-			?><header class="column-container hidden"><?
+			?><header id="header" class="hidden"><?
 			}
 			else
 			{
-			?><header class="column-container visible"><?
+			?><header id="header" class="visible"><?
 			}
 				?><ul>
 					<!-- <li><a href="<? echo $host; ?>">O-R-G</a></li> -->

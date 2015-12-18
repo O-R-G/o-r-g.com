@@ -5,12 +5,14 @@ function showHide()
 {
 	var cols = document.getElementsByClassName("column-container");
 	var body = document.getElementById("body");
+	var header = document.getElementById("header");
 	if(isHidden)
 	{
 		scrollPos = document.documentElement.scrollTop || document.body.scrollTop;
 		// show the menu
 		for(var i = 0; i < cols.length; i++)
 			cols[i].className = cols[i].className.replace( /(?:^|\s)hidden(?!\S)/g , ' visible' );
+		header.className = header.className.replace( /(?:^|\s)hidden(?!\S)/g , ' visible' );
 		body.className = body.className.replace( /(?:^|\s)visible(?!\S)/g , ' hidden' );
 		close_clock();
 		open_menu();
@@ -22,6 +24,7 @@ function showHide()
 		// hide the menu
 		for(var i = 0; i < cols.length; i++)
 			cols[i].className = cols[i].className.replace( /(?:^|\s)visible(?!\S)/g , ' hidden' );
+		header.className = header.className.replace( /(?:^|\s)visible(?!\S)/g , ' hidden' );
 		body.className = body.className.replace( /(?:^|\s)hidden(?!\S)/g , ' visible' );
 		close_menu();
 		open_clock();

@@ -8,7 +8,7 @@ html, body {
 	height: 100%;
 }
 
-body {
+body, #page {
 	margin: 0;
 	width: 100%;
 	height: 100%;
@@ -43,7 +43,7 @@ a:active {
 
 header {
 	position: relative;
-	padding-top: 20px;
+	padding: 20px;
 	z-index: 10;
 }
 

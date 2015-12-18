@@ -85,18 +85,22 @@ function fill_bg()
 // set size variables
 function set_size(width, height)
 {
-	if(pos == "lower-right")
+	if(!width)
 	{
-		if(!width)
-			width = window.innerWidth * 0.5;
-		height = width;
-	}
-	else
-	{
-		if (!width) 
+		if(pos == "lower-right")
+		{
+			if(window.innerWidth > 768)
+				width = window.innerWidth * 0.33;
+			else
+				width = window.innerWidth * 0.5;
+			height = width;
+		}
+		else
+		{
 			width = window.innerWidth;
-		if (!height)
-			height = window.innerHeight * 0.9;
+			if (!height)
+				height = window.innerHeight * 0.9;
+		}
 	}
 	var min = Math.min(width, height);
 	r = min * 0.8;
