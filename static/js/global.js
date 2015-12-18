@@ -41,7 +41,7 @@ function open_clock()
 	var clock = document.getElementById("clock-canvas");
 	// clock.addEventListener("click", showHide);
 	// clock.style.zIndex = "1";
-	init_clock("clock-canvas");
+	init_clock("clock-canvas", "", "true");
 	setCookie("hide_clock", "false", 10);
 }
 

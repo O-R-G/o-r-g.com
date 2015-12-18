@@ -18,12 +18,23 @@ var canvas; // canvas
 var context; // canvas context
 var center = new Array(); // center coordinates
 
+var pos = "centre";
 
-function init_clock(canvasId)
+
+function init_clock(canvasId, canvasPos, canvasHands)
 {
 	canvas = document.getElementById(canvasId);
+	if(canvasPos)
+		pos = canvasPos;
 	// set_size();
-	handTimer = window.setInterval(function() {draw_clock()}, 50);
+	if(canvasHands)
+		handTimer = window.setInterval(function() {draw_clock()}, 50);
+	else
+	{
+		set_size();
+		fill_bg();
+		draw_circle();
+	}
 	window.onresize = 
 		function(event) {
 			set_size();
@@ -65,8 +76,19 @@ function fill_bg()
 // set size variables
 function set_size(width, height)
 {
-	if (!width) width = window.innerWidth;
-	if (!height) height = window.innerHeight * 0.9;
+	if(pos == "lower-right")
+	{
+		if(!width)
+			width = window.innerWidth * 0.5;
+		height = width;
+	}
+	else
+	{
+		if (!width) 
+			width = window.innerWidth;
+		if (!height)
+			height = window.innerHeight * 0.9;
+	}
 	var min = Math.min(width, height);
 	r = min * 0.8;
 	
