@@ -37,8 +37,10 @@ body {
 	background: red;
 }
 
-header {
-	padding: 15px;
+header,
+footer,
+#object-name {
+	padding: 16px;
 }
 /* forms */
 .form > div {
@@ -46,6 +48,10 @@ header {
 	margin-left: 10px;
 	margin-right: 10px;
  */
+}
+
+#object > div {
+	display: inline-block;
 }
 
 .field {
@@ -166,19 +172,24 @@ a:hover {
 	background-color: #999;
 }
 
-#header-container {
+#header-container,
+#footer-container {
 	color: #fff;
 	background-color: #000;
 }
 
 #header-container a:link,
 #header-container a:visited,
-#header-container a:active {
+#header-container a:active,
+#footer-container a:link,
+#footer-container a:visited,
+#footer-container a:active {
 	color: #fff;
 	background-color: #666;
 }
 
-#header-container a:hover {
+#header-container a:hover,
+#footer-container a:hover {
 	background-color: #333;
 }
 
@@ -198,12 +209,6 @@ a:hover {
 	flex: 1 1 auto;
 	overflow-y: auto;
 	min-height: 7em;
-}
-
-#footer-container {
-	background-color: #333;
-	flex: 0 1 auto;
-	-webkit-flex: 0 1 auto;
 }
 
 #date-container {

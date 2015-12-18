@@ -25,7 +25,7 @@ $item = $oo->get($uu->id);
 // am i using the ternary operator correctly?
 // if this url has an id, get the associated object,
 // else, get the root object
-$name = $item ? strip_tags($item["name1"]) : "root";
+$name = $item ? strip_tags($item["name1"]) : false;
 
 // document title
 $title = $db_name." | ".$name;
@@ -54,7 +54,8 @@ $nav = $oo->nav_clean($uu->ids);
 					<div id="nav">
 						<a href="<?php echo $admin_path; ?>browse"><?php 
 						echo $db_name ?> database</a>
-						<div class="nav-level"><?
+					</div>
+						<!--div class="nav-level"><?
 						$prevd = $nav[0]['depth'];
 						foreach($nav as $n)
 						{
@@ -82,6 +83,6 @@ $nav = $oo->nav_clean($uu->ids);
 							$prevd = $d;
 						}
 						?></div>
-					</div>
+					</div-->
 				</header>
 			</div>
