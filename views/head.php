@@ -35,8 +35,6 @@ else
 
 $nav = $oo->nav($uu->ids);
 
-$host = "http://local.org/";
-
 ?><!DOCTYPE html>
 <html>
 	<head>
