@@ -47,7 +47,7 @@ $nav = $oo->nav($uu->ids);
 		<div id="page"><?
 			if(!$uu->id)
 			{
-			?><header id="header" class="hidden"><?
+			?><header id="header" class="hidden homepage"><?
 			}
 			else
 			{

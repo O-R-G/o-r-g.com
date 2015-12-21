@@ -54,6 +54,10 @@ header {
 	/*z-index: 10;*/
 }
 
+header.homepage {
+	z-index: 10;
+}
+
 ul {
 	list-style-type: none;
 	padding-left: 20px;
