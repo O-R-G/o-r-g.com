@@ -57,7 +57,7 @@ $nav = $oo->nav($uu->ids);
 			?><header id="header" class="visible"><?
 			}
 				?><ul>
-					<!-- <li><a href="<? echo $host; ?>">O-R-G</a></li> -->
+					<li><a href="<? echo $host; ?>">O-R-G</a></li>
 					<ul class="nav-level"><?
 				$prevd = $nav[0]['depth'];
 				foreach($nav as $n)

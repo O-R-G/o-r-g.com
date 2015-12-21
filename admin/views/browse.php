@@ -17,17 +17,27 @@ $children = $oo->children($uu->id);
 			?>
 		</div>
 		<div id="children"><?
-		foreach($children as $c)
+		$num_children = count($children);
+		$pad = floor(log10($num_children)) + 1;
+		if($pad < 2)
+			$pad = 2;
+		for($i = 0; $i < count($children); $i++)
 		{
-			$url = $admin_path."browse/".$uu->urls().$c["url"];
+			$c = $children[$i];
+			$j = $i + 1;
+			$j_pad = str_pad($j, $pad, "0", STR_PAD_LEFT);
+			$url = $admin_path."browse/";
+			if($uu->urls())
+				$url.= $uu->urls()."/";
+			$url.= $c["url"];
 			?><div class="child">
-				<a href="<? echo $url; ?>"><? echo $c["name1"]; ?></a>
+				<span><? echo $j_pad; ?></span><a href="<? echo $url; ?>"><? echo $c["name1"]; ?></a>
 			</div><?
 		}
 	?></div>	
 	</div>
 	<div id="object-actions"><?
-		?><a class="button" href="<? echo $admin_path."add/".$uu->urls(); ?>">ADD... </a><?
+		?><a class="button" href="<? echo $admin_path."add/".$uu->urls(); ?>">ADD OBJECT... </a><?
 		?><a class="button" href="<? echo $admin_path."link/".$uu->urls(); ?>">LINK... </a>
 	</div>
 </div>

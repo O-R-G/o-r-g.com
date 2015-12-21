@@ -12,7 +12,8 @@ html, body, #page {
 
 html {
 	font-family: "Menlo", monospace;
-	font-size: 10px;
+	font-size: 12px;
+	line-height: 16px;
 	
 	/* safari can't handle fonts */
 	-webkit-font-smoothing: subpixel-antialiased;
@@ -37,9 +38,18 @@ body {
 	background: red;
 }
 
-header,
-footer,
-#object-name {
+.child > span {
+	padding-right: 5px;
+}
+
+#body > div:nth-child(odd) {
+
+}
+
+#header-container,
+#object,
+#children,
+#footer-container {
 	padding: 16px;
 }
 /* forms */
