@@ -137,6 +137,18 @@ function draw_circle()
 	context.stroke();
 }
 
+function fill_circle()
+{
+	context.lineCap = 'round';
+	context.fillStyle = "#ff0000";
+	context.strokeStyle = "#ff0000";
+	context.lineWidth = lineWidths.circle;
+	context.beginPath();
+	context.arc(center.x, center.y, r, 0, 2*Math.PI);
+	context.stroke();
+	context.fill();
+}
+
 function draw_hands()
 {
 	var d = new Date();

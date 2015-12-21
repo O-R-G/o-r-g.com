@@ -16,6 +16,7 @@ function showHide()
 		body.className = body.className.replace( /(?:^|\s)visible(?!\S)/g , ' hidden' );
 		close_clock();
 		open_menu();
+		// fill_circle();
 		window.scrollTo(0, 0);
 		
 	}

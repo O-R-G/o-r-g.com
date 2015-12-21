@@ -43,12 +43,15 @@ body {
 }
 
 #body > div:nth-child(odd) {
+	background-color: #e3e3e3;
+}
 
+#body > div:nth-child(even) {
+	background-color: #ececec;
 }
 
 #header-container,
-#object,
-#children,
+#body > div,
 #footer-container {
 	padding: 16px;
 }
