@@ -6,6 +6,7 @@
 
 html, body {
 	height: 100%;
+
 }
 
 body, #page {
@@ -14,9 +15,10 @@ body, #page {
 	height: 100%;
 	
 	font-family: sf-text, Helvetica, Arial, sans-serif;
-	font-size: 20px;
-	line-height: 25px;
-	white-space:nowrap;	
+	font-size: 18px;
+	line-height: 22px;
+	white-space:nowrap;
+	-webkit-font-smoothing: subpixel-antialiased;
 }
 
 p {

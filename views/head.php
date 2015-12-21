@@ -41,9 +41,6 @@ $nav = $oo->nav($uu->ids);
 		<title><? echo $title; ?></title>
 		<link rel="stylesheet" href="<? echo $host; ?>static/css/global.css">
 		<link rel="stylesheet" href="<? echo $host; ?>static/css/sf-text.css">
-		<link rel="stylesheet" href="<? echo $host; ?>static/css/sf-display.css">
-		<link rel="stylesheet" href="<? echo $host; ?>static/css/sfc-display.css">
-		<link rel="stylesheet" href="<? echo $host; ?>static/css/sfc-text.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body>
@@ -82,12 +79,12 @@ $nav = $oo->nav($uu->ids);
 						if($n['o']['id'] != $uu->id)
 						{
 						?><a href="<? echo $host.$n['url']; ?>"><?
-							echo $n['o']['name1'];
+							echo htmlentities($n['o']['name1']);
 						?></a><?
 						}
 						else
 						{
-						?><span><? echo $n['o']['name1']; ?></span><?
+						?><span><? echo htmlentities($n['o']['name1']); ?></span><?
 						}
 					?></li><?
 					$prevd = $d;
