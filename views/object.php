@@ -9,11 +9,13 @@ use \Michelf\Markdown;
 function process_body($b)
 {
 	$b = htmlentities($b);
+	// $b = htmlspecialchars($b);
 	$b_arr = explode("++", $b);
 	foreach($b_arr as &$b)
 	{
 		$b = trim($b);
 		$b = Markdown::defaultTransform($b);
+		
 	}
 	return $b_arr;
 }

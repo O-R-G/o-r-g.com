@@ -17,7 +17,7 @@ body, #page {
 	font-family: sf-text, Helvetica, Arial, sans-serif;
 	font-size: 18px;
 	line-height: 22px;
-	white-space:nowrap;
+	/*white-space:nowrap;*/
 	-webkit-font-smoothing: subpixel-antialiased;
 	-webkit-text-size-adjust: 100%;
 }
