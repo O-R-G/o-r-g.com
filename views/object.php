@@ -24,10 +24,14 @@ $marr = $oo->media($uu->id);
 ?><section id="body" class="visible">
 	<div id="breadcrumbs">
 		<ul class="nav-level">
-			<li><a href="<? echo $host.$a_url; ?>">O-R-G</a><?
+			<li><?
 				if(!$uu->id)
 				{
-				?> is a small software company.<?
+				?> O-R-G is a small software company.<?
+				}
+				else
+				{
+				?><a href="<? echo $host.$a_url; ?>">O-R-G</a><?
 				}
 			?></li>
 			<ul class="nav-level">

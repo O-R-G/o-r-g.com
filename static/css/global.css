@@ -30,7 +30,8 @@ img {
 a:link,
 a:visited {
     /*color: #000;*/
-    color: #4F7CFC;
+    /*color: #4F7CFC;*/
+    color: #0000ff;
     text-decoration: none;
     /* border-bottom: solid 2px #000; */
 }

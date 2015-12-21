@@ -24,9 +24,9 @@ $num_children = count($children);
 			if($name)
 			{
 			?><div id="object-name"><? echo $name; ?></div>
-			<div><?
-				?><a class="button" href="<? echo $admin_path."edit/".$uu->urls(); ?>">EDIT... </a><?
-				?><a class="button" href="<? echo $admin_path."delete/".$uu->urls(); ?>">DELETE... </a>
+			<div>
+				<a class="button" href="<? echo $admin_path."edit/".$uu->urls(); ?>">EDIT... </a>
+				<a class="button" href="<? echo $admin_path."delete/".$uu->urls(); ?>">DELETE... </a>
 			</div><?
 			}
 			?>
@@ -45,10 +45,14 @@ $num_children = count($children);
 				$c = $children[$i];
 				$j = $i + 1;
 				$j_pad = str_pad($j, $pad, "0", STR_PAD_LEFT);
+				
+				// this is to avoid adding an extra slash
+				// in child urls of the root object
 				$url = $admin_path."browse/";
 				if($uu->urls())
 					$url.= $uu->urls()."/";
 				$url.= $c["url"];
+				
 			?><div class="child">
 				<span><? echo $j_pad; ?></span><a href="<? echo $url; ?>"><? echo $c["name1"]; ?></a>
 			</div><?
@@ -57,9 +61,9 @@ $num_children = count($children);
 		}
 		
 		// actions	
-		?><div id="object-actions"><?
-			?><a class="button" href="<? echo $admin_path."add/".$uu->urls(); ?>">ADD OBJECT... </a><?
-			?><a class="button" href="<? echo $admin_path."link/".$uu->urls(); ?>">LINK... </a>
+		?><div id="object-actions">
+			<a class="button" href="<? echo $admin_path."add/".$uu->urls(); ?>">ADD OBJECT... </a>
+			<a class="button" href="<? echo $admin_path."link/".$uu->urls(); ?>">LINK... </a>
 		</div>
 	</div>
 </div>

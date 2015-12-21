@@ -57,7 +57,13 @@ $nav = $oo->nav($uu->ids);
 			?><header id="header" class="visible"><?
 			}
 				?><ul>
-					<li><a href="<? echo $host; ?>">O-R-G</a></li>
+					<li><?
+						if($uu->id)
+						{
+							?><a href="<? echo $host; ?>">O-R-G</a><?
+						}
+						else { ?>O-R-G<? }
+					?></li>
 					<ul class="nav-level"><?
 				$prevd = $nav[0]['depth'];
 				foreach($nav as $n)
@@ -72,11 +78,18 @@ $nav = $oo->nav($uu->ids);
 						for($i = 0; $i < $prevd - $d; $i++)
 						{ ?></ul><? }
 					}
-					?><li>
-						<a href="<? echo $host.$n['url']; ?>"><?
+					?><li><?
+						if($n['o']['id'] != $uu->id)
+						{
+						?><a href="<? echo $host.$n['url']; ?>"><?
 							echo $n['o']['name1'];
-						?></a>
-					</li><?
+						?></a><?
+						}
+						else
+						{
+						?><span><? echo $n['o']['name1']; ?></span><?
+						}
+					?></li><?
 					$prevd = $d;
 				}
 				?></ul>
