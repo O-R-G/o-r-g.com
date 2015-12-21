@@ -24,8 +24,8 @@ $num_children = count($children);
 		{
 			?><div id="object-name"><? echo $name; ?></div>
 			<div>
-				<a href="<? echo $admin_path."edit/".$uu->urls(); ?>">EDIT... </a>
-				<a href="<? echo $admin_path."delete/".$uu->urls(); ?>">DELETE... </a>
+				<span class="action"><a href="<? echo $admin_path."edit/".$uu->urls(); ?>">EDIT... </a></span>
+				<span class="action"><a href="<? echo $admin_path."delete/".$uu->urls(); ?>">DELETE... </a></span>
 			</div><?
 		}
 		?></div><?
@@ -56,8 +56,8 @@ $num_children = count($children);
 			</div><?
 		}
 		?>	<div id="object-actions">
-				<a href="<? echo $admin_path."add/".$uu->urls(); ?>">ADD OBJECT... </a>
-				<a href="<? echo $admin_path."link/".$uu->urls(); ?>">LINK... </a>
+				<span class="action"><a href="<? echo $admin_path."add/".$uu->urls(); ?>">ADD OBJECT... </a></span>
+				<span class="action"><a href="<? echo $admin_path."link/".$uu->urls(); ?>">LINK... </a></span>
 			</div>
 		</div><?
 	}
@@ -65,8 +65,8 @@ $num_children = count($children);
 	{
 		// actions	
 		?><div id="object-actions">
-			<a href="<? echo $admin_path."add/".$uu->urls(); ?>">ADD OBJECT... </a>
-			<a href="<? echo $admin_path."link/".$uu->urls(); ?>">LINK... </a>
+			<span class="action"><a href="<? echo $admin_path."add/".$uu->urls(); ?>">ADD OBJECT... </a></span>
+			<span class="action"><a href="<? echo $admin_path."link/".$uu->urls(); ?>">LINK... </a></span>
 		</div><?
 	}
 	?></div>

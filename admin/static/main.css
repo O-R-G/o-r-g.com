@@ -30,6 +30,9 @@ body {
 
 /* links + colours */
 
+span.action {
+	padding: 0px 5px;	
+}
 a:link, 
 a:visited,
 a:active {
