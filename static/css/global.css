@@ -19,6 +19,7 @@ body, #page {
 	line-height: 22px;
 	white-space:nowrap;
 	-webkit-font-smoothing: subpixel-antialiased;
+	-webkit-text-size-adjust: 100%;
 }
 
 p {
@@ -126,7 +127,9 @@ ul:first-child {
 	.column-container {
 		width: 50vw;
 	}
+
 }
+
 @media screen and (max-width: 500px) {
 	.column-container {
 		display: block;
