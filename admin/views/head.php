@@ -30,7 +30,9 @@ $name = $item ? strip_tags($item["name1"]) : false;
 // document title
 $title = $db_name." | ".$name;
 
-$nav = $oo->nav_clean($uu->ids);
+// $nav = $oo->nav_clean($uu->ids);
+
+$ancestors = $oo->ancestors($uu->id);
 ?><!DOCTYPE html>
 <html>
 	<head>
@@ -46,43 +48,8 @@ $nav = $oo->nav_clean($uu->ids);
 		<div id="page">
 			<div id="header-container">
 				<header class="centre">
-					<div id="date-container">
-						<span id="date"><?php 
-							echo strtolower(date("l, d M Y H:i (T)")); 
-						?></span>
-					</div>
 					<div id="nav">
-						<a href="<?php echo $admin_path; ?>browse"><?php 
-						echo $db_name ?> database</a>
+						<a href="<?php echo $admin_path; ?>browse"><?php echo $db_name; ?> Database</a>
 					</div>
-						<!--div class="nav-level"><?
-						$prevd = $nav[0]['depth'];
-						foreach($nav as $n)
-						{
-							$d = $n['depth'];
-							$t = $n['type'];					
-							if($d > $prevd)
-							{
-							?><div class="nav-level"><?
-							}
-							else {
-								for($i = 0; $i < $prevd - $d; $i++) {
-								?></div><?
-								}
-							}
-							if($t == "parent") {
-							?><div class="parent"><?
-							} elseif($t == "self") {
-							?><div class="self"><?
-							} else {
-							?><div><? }
-							?><a href="<? echo $admin_path.'browse/'.$n['url']; ?>"><?
-									echo $n['o']['name1'];
-								?></a>
-							</div><?
-							$prevd = $d;
-						}
-						?></div>
-					</div-->
 				</header>
 			</div>

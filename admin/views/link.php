@@ -1,5 +1,5 @@
 <div id="body-container">
-	<div id="body" class="centre"><?
+	<div id="body"><?
 	$c_url = $admin_path."browse";
 	$l_url = $admin_path."link";
 	if($uu->urls())
@@ -7,14 +7,14 @@
 		$c_url .= "/".$uu->urls();
 		$l_url .= "/".$uu->urls();
 	}
-	if($rr->submit != "link") 
+	if($rr->action != "link") 
 	{
 		?><div class="self-container">
 			<div class="self"><a href="<? echo $c_url; ?>"><? echo $name; ?></a></div>
 			<div class="self">
-				<p>you are linking to an existing object.</p>
-				<p>the object will remain in its original location and also appear here.</p> 
-				<p>please choose from the list of active objects:</p>
+				<p>You are linking to an existing object.</p>
+				<p>The linked object will remain in its original location and also appear here.</p> 
+				<p>Please choose from the list of active objects:</p>
 			</div>
 		</div>
 		<div id="form-container">
@@ -52,12 +52,21 @@
 					?></select>
 					<div class="button-container">
 						<input 
+							name='action' 
+							type='hidden' 
+							value='link'
+						>
+						<input 
 							name='cancel' 
 							type='button' 
-							value='cancel' 
+							value='Cancel' 
 							onClick="<? echo $js_back; ?>"
 						>
-						<input name='submit' type='submit' value="link">
+						<input 
+							name='submit' 
+							type='submit' 
+							value="Link to Object"
+						>
 					</div>
 				</div>
 			</form>

@@ -11,7 +11,7 @@ $kvars["url"] = "text";
 $kvars["rank"] = "number";
 
 ?><div id="body-container">
-	<div id="body" class="centre"><?
+	<div id="body"><?
 if ($rr->submit != "update" && $uu->id)
 {
 	// get existing image data
@@ -32,7 +32,16 @@ if ($rr->submit != "update" && $uu->id)
 			$medias[$i]["display"] = $medias[$i]["file"];
 	}
 
-	// object contents
+	
+// ancestors
+	$a_url = $admin_path."browse/";
+	foreach($ancestors as $a)
+	{
+		$ancestor = $oo->get($a);
+		$a_url.= $ancestor["url"];
+		?><div class="ancestor"><a href="<? echo $a_url; ?>"><? echo $ancestor["name1"]; ?></a></div><?
+	}
+// object contents
 ?><div class="self-container">
 		<div class="self">
 			<a href="<? echo $admin_path.'browse/'.$uu->urls(); ?>"><?php 

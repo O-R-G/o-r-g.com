@@ -5,7 +5,7 @@
 }
 
 html, body, #page {
-	position: absolute;
+	position: relative;
 	min-height: 100%;
     width: 100%;
 }
@@ -26,152 +26,10 @@ body {
 	width: 500px;
     max-width: 100%;
     margin: 0px auto;
-    z-index: 1;
-    left: 50%;
-    transform: translateX(-50%);
-    -webkit-transform: translateX(-50%);
-    -ms-transform: translateX(-50%); /* IE 9 */
 }
 
-::selection {
-	color: white;
-	background: red;
-}
+/* links + colours */
 
-.child > span {
-	padding-right: 5px;
-}
-
-#body > div:nth-child(odd) {
-	background-color: #e3e3e3;
-}
-
-#body > div:nth-child(even) {
-	background-color: #ececec;
-}
-
-#header-container,
-#body > div,
-#footer-container {
-	padding: 16px;
-}
-/* forms */
-.form > div {
-/* 
-	margin-left: 10px;
-	margin-right: 10px;
- */
-}
-
-#object > div {
-	display: inline-block;
-}
-
-.field {
-	margin: 5px 0;
-}
-
-.field-name {
-	color: #eee;
-	background-color: #222;
-	padding: 7px 15px;
-}
-
-.field-value {
-	padding: 0px 15px;
-}
-
-/* form elements */
-textarea,
-input,
-.button:link,
-.button:visited {
-	font-family: "Panic Sans", Menlo, monospace;
-	font-size: 10px;
-	border: 0px;
-	padding: 0px;
-}
-
-.button-container {
-	margin: 5px 0;
-}
-
-textarea,
-input[type="text"] {
-	padding: 5px;
-}
-
-input[type="datetime-local"] {
-}
-
-input[type="number"],
-input[type="datetime-local"] {
-	height: 2em;
-	padding: 0 5px;
-}
-
-input[type="checkbox"] {
-}
-
-input[type="file"] {
-}
-
-input[type="submit"] {
-}
-
-input[type="button"] {
-}
-
-select {
-}
-
-input[type="button"],
-input[type="submit"],
-.button:link,
-.button:visited {
-/* 
-    border-radius: 1px;
-    padding: 1px 4px;
-    margin: 0px;
- */
-    margin-right: 3px;
-/* 
-    color: #000;
-    cursor: pointer;
-    display: inline-block;
- */
-}
-
-input[type="button"]:hover,
-input[type="submit"]:hover,
-.button:hover {
-}
-
-textarea {
-	resize: vertical;
-}
-
-textarea.large {
-	height: 7em;
-}
-
-textarea.medium {
-}
-
-textarea.small {
-}
-
-img, 
-textarea,
-input[type="text"] {
-	width: 100%;
-}
-
-select {
-	max-width: 100%;
-}
-
-/* links */
 a:link, 
 a:visited,
 a:active {
@@ -209,38 +67,100 @@ a:hover {
 #body-container {
 	background-color: #e3e3e3;
 }
+
+::selection {
+	color: white;
+	background: red;
+}
+
+.child > span {
+	padding-right: 5px;
+}
+
+#body > div:nth-child(odd) {
+	background-color: #e3e3e3;
+}
+
+#body > div:nth-child(even) {
+	background-color: #ececec;
+}
+
+#header-container,
+#body > div,
+#footer-container {
+	padding: 16px;
+}
+
+#children > #object-actions,
+.button-container {
+	padding-top: 16px;
+}
+/* forms */
+#object > div {
+	display: inline-block;
+}
+
+.field {
+	margin: 5px 0;
+}
+
+.field-name {
+	color: #eee;
+	background-color: #222;
+	padding: 7px 15px;
+}
+
+.field-value {
+	padding: 0px 15px;
+}
+
+/* form elements */
+textarea,
+input[type="text"] {
+	padding: 5px;
+}
+
+input[type="datetime-local"] {
+}
+
+input[type="number"],
+input[type="datetime-local"] {
+	height: 2em;
+	padding: 0 5px;
+}
+
+textarea {
+	resize: vertical;
+}
+
+textarea.large {
+	height: 15em;
+}
+
+textarea.medium {
+	height: 4em;
+}
+
+textarea.small {
+	height: 2em;
+}
+
+img, 
+textarea,
+input[type="text"] {
+	width: 100%;
+}
+
+select {
+	max-width: 100%;
+}
+
 #body {
     width: 100%;
     height: 100%;
 }
 
-#body > .self-container {
-	flex: 0 1 auto;
-}
-
-#body > textarea {
-	flex: 1 1 auto;
-	overflow-y: auto;
-	min-height: 7em;
-}
-
-#date-container {
-	position: relative;
-}
-
-#date {
-	color: #fff;
-}
-
-#nav {
-	z-index: -1;
-	line-height: 1.4em;
-}
-
 /* utility classes */
-.centre {
-/* 	padding: 10px; */
-}
 .preview {
 	max-width: 100%;
 }

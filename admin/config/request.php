@@ -7,7 +7,7 @@ class Request
 		
 	// add, edit, delete, link
 	public $submit;
-	// public $action;
+	public $action;
 	
 	// add, edit
 	public $name1;
@@ -36,7 +36,7 @@ class Request
 		// post variables
 		$vars = array(	'name1', 'deck', 'body', 'notes', 'begin', 'end', 'url', 'rank',
 						'medias', 'types', 'captions', 'ranks', 'deletes',
-						'submit',
+						'submit', 'action',
 						'wires_toid');
 
 		foreach($vars as $v)	
