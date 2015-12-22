@@ -2,20 +2,16 @@
 // namespace stuff
 use \Michelf\Markdown;
 
-// 1. don't mess up quotes / em-dashes / etc
-// 2. split into sections based by '++'
-// 3. trim whitespace
-// 4. convert from markdown to html
+// 1. split into sections based by '++'
+// 2. trim whitespace
+// 3. convert from markdown to html
 function process_body($b)
 {
-	$b = htmlentities($b);
-	// $b = htmlspecialchars($b);
 	$b_arr = explode("++", $b);
 	foreach($b_arr as &$b)
 	{
 		$b = trim($b);
 		$b = Markdown::defaultTransform($b);
-		
 	}
 	return $b_arr;
 }
