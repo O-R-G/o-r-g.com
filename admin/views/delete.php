@@ -49,11 +49,11 @@ foreach($all_paths as $p) {
 			// display warning
 			if($is_linked)
 			{ 
-			?><p>this object is linked elsewhere, so the original will not be deleted.</p><?
+			?><p>This Object is linked elsewhere, so the original will not be deleted.</p><?
 			}
 			else
 			{
-			?><p>warning! you are about to permanently delete this object.</p><?
+			?><p>Warning! you are about to permanently delete this Object.</p><?
 				if($k) 
 				{ 
 			?><p>The following <? 
