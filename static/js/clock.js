@@ -6,11 +6,12 @@ var hands = new Array(); // hand info
 var handTimer; 
 
 var colours = new Array(); // colour info
-colours['bg'] = 'rgba(255, 255, 255, 0.0)';
-colours['h'] = '#000';
-colours['m'] = '#000';
-colours['s'] = '#000';
-colours['circle'] = '#000';
+colours['bg'] = 'rgba(0, 0, 0, 0.0)';
+colours['h'] = '#00F';
+colours['m'] = '#00F';
+colours['s'] = '#00F';
+colours['circle'] = '#00F';
+colours['circleopen'] = '#000';
 
 var lineWidths = new Array();
 
@@ -56,6 +57,7 @@ function device_orientation_handler(tilt)
 	canvas.style.transform = " rotate("+ tilt +"deg)";
 	canvas.style.webkitTransform  = " rotate("+ tilt +"deg)";
 }
+
 function draw_clock()
 {
 	fill_bg();
@@ -68,7 +70,7 @@ function clear_hands()
 	window.clearInterval(handTimer);
 	handTimer = false;
 	fill_bg();
-	draw_circle();
+	draw_circle(colours.circleopen);
 }
 
 function fill_bg()
@@ -110,11 +112,13 @@ function set_size(width, height)
 	hands['m'] = r * 0.9;
 	hands['s'] = r * 0.95;
 	
+	devAdjust = 1.0;
+ 
 	// set the line widths
-	lineWidths['h'] = min * 0.015;
-	lineWidths['m'] = min * 0.015;
-	lineWidths['s'] = min * 0.007;
-	lineWidths['circle'] = min * 0.015;
+	lineWidths['h'] = min * 0.015 * devAdjust;
+	lineWidths['m'] = min * 0.015 * devAdjust;
+	lineWidths['s'] = min * 0.007 * devAdjust;
+	lineWidths['circle'] = min * 0.015* devAdjust;
 	
 	// make the canvas not look horrible on retina screens
 	canvas.width = width*2;
@@ -127,10 +131,15 @@ function set_size(width, height)
 	center['y'] = height;
 }
 
-function draw_circle()
+function draw_circle(colour)
 {
 	context.lineCap = 'round';
-	context.strokeStyle = colours.circle;
+	// context.strokeStyle = colours.circle;
+	if (colour) {
+		context.strokeStyle = colour;
+	} else {
+		context.strokeStyle = colours.circle;
+	}
 	context.lineWidth = lineWidths.circle;
 	context.beginPath();
 	context.arc(center.x, center.y, r, 0, 2*Math.PI);
