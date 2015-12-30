@@ -1,5 +1,5 @@
 <?
-$vars = array("name1", "deck", "body", "notes", "begin", "end", "url", "rank");
+$vars = array("name1", "deck", "body", "notes",  "url", "rank", "begin", "end");
 $kvars = array();
 $kvars["name1"] = "text";
 $kvars["deck"] = "textarea";
@@ -9,6 +9,17 @@ $kvars["begin"] = "datetime-local";
 $kvars["end"] = "datetime-local";
 $kvars["url"] = "text";
 $kvars["rank"] = "number";
+
+$var_labels = array();
+$var_labels["name1"] = "Name";
+$var_labels["deck"] = "Synopsis";
+$var_labels["body"] = "Detail";
+$var_labels["notes"] = "Notes";
+$var_labels["begin"] = "Begin";
+$var_labels["end"] = "End";
+$var_labels["url"] = "URL Slug";
+$var_labels["rank"] = "Rank";
+
 
 ?><div id="body-container">
 	<div id="body"><?
@@ -42,14 +53,12 @@ if ($rr->submit != "update" && $uu->id)
 		?><div class="ancestor"><a href="<? echo $a_url; ?>"><? echo $ancestor["name1"]; ?></a></div><?
 	}
 // object contents
-?><div class="self-container">
+?><div id="form-container">
 		<div class="self">
 			<a href="<? echo $admin_path.'browse/'.$uu->urls(); ?>"><?php 
 				echo $name; 
 			?></a>
 		</div>
-	</div>
-	<div id="form-container">
 		<form
 			method="post"
 			enctype="multipart/form-data" 
@@ -59,8 +68,21 @@ if ($rr->submit != "update" && $uu->id)
 				// show object data
 				foreach($vars as $var)
 				{
-				?><div class="field">
-					<div class="field-name"><? echo $var; ?></div>
+				?><div class="field"><?
+					if($kvars[$var] == "datetime-local")
+					{
+					?><span class="field-name"><? echo $var_labels[$var]; ?></span>
+					<span>
+						<input 
+							name='<? echo $var; ?>' 
+							type='<? echo $kvars[$var]; ?>'
+							value='<? echo $item[$var]; ?>'
+						>
+					</span><?
+					}
+					else
+					{
+					?><div class="field-name"><? echo $var_labels[$var]; ?></div>
 					<div><?
 						if($kvars[$var] == "textarea")
 						{
@@ -77,19 +99,20 @@ if ($rr->submit != "update" && $uu->id)
 								type='<? echo $kvars[$var]; ?>'
 								value='<? echo $item[$var]; ?>'><?
 						}
-					?></div>
-				</div><?
+					?></div><?
+					}
+				?></div><?
 				}
 				// show existing images
 				for($i = 0; $i < $num_medias; $i++)
 				{
 				?><div>
-					<div class="field-name">image <? echo str_pad($i+1, 2, "0", STR_PAD_LEFT);?></div>
-					<div class='preview'>
+					<span class="field-name">Image <? echo str_pad($i+1, 2, "0", STR_PAD_LEFT);?></span>
+					<span class='preview'>
 						<a href="<? echo $medias[$i]['file']; ?>" target="_blank">
 							<img src="<? echo $medias[$i]['display']; ?>">
 						</a>
-					</div>
+					</span>
 					<textarea name="captions[]"><?php
 						echo $medias[$i]["caption"];
 					?></textarea>
@@ -132,12 +155,12 @@ if ($rr->submit != "update" && $uu->id)
 				// upload new images
 				for($j = 0; $j < $max_uploads; $j++)
 				{
-				?><div>
-					<div class="field-name">Image <?php echo str_pad(++$i, 2, "0", STR_PAD_LEFT); ?></div>
-					<div><input type="file" name="uploads[]"></div>
-					<textarea name="captions[]"><?php
+				?><div class="image-upload">
+					<span class="field-name">Image <?php echo str_pad(++$i, 2, "0", STR_PAD_LEFT); ?></span>
+					<span><input type="file" name="uploads[]"></span>
+					<!--textarea name="captions[]"><?php
 							echo $medias[$i]["caption"];
-					?></textarea>
+					?></textarea-->
 				</div><?php
 				} ?>
 				<div class="button-container">	
@@ -146,8 +169,10 @@ if ($rr->submit != "update" && $uu->id)
 						type='button' 
 						value='cancel' 
 						onClick="<? echo $js_back; ?>" 
-					><?
-					?><input name='submit' type='submit' value='update'>
+					>
+				</div>
+				<div class="button-container">
+					<input name='submit' type='submit' value='update'>
 				</div>
 			</div>
 		</form>

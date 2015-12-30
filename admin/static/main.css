@@ -94,27 +94,21 @@ a:hover {
 	padding: 16px;
 }
 
-#children > #object-actions,
-.button-container {
+#children > #object-actions {
 	padding-top: 16px;
+}
+
+.button-container {
+	display:inline-block;
 }
 /* forms */
 #object > div {
 	display: inline-block;
 }
 
-.field {
-	margin: 5px 0;
-}
-
-.field-name {
-	color: #eee;
-	background-color: #222;
-	padding: 7px 15px;
-}
-
-.field-value {
-	padding: 0px 15px;
+.field,
+.image-upload {
+	margin: 15px 0;
 }
 
 /* form elements */
@@ -129,7 +123,7 @@ input[type="datetime-local"] {
 input[type="number"],
 input[type="datetime-local"] {
 	height: 2em;
-	padding: 0 5px;
+	padding: 0px 5px;
 }
 
 textarea {
@@ -150,7 +144,9 @@ textarea.small {
 
 img, 
 textarea,
-input[type="text"] {
+input[type="text"],
+input[type="number"],
+input[type="datetime-local"] {
 	width: 100%;
 }
 
