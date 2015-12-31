@@ -204,11 +204,13 @@ yAxis.color="red";
 var zAxis=makeRect(10,10,440);
 zAxis.color="blue";
 
-var hourAxis=makeLine(200,10,10);
+// make hour, min, sec hands
+
+var hourAxis=makeLine(400,10,10);
 hourAxis.color="green";
-var minAxis=makeLine(10,200,1);
+var minAxis=makeLine(10,400,1);
 minAxis.color="red";
-var secAxis=makeLine(10,1,200);
+var secAxis=makeLine(10,1,400);
 secAxis.color="blue";
 
 
@@ -250,7 +252,7 @@ function renderObj(obj,q) // renders an object as a series of triangles
 		context.beginPath();
 	        // context.translate(0, 0);
 	        // context.scale(200*this.fakeBeta, 100);
-	        context.scale(100, 100);
+	        context.scale(200, 200);
         	context.arc(0, 0, 1, 0, 2 * Math.PI, false);
 	        context.restore(); // restore to original state
         	context.stroke();
