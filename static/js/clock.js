@@ -7,11 +7,11 @@ var handTimer;
 
 var colours = new Array(); // colour info
 colours['bg'] = 'rgba(0, 0, 0, 0.0)';
-colours['h'] = '#00F';
-colours['m'] = '#00F';
-colours['s'] = '#00F';
-colours['circle'] = '#00F';
-colours['circleopen'] = '#000';
+colours['h'] = '#000';
+colours['m'] = '#000';
+colours['s'] = '#000';
+colours['circle'] = '#000';
+colours['circleopen'] = '#00F';
 
 var lineWidths = new Array();
 

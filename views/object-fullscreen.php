@@ -47,7 +47,7 @@ for($i = 0; $i < count($b_arr); $i++)
 		echo $b_arr[$i];
 		if($i == 0 && $marr[0])
 		{
-		?><div><img src="<? echo m_url($marr[0]);?>"></div><?
+		?><div><img src="<? echo m_url($marr[0]);?>" id="fullscreen"></div><?
 		}
 	?></div><?
 	if($i % 2 == 1)
@@ -56,3 +56,13 @@ for($i = 0; $i < count($b_arr); $i++)
 	}
 } 
 ?></section>
+
+<script type="text/javascript" src="<? echo $host; ?>static/js/screenfull.js"></script>	
+<script>
+	var e = document.getElementById('fullscreen');
+	e.addEventListener('click', function () {
+		if (screenfull.enabled) {
+			screenfull.toggle(e);
+		}
+	});
+</script>
