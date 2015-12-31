@@ -4,10 +4,10 @@
 	canvas { 
 		margin: 0px;
 		width: 100%; 
-		height: 100% ;		
+		height: 100%;		
 		position: fixed;
 		top:0px;
-		z-index: -10;
+		/* z-index: -10; */
 	}
 	#gyroInfo {		  
 		position:fixed;
@@ -55,10 +55,17 @@
 
 <script>
 
-document.getElementById('gyroCanvas').addEventListener('click', function () {
-	document.getElementById('gyroInfo').style.visibility='visible';
-	document.getElementById('quatInfo').style.visibility='visible';
-	document.getElementById('mouseInfo').style.visibility='visible';	        
+// document.getElementById('gyroCanvas').addEventListener('click', function () {
+document.addEventListener('click', function () {
+	if (document.getElementById('gyroInfo').style.visibility=='hidden') {
+		document.getElementById('gyroInfo').style.visibility='visible';
+		document.getElementById('quatInfo').style.visibility='visible';
+		document.getElementById('mouseInfo').style.visibility='visible';	        
+	} else {
+		document.getElementById('gyroInfo').style.visibility='hidden';
+		document.getElementById('quatInfo').style.visibility='hidden';
+		document.getElementById('mouseInfo').style.visibility='hidden';	        
+	}
 });
 
 
@@ -186,7 +193,7 @@ zAxis.color="blue";
 
 
 
-function renderObj(obj,q)//renders an object as a series of triangles
+function renderObj(obj,q) // renders an object as a series of triangles
 {
 	var rotatedObj=rotateObject(obj,q);
 	context.lineWidth = 1;
@@ -194,7 +201,7 @@ function renderObj(obj,q)//renders an object as a series of triangles
 	
 	function scaleByZ(val,z)
 	{
-		var focalLength=900; //should probably be a global but oh well
+		var focalLength=900; // [900] should probably be a global but oh well
 		var scale= focalLength/((-z)+focalLength);
 		return val*scale;
 	}
@@ -213,6 +220,12 @@ function renderObj(obj,q)//renders an object as a series of triangles
 		  context.moveTo(scaleByZ(vertexFrom[0],vertexFrom[2]), ( -scaleByZ(vertexFrom[1],vertexFrom[2])));
 		  context.lineTo(scaleByZ(vertexTo[0],vertexTo[2]), ( -scaleByZ(vertexTo[1],vertexTo[2])));
 		  context.stroke();
+		       
+			// circle?
+			context.beginPath();
+			context.arc(0, 0, 200*this.fakeBeta, 0, 2*Math.PI);
+			context.stroke();
+			
 		}
 	}
 }
