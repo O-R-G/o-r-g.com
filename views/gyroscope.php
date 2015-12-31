@@ -52,19 +52,23 @@
 
 <script>
 
-// document.getElementById('gyroCanvas').addEventListener('click', function () {
-document.addEventListener('click', function () {
+function debug () {
 	if (document.getElementById('gyroInfo').style.visibility=='hidden') {
 		document.getElementById('gyroInfo').style.visibility='visible';
 		document.getElementById('quatInfo').style.visibility='visible';
 		document.getElementById('mouseInfo').style.visibility='visible';	        
+		return true;
 	} else {
 		document.getElementById('gyroInfo').style.visibility='hidden';
 		document.getElementById('quatInfo').style.visibility='hidden';
-		document.getElementById('mouseInfo').style.visibility='hidden';	        
+		document.getElementById('mouseInfo').style.visibility='hidden';
+		return false;
 	}
-});
+}
 
+
+document.addEventListener("click",debug);
+document.addEventListener("touchStart",debug);
 
 var gyro=quatFromAxisAngle(0,0,0,0);
 
@@ -179,6 +183,8 @@ function makeRect(width,height,depth)//returns a 3D box like object centered aro
 	return newObj;
 }
 
+// ** fix ** 
+
 function makeLine(width,height,depth) {
 
 	// returns a 3D like object centered around the origin
@@ -206,11 +212,11 @@ zAxis.color="blue";
 
 // make hour, min, sec hands
 
-var hourAxis=makeLine(400,10,10);
+var hourAxis=makeRect(300,1,1);
 hourAxis.color="green";
-var minAxis=makeLine(10,400,1);
+var minAxis=makeRect(1,350,1);
 minAxis.color="red";
-var secAxis=makeLine(10,1,400);
+var secAxis=makeRect(1,1,400);
 secAxis.color="blue";
 
 
