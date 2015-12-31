@@ -13,20 +13,17 @@
 		position:fixed;
 		top:10px;
 		left:10px;
-		visibility:hidden;
 	}
 	#quatInfo {
 		position:fixed;
 		bottom:10px;
 		right:10px;
 		width:120px;
-		visibility:hidden;
 	}
 	#mouseInfo {
 		position:fixed;
 		bottom:10px;
 		left:10px;
-		visibility:hidden;
 	}
 </style>
 
@@ -182,6 +179,22 @@ function makeRect(width,height,depth)//returns a 3D box like object centered aro
 	return newObj;
 }
 
+function makeLine(width,height,depth) {
+
+	// returns a 3D like object centered around the origin
+	// adapted from makeRect
+
+	var newObj={};
+	var hw=width/2;
+	var hh=height/2;
+	var hd=depth/2;
+	newObj.vertices=[  
+		[-hw,hh,-hd],[-hw,hh,hd],[-hw,-hh,-hd] // left side
+	];
+
+	return newObj;
+}
+
 var cube=makeRect(canvas.width/5,canvas.width/5,canvas.width/5);
 cube.color="purple";
 var xAxis=makeRect(440,10,10);
@@ -190,6 +203,13 @@ var yAxis=makeRect(10,440,10);
 yAxis.color="red";
 var zAxis=makeRect(10,10,440);
 zAxis.color="blue";
+
+var hourAxis=makeLine(200,10,10);
+hourAxis.color="green";
+var minAxis=makeLine(10,200,1);
+minAxis.color="red";
+var secAxis=makeLine(10,1,200);
+secAxis.color="blue";
 
 
 
@@ -220,11 +240,20 @@ function renderObj(obj,q) // renders an object as a series of triangles
 		  context.moveTo(scaleByZ(vertexFrom[0],vertexFrom[2]), ( -scaleByZ(vertexFrom[1],vertexFrom[2])));
 		  context.lineTo(scaleByZ(vertexTo[0],vertexTo[2]), ( -scaleByZ(vertexTo[1],vertexTo[2])));
 		  context.stroke();
-		       
-			// circle?
-			context.beginPath();
-			context.arc(0, 0, 200*this.fakeBeta, 0, 2*Math.PI);
-			context.stroke();
+
+		// circle	       
+
+		// 1. scale
+		// http://stackoverflow.com/questions/2172798/how-to-draw-an-oval-in-html5-canvas
+
+		context.save(); // save state
+		context.beginPath();
+	        // context.translate(0, 0);
+	        // context.scale(200*this.fakeBeta, 100);
+	        context.scale(100, 100);
+        	context.arc(0, 0, 1, 0, 2 * Math.PI, false);
+	        context.restore(); // restore to original state
+        	context.stroke();
 			
 		}
 	}
@@ -382,10 +411,13 @@ function renderLoop()
 	processGyro(this.fakeAlpha,this.fakeBeta,this.fakeGamma);
   }
   
-  renderObj(cube,quaternionMultiply([inverseQuaternion(gyro),userQuat]));
-  renderObj(xAxis,inverseQuaternion(gyro));
-  renderObj(yAxis,inverseQuaternion(gyro));
-  renderObj(zAxis,inverseQuaternion(gyro));
+  // renderObj(cube,quaternionMultiply([inverseQuaternion(gyro),userQuat]));
+  // renderObj(xAxis,inverseQuaternion(gyro));
+  // renderObj(yAxis,inverseQuaternion(gyro));
+  // renderObj(zAxis,inverseQuaternion(gyro));
+  renderObj(hourAxis,inverseQuaternion(gyro));
+  renderObj(minAxis,inverseQuaternion(gyro));
+  renderObj(secAxis,inverseQuaternion(gyro));
 }
 renderLoop();
 
