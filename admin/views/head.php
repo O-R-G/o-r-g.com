@@ -3,6 +3,10 @@
 $config_dir = __DIR__."/../config/";
 require_once($config_dir."config.php");
 
+// futile attempt to delete the trailing slash right here
+// if(substr($_SERVER['REQUEST_URI'], -1) == '/')
+// 	header("Location: ".rtrim($host, '/').rtrim($_SERVER['REQUEST_URI'], '/'));
+
 // specific to this 'app'
 require_once($config_dir."url.php");
 require_once($config_dir."request.php");
@@ -32,6 +36,7 @@ $title = $db_name." | ".$name;
 
 // $nav = $oo->nav_clean($uu->ids);
 
+// used in add.php, edit.php, browse.php
 $ancestors = $oo->ancestors($uu->id);
 ?><!DOCTYPE html>
 <html>

@@ -1,30 +1,69 @@
 <?
-$b_url = $admin_path.'browse/'.$uu->urls();
-$vars = array("name1", "deck", "body", "notes", "begin", "end", "url", "rank");
-$kvars = array();
-$kvars["name1"] = "text";
-$kvars["deck"] = "textarea";
-$kvars["body"] = "textarea";
-$kvars["notes"] = "textarea";
-$kvars["begin"] = "datetime-local";
-$kvars["end"] = "datetime-local";
-$kvars["url"] = "text";
-$kvars["rank"] = "number";
+$browse_url = $admin_path.'browse/'.$uu->urls();
 
-$f = array();
+$vars = array("name1", "deck", "body", "notes", "begin", "end", "url", "rank");
+
+$var_info = array();
+
+$var_info["input-type"] = array();
+$var_info["input-type"]["name1"] = "text";
+$var_info["input-type"]["deck"] = "textarea";
+$var_info["input-type"]["body"] = "textarea";
+$var_info["input-type"]["notes"] = "textarea";
+$var_info["input-type"]["begin"] = "datetime-local";
+$var_info["input-type"]["end"] = "datetime-local";
+$var_info["input-type"]["url"] = "text";
+$var_info["input-type"]["rank"] = "number";
+
+$var_info["label"] = array();
+$var_info["label"]["name1"] = "Name";
+$var_info["label"]["deck"] = "Synopsis";
+$var_info["label"]["body"] = "Detail";
+$var_info["label"]["notes"] = "Notes";
+$var_info["label"]["begin"] = "Begin";
+$var_info["label"]["end"] = "End";
+$var_info["label"]["url"] = "URL Slug";
+$var_info["label"]["rank"] = "Rank";
+
 $dt_fmt = "Y-m-d H:i:s";
 ?><div id="body-container">
 	<div id="body" class="centre"><?
+	// TODO: this code is duplicated in 
+	// + add.php 
+	// + browse.php
+	// + edit.php
+	// + link.php
+	// ancestors
+	$a_url = $admin_path."browse";
+	for($i = 0; $i < count($uu->ids)-1; $i++)
+	{
+		$a = $uu->ids[$i];
+		$ancestor = $oo->get($a);
+		$a_url.= "/".$ancestor["url"];
+		?><div class="ancestor">
+			<a href="<? echo $a_url; ?>"><? echo $ancestor["name1"]; ?></a>
+		</div><?
+	}
+	// END TODO
+	
+		// this code is duplicated in:
+		// + link.php
+		// + add.php
+		?><div class="self-container">
+			<div class="self">
+				<a href="<? echo $browse_url; ?>"><? echo $name; ?></a>
+			</div>
+		</div><?
+	
+		
 		// show form
-		if($rr->submit != "add") 
+		if($rr->action != "add") 
 		{
 			$form_url = $admin_path."add";
 			if($uu->urls())
 				$form_url.="/".$uu->urls();
-		?><div class="self-container">
+		?><div id="form-container">
 			<div class="self">You are adding a new object.</div>
-		</div>
-		<div id="form-container">
 			<form 
 				enctype="multipart/form-data" 
 				action="<? echo $form_url; ?>" 
@@ -35,9 +74,9 @@ $dt_fmt = "Y-m-d H:i:s";
 				foreach($vars as $var)
 				{
 					?><div class="field">
-						<div class="field-name"><? echo $var; ?></div>
+						<div class="field-name"><? echo $var_info["label"][$var]; ?></div>
 						<div><?
-						if($kvars[$var] == "textarea")
+						if($var_info["input-type"][$var] == "textarea")
 						{
 						?><textarea name='<? echo $var; ?>' class='large'></textarea><?
 						}
@@ -45,7 +84,7 @@ $dt_fmt = "Y-m-d H:i:s";
 						{
 						?><input 
 							name='<? echo $var; ?>' 
-							type='<? echo $kvars[$var]; ?>'
+							type='<? echo $var_info["input-type"][$var]; ?>'
 						><?
 						}
 						?></div>
@@ -55,22 +94,31 @@ $dt_fmt = "Y-m-d H:i:s";
 				for ($j = 0; $j < $max_uploads; $j++)
 				{
 					?><div class="field">
-						<div class="field-name">image <? echo $j+1; ?></div>
-						<div>
+						<span class="field-name">Image <? echo $j+1; ?></span>
+						<span>
 							<input type='file' name='uploads[]'>
-							<textarea name="captions[]" class="caption"></textarea>
-						</div>
+							<!-- textarea name="captions[]" class="caption"></textarea -->
+						</span>
 					</div><?
 				}
 				?></div>
 				<div class="button-container">
-					<input 
+					<input
+						type='hidden'
+						name='action'
+						value='add'
+					>
+					<input
+						type='button'
 						name='cancel' 
-						value='cancel'
-						type='button' 
+						value='Cancel' 
 						onClick="<? echo $js_back; ?>"
 					>
-					<input name='submit' value='add' type='submit'>
+					<input
+						type='submit' 
+						name='submit' 
+						value='Add Object'
+					>
 				</div>
 			</form>
 		</div><?
@@ -78,6 +126,7 @@ $dt_fmt = "Y-m-d H:i:s";
 		// process form
 		else
 		{
+			$f = array();
 			// objects
 			foreach($vars as $var)
 				$f[$var] = addslashes($rr->$var);
@@ -89,17 +138,11 @@ $dt_fmt = "Y-m-d H:i:s";
 				$ww->create_wire($uu->id, $toid);
 				// media
 				process_media($toid);
-
-			?><div class="self-container">
-				<div class="self">
-					<p>record added successfully</p>
-					<p><a href="<? echo $b_url; ?>">continue... </a></p>
-				</div>
-			</div><?
+			?><div>Record added successfully.</div><?
 			}
 			else
 			{
-			?><p>record not created, <a href="<? echo $js_back; ?>">try again</a></p><?
+			?><div>Record not created, please <a href="<? echo $js_back; ?>">try again.</a></div><?
 			}
 		} 
 	?></div>

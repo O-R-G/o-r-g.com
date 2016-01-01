@@ -28,11 +28,20 @@ body {
     margin: 0px auto;
 }
 
+/* this is so that the text on link.php looks normal. */
+p:first-of-type {
+	margin-top: 0px;
+}
+p:last-of-type {
+	margin-bottom: 0px;
+}
+
 /* links + colours */
 
 span.action {
 	padding: 0px 5px;	
 }
+
 a:link, 
 a:visited,
 a:active {
@@ -94,13 +103,11 @@ a:hover {
 	padding: 16px;
 }
 
-#children > #object-actions {
+.child + #object-actions,
+.select-container + .button-container {
 	padding-top: 16px;
 }
 
-.button-container {
-	display:inline-block;
-}
 /* forms */
 #object > div {
 	display: inline-block;
@@ -162,9 +169,6 @@ select {
 /* utility classes */
 .preview {
 	max-width: 100%;
-}
-.nav-level {
-	padding-left: 2ch;
 }
 
 @media screen and (max-device-width: 568px) {

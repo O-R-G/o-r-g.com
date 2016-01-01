@@ -13,7 +13,7 @@ class URL extends URL_Base
 	{
 		global $oo;
 		
-		$urls = explode('/', $_SERVER['REQUEST_URI']);
+		$urls = explode('/', rtrim($_SERVER['REQUEST_URI'], '/'));
 		$base = array_slice($urls, 0, 3); // == ["admin", [view]]
 		$urls = array_slice($urls, 3);
 		

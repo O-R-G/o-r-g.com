@@ -47,6 +47,7 @@ function resize($src, $dest, $scale)
 
 // for use on add.php
 // return false if process fails
+// (siblings must not have same url slug as object)
 // return id of new object on success
 function insert_object(&$a, $siblings)
 {
@@ -67,14 +68,7 @@ function insert_object(&$a, $siblings)
 			
 	foreach($a as $key => $value)
 	{
-		if($key == 'body')
-		{
-// 			file_put_contents($p."out.txt", $value);
-// 			exec($p."Markdown.pl ".$p."out.txt", $md);
-// 			$md = implode("\n", $md);
-			$a[$key] = "'".md2html($value)."'";
-		}
-		else if($value)
+		if($value)
 			$a[$key] = "'".$value."'";
 		else
 			$a[$key] = "null";

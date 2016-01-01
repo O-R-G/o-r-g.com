@@ -20,10 +20,27 @@ $var_labels["end"] = "End";
 $var_labels["url"] = "URL Slug";
 $var_labels["rank"] = "Rank";
 
+$browse_url = $admin_path.'browse/'.$uu->urls();
 
 ?><div id="body-container">
 	<div id="body"><?
-if ($rr->submit != "update" && $uu->id)
+	// TODO: this code is duplicated in 
+	// + add.php 
+	// + browse.php
+	// + edit.php
+	// + link.php
+	// ancestors
+	$a_url = $admin_path."browse";
+	for($i = 0; $i < count($uu->ids)-1; $i++)
+	{
+		$a = $uu->ids[$i];
+		$ancestor = $oo->get($a);
+		$a_url.= "/".$ancestor["url"];
+		?><div class="ancestor">
+			<a href="<? echo $a_url; ?>"><? echo $ancestor["name1"]; ?></a>
+		</div><?
+	}
+if ($rr->action != "update" && $uu->id)
 {
 	// get existing image data
 	$medias = $oo->media($uu->id);
@@ -42,22 +59,10 @@ if ($rr->submit != "update" && $uu->id)
 		else
 			$medias[$i]["display"] = $medias[$i]["file"];
 	}
-
-	
-// ancestors
-	$a_url = $admin_path."browse/";
-	foreach($ancestors as $a)
-	{
-		$ancestor = $oo->get($a);
-		$a_url.= $ancestor["url"];
-		?><div class="ancestor"><a href="<? echo $a_url; ?>"><? echo $ancestor["name1"]; ?></a></div><?
-	}
 // object contents
 ?><div id="form-container">
 		<div class="self">
-			<a href="<? echo $admin_path.'browse/'.$uu->urls(); ?>"><?php 
-				echo $name; 
-			?></a>
+			<a href="<? echo $browse_url; ?>"><?php echo $name; ?></a>
 		</div>
 		<form
 			method="post"
@@ -157,22 +162,31 @@ if ($rr->submit != "update" && $uu->id)
 				{
 				?><div class="image-upload">
 					<span class="field-name">Image <?php echo str_pad(++$i, 2, "0", STR_PAD_LEFT); ?></span>
-					<span><input type="file" name="uploads[]"></span>
+					<span>
+						<input type="file" name="uploads[]">
+					</span>
 					<!--textarea name="captions[]"><?php
 							echo $medias[$i]["caption"];
 					?></textarea-->
 				</div><?php
 				} ?>
-				<div class="button-container">	
+				<div class="button-container">
+					<input
+						type='hidden'
+						name='action'
+						value='update'
+					>	
 					<input 
-						name='cancel' 
 						type='button' 
-						value='cancel' 
+						name='cancel' 
+						value='Cancel' 
 						onClick="<? echo $js_back; ?>" 
 					>
-				</div>
-				<div class="button-container">
-					<input name='submit' type='submit' value='update'>
+					<input 
+						type='submit'
+						name='submit'  
+						value='Update Object'
+					>
 				</div>
 			</div>
 		</form>
@@ -186,10 +200,8 @@ else
 	// objects
 	foreach($vars as $var)
 	{
-		if($var == 'body')
-			$$var = addslashes($rr->$var);
-		else
-			$$var = addslashes($rr->$var);
+		$$var = addslashes($rr->$var);
+		$item[$var] = addslashes($item[$var]);
 	}
 
 	//  process variables
@@ -213,7 +225,8 @@ else
 		if(!$valid_url)
 			break;
 	}
-	
+	?><div class="self-container">
+		<p><a href="<? echo $browse_url; ?>"><?php echo $name; ?></a></p><?
 	if($valid_url)
 	{
 		// check for differences
@@ -272,23 +285,21 @@ else
 				$updated = $mm->update($m_id, $m_arr);
 			}
 		}
-		?><div class="self-container">
-			<div class="self"><?php
 			// Job well done?
 			if($updated)
-				echo "record successfully updated."; 
+			{
+			?><p>Record successfully updated.</p><?
+			}
 			else
-				echo "nothing was edited, therefore update not required.";
-			?></div>
-			<div class="self">
-				<a href="<?php echo $admin_path.'browse/'.$uu->urls(); ?>">refresh object</a>
-			</div>
-		</div><?
+			{
+			?><p>Nothing was edited, therefore update not required.</p><?
+			}
 	}
 	else
 	{
-		?><p>record not updated, <a href="<? echo $js_back; ?>">try again</a></p><?
+		?><p>Record not updated, <a href="<? echo $js_back; ?>">try again</a>.</p><?
 	}
+	?></div><?
 } 
 ?></div>
 </div>

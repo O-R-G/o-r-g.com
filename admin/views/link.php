@@ -1,55 +1,75 @@
-<div id="body-container">
+<?
+$browse_url = $admin_path."browse/".$uu->urls();
+$l_url = $admin_path."link";
+if($uu->urls())
+{
+	$l_url .= "/".$uu->urls();
+}
+?><div id="body-container">
 	<div id="body"><?
-	$c_url = $admin_path."browse";
-	$l_url = $admin_path."link";
-	if($uu->urls())
+	// TODO: this code is duplicated in 
+	// + add.php 
+	// + browse.php
+	// + edit.php
+	// + link.php
+	// ancestors
+	$a_url = $admin_path."browse";
+	for($i = 0; $i < count($uu->ids)-1; $i++)
 	{
-		$c_url .= "/".$uu->urls();
-		$l_url .= "/".$uu->urls();
+		$a = $uu->ids[$i];
+		$ancestor = $oo->get($a);
+		$a_url.= "/".$ancestor["url"];
+		?><div class="ancestor">
+			<a href="<? echo $a_url; ?>"><? echo $ancestor["name1"]; ?></a>
+		</div><?
 	}
+	// END TODO
+	
+		// this code is duplicated in:
+		// + link.php
+		// + add.php
+		?><div class="self-container">
+			<div class="self">
+				<a href="<? echo $browse_url; ?>"><? echo $name; ?></a>
+			</div>
+		</div><?
+	
 	if($rr->action != "link") 
 	{
-		?><div class="self-container">
-			<div class="self"><a href="<? echo $c_url; ?>"><? echo $name; ?></a></div>
-			<div class="self">
+		?><div id="form-container">
+			<div>
 				<p>You are linking to an existing object.</p>
 				<p>The linked object will remain in its original location and also appear here.</p> 
 				<p>Please choose from the list of active objects:</p>
 			</div>
-		</div>
-		<div id="form-container">
 			<form 
 				enctype="multipart/form-data"
 				action="<? echo $l_url; ?>"
 				method="post" 
 			>
 				<div class="form">
-					<select name='wires_toid'><?
-						$items = $oo->unlinked_list($uu->id);
-						$all_items = $oo->traverse(0);
-						foreach($items as $i)
-						{
-						?><!--option value="<? echo $i; ?>"><?
-							echo $oo->name($i);
-						?></option--><?	
-						}
-						foreach($all_items as $i)
-						{
-							$m = end($i);
-							if(!in_array($m, $items))
-								$m = 0; 
-							$d = count($i); 
-							$t = "&nbsp;&nbsp;&nbsp;";
-						?><option value="<? echo $m; ?>"><?
-							for($j=1; $j < $d; $j++)
-								echo $t;
-							if(!$m)
-								echo "(".$oo->name(end($i)).")";
-							else
-								echo $oo->name(end($i));
-						?></option><?
-						}
-					?></select>
+					<div class="select-container">
+						<select name='wires_toid'><?
+							$items = $oo->unlinked_list($uu->id);
+							$all_items = $oo->traverse(0);
+							foreach($all_items as $i)
+							{
+								$m = end($i);
+								if(!in_array($m, $items))
+									$m = 0; 
+								$d = count($i); 
+								$t = "&nbsp;&nbsp;&nbsp;";
+							?><option value="<? echo $m; ?>"><?
+								for($j=1; $j < $d; $j++)
+									echo $t;
+								if(!$m)
+									echo "(".$oo->name(end($i)).")";
+								else
+									echo $oo->name(end($i));
+							?></option><?
+							}
+						?></select>
+					</div>
 					<div class="button-container">
 						<input 
 							name='action' 
@@ -83,14 +103,11 @@
 		{
 			$wires_toid = addslashes($rr->wires_toid);
 			$ww->create_wire($uu->id, $wires_toid);
-		?><div class="self-container">
-			<p>record linked successfully</p>
-			<p><a href="<? echo $c_url; ?>">continue...</a></p>
-		</div><?
+		?><div>Record linked successfully.</div><?
 		}
 		else
 		{
-		?><p>record not linked, <a href="<? echo $js_back; ?>">try again</a></p><?
+		?><div>Record not linked, please <a href="<? echo $js_back; ?>">try again</a></div><?
 		}
 	}
 	?></div>
