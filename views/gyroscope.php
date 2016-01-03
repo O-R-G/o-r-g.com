@@ -1,6 +1,10 @@
 <style>
 	/* page specific + overrides */
 
+	body {
+		background-color:#000;
+		color:#333;
+	}
 	canvas { 
 		margin: 0px;
 		width: 100%; 
@@ -65,7 +69,6 @@ function debug () {
 		return false;
 	}
 }
-
 
 document.addEventListener("click",debug);
 document.addEventListener("touchStart",debug);
@@ -194,6 +197,7 @@ function makeLine(width,height,depth) {
 	var hw=width/2;
 	var hh=height/2;
 	var hd=depth/2;
+
 	newObj.vertices=[  
 		[-hw,hh,-hd],[-hw,hh,hd],[-hw,-hh,-hd] // left side
 	];
@@ -203,20 +207,26 @@ function makeLine(width,height,depth) {
 
 var cube=makeRect(canvas.width/5,canvas.width/5,canvas.width/5);
 cube.color="purple";
+// var xAxis=makeLine(440,10,10);
 var xAxis=makeRect(440,10,10);
 xAxis.color="green";
+// var yAxis=makeLine(10,440,10);
 var yAxis=makeRect(10,440,10);
 yAxis.color="red";
+// var zAxis=makeLine(10,10,440);
 var zAxis=makeRect(10,10,440);
 zAxis.color="blue";
 
 // make hour, min, sec hands
 
-var hourAxis=makeRect(300,1,1);
+// var hourAxis=makeRect(300,1,1);
+var hourAxis=makeRect(300,300,300);
 hourAxis.color="green";
-var minAxis=makeRect(1,350,1);
+// var minAxis=makeRect(1,350,1);
+var minAxis=makeRect(100,100,100);
 minAxis.color="red";
-var secAxis=makeRect(1,1,400);
+// var secAxis=makeRect(1,1,400);
+var secAxis=makeRect(200,200,200);
 secAxis.color="blue";
 
 
@@ -247,12 +257,15 @@ function renderObj(obj,q) // renders an object as a series of triangles
 		  context.beginPath();
 		  context.moveTo(scaleByZ(vertexFrom[0],vertexFrom[2]), ( -scaleByZ(vertexFrom[1],vertexFrom[2])));
 		  context.lineTo(scaleByZ(vertexTo[0],vertexTo[2]), ( -scaleByZ(vertexTo[1],vertexTo[2])));
+		  // context.arc(scaleByZ(vertexTo[0],vertexTo[2]), ( -scaleByZ(vertexTo[1],vertexTo[2])),100,200,0);
 		  context.stroke();
 
 		// circle	       
 
 		// 1. scale
 		// http://stackoverflow.com/questions/2172798/how-to-draw-an-oval-in-html5-canvas
+
+		// or draw an ellipse
 
 		context.save(); // save state
 		context.beginPath();
@@ -406,8 +419,11 @@ function quatFromAxisAngle(x,y,z,angle)
 
 function renderLoop() 
 {
-  requestAnimationFrame( renderLoop );//better than set interval as it pauses when browser isn't active
-  //context.clearRect(0, 0, canvas.width, canvas.height);//clear screen
+  // using setInterval() instead
+  // requestAnimationFrame( renderLoop );//better than set interval as it pauses when browser isn't active
+
+  // context.clearRect(0, 0, canvas.width, canvas.height);//clear screen
+
   context.clearRect( -canvas.width/2, -canvas.height/2, canvas.width, canvas.height);//clear screen x, y, width, height
   
   //create some fake data in case web page isn't being accessed from a mobile or gyro enabled device
@@ -419,7 +435,7 @@ function renderLoop()
 	processGyro(this.fakeAlpha,this.fakeBeta,this.fakeGamma);
   }
   
-  // renderObj(cube,quaternionMultiply([inverseQuaternion(gyro),userQuat]));
+  renderObj(cube,quaternionMultiply([inverseQuaternion(gyro),userQuat]));
   // renderObj(xAxis,inverseQuaternion(gyro));
   // renderObj(yAxis,inverseQuaternion(gyro));
   // renderObj(zAxis,inverseQuaternion(gyro));
@@ -427,6 +443,12 @@ function renderLoop()
   renderObj(minAxis,inverseQuaternion(gyro));
   renderObj(secAxis,inverseQuaternion(gyro));
 }
-renderLoop();
+
+// using setInterval instead of manual approach suggested
+
+// renderLoop();
+
+renderTimer = window.setInterval(renderLoop, 50);
+
 
 </script>
