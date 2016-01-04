@@ -50,8 +50,7 @@ function processGyro(alpha,beta,gamma)
 
 // canvas context
 
-// var canvas = document.getElementById('gyroCanvas');
-var canvas = document.getElementById('clock-canvas');
+var canvas = document.getElementById('gyroCanvas');
 var context = canvas.getContext('2d');
 context.canvas.width  = window.innerWidth;//resize canvas to whatever window dimensions are
 context.canvas.height = window.innerHeight;
@@ -282,14 +281,14 @@ function makeArcWithTriangle(width,height,depth) {
 	return newObj;
 }
 
-// var cube=makeRect(canvas.width/5,canvas.width/5,canvas.width/5);
+var cube=makeRect(canvas.width/5,canvas.width/5,canvas.width/5);
 var cube=makePlaneWithTriangle(canvas.width/5, canvas.width/5, canvas.width/5);
 cube.color="purple";
-var hourAxis=makeArcWithTriangle(canvas.width/1.5,canvas.width/1.5,0);
+var hourAxis=makeArcWithTriangle(canvas.width/2,canvas.width/2,0);
 hourAxis.color="black";
-var minAxis=makeArcWithTriangle(canvas.width/1.5,canvas.width/1.5,-300);
+var minAxis=makeArcWithTriangle(canvas.width/2,canvas.width/2,0);
 minAxis.color="black";
-var secAxis=makeArcWithTriangle(canvas.width/1.5,canvas.width/1.5,100);
+var secAxis=makeArcWithTriangle(canvas.width/2,canvas.width/2,0);
 secAxis.color="black";
 
 
@@ -463,13 +462,13 @@ function renderLoop() {
   }
   
   // renderObj(cube,quaternionMultiply([inverseQuaternion(gyro),userQuat]));
-  renderObj(hourAxis,quaternionMultiply([inverseQuaternion(gyro),userQuat]));
   // renderObj(hourAxis,inverseQuaternion(gyro));
   // renderObj(minAxis,inverseQuaternion(gyro));
   // renderObj(secAxis,inverseQuaternion(gyro));
   // renderObj(secAxis,quaternionMultiply([inverseQuaternion(gyro),userQuat]));
   // renderObj(secAxis,userQuat);
   // renderObj(hourAxis,quaternionMultiply([inverseQuaternion(gyro),inverseQuaternion(gyro), inverseQuaternion(gyro)]));
+  renderObj(hourAxis,quaternionMultiply([inverseQuaternion(gyro),userQuat]));
   renderObj(minAxis,quaternionMultiply([inverseQuaternion(gyro),inverseQuaternion(gyro), userQuat]));
   renderObj(secAxis,quaternionMultiply([inverseQuaternion(gyro),inverseQuaternion(gyro), inverseQuaternion(gyro), userQuat]));
 }

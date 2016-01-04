@@ -32,10 +32,6 @@
 	}
 </style>
 
-<div id="canvas-container" class="v-centre">
-        <canvas id="clock-canvas"></canvas>
-</div>
-
 <div id="gyroInfo">		
 	&Alpha;: <span id="alpha"></span><br>
 	&Beta;: <span id="beta"></span><br>
@@ -54,7 +50,7 @@
         Y: <span id="userY"></span><br>
 </div>
 
-<!-- <canvas id="gyroCanvas"></canvas> -->
+<canvas id="gyroCanvas"></canvas>
 
 <script src='static/js/gyroscope.js'></script>
 
