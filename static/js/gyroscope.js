@@ -281,14 +281,14 @@ function makeArcWithTriangle(width,height,depth) {
 	return newObj;
 }
 
-var cube=makeRect(canvas.width/5,canvas.width/5,canvas.width/5);
-var cube=makePlaneWithTriangle(canvas.width/5, canvas.width/5, canvas.width/5);
-cube.color="purple";
-var hourAxis=makeArcWithTriangle(canvas.width/2,canvas.width/2,0);
+// var cube=makeRect(canvas.width/5,canvas.width/5,canvas.width/5);
+// var cube=makePlaneWithTriangle(canvas.width/5, canvas.width/5, canvas.width/5);
+// cube.color="purple";
+var hourAxis=makeArcWithTriangle(canvas.width/1.5,canvas.width/1.5,0);
 hourAxis.color="black";
-var minAxis=makeArcWithTriangle(canvas.width/2,canvas.width/2,0);
+var minAxis=makeArcWithTriangle(canvas.width/1.5,canvas.width/1.5,0);
 minAxis.color="black";
-var secAxis=makeArcWithTriangle(canvas.width/2,canvas.width/2,0);
+var secAxis=makeArcWithTriangle(canvas.width/1.5,canvas.width/1.5,0);
 secAxis.color="black";
 
 
