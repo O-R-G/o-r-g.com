@@ -21,6 +21,24 @@ foreach($all_paths as $p)
 }
 ?><div id="body-container">
 	<div id="body" class="centre"><?
+	// TODO: this code is duplicated in 
+	// + add.php 
+	// + browse.php
+	// + edit.php
+	// + link.php
+	// ancestors
+	$a_url = $admin_path."browse";
+	for($i = 0; $i < count($uu->ids)-1; $i++)
+	{
+		$a = $uu->ids[$i];
+		$ancestor = $oo->get($a);
+		$a_url.= "/".$ancestor["url"];
+		?><div class="ancestor">
+			<a href="<? echo $a_url; ?>"><? echo $ancestor["name1"]; ?></a>
+		</div><?
+	}
+	// END TODO
+	
 	// display form
 	if(strtolower($rr->action) != "delete") 
 	{
@@ -48,8 +66,13 @@ foreach($all_paths as $p)
 			$dependents = array_diff($dep, $all);
 			$k = count($dependents);
 		}
-		?><div id="form-container">
-		<div class="self-container"><?
+		// this code is duplicated in:
+		// + link.php
+		// + add.php
+		?><div class="self-container">
+			<div class="self">
+				<a href="<? echo $browse_url; ?>"><? echo $name; ?></a>
+			</div><?
 			// display warning
 			if($is_linked)
 			{ 
@@ -62,9 +85,9 @@ foreach($all_paths as $p)
 				{ 
 			?><p>The following <? 
 					if($k > 1)
-						echo $k." objects";
+						echo $k." Objects";
 					else
-						echo "object"; 
+						echo "Object"; 
 					?> will also be deleted as a result:</p><?	
 					$padout = floor(log10($k)) + 1;
 					if ($padout < 2) 
@@ -89,7 +112,7 @@ foreach($all_paths as $p)
 				action="<? echo $admin_path.'delete/'.$uu->urls(); ?>" 
 				method="post"
 			>
-				<div class="form">
+				<div class="button-container">
 					<input
 						type='hidden'
 						name='action'
@@ -109,7 +132,6 @@ foreach($all_paths as $p)
 				</div>
 			</form>
 			</div>
-			</div>
 		</div><?
 	}
 	// processs form
@@ -126,9 +148,6 @@ foreach($all_paths as $p)
 			$oo->deactivate($uu->id);
 	?><div class="self-container">
 		<div class="self"><? echo $message; ?></div>
-		<div class="self">
-			<a href="<? echo $admin_path.'browse/'.$uu->back(); ?>">continue...</a>
-		</div>
 	</div><?
 	}
 	?></div>

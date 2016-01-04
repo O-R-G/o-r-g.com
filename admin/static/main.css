@@ -104,11 +104,12 @@ a:hover {
 }
 
 .child + #object-actions,
-.select-container + .button-container {
+.select-container + .button-container,
+.button-container,
+.children-container {
 	padding-top: 16px;
 }
 
-.children-container,
 .license-container {
 	padding: 16px 0px;
 }

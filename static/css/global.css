@@ -118,6 +118,12 @@ ul:first-child {
   background-color: black;
 }
 
+#fullscreen:-ms-fullscreen {
+	width: auto;
+	height: auto;
+	margin: auto;
+}
+
 /* utility classes */
 
 .v-centre {
@@ -141,6 +147,9 @@ ul:first-child {
 @media screen and (max-width: 768px) {
 	.column-container-container {
 		display: block;
+	}
+	.column-container-container:last-child {
+		padding-bottom: 50vw;
 	}
 	.column-container {
 		width: 50vw;
@@ -166,5 +175,9 @@ ul:first-child {
 	
 	.column-container:last-child {
 		padding-bottom: 20px;
+	}
+	
+	.column-container-container:last-child {
+		padding-bottom: 50vw;
 	}
 }
