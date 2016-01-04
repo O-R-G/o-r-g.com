@@ -265,7 +265,7 @@ function makeArcWithTriangle(width,height,depth) {
 	
 	// push new points [x,y,z] onto vertices[]
 
-	for (i=0; i<360; i+=360/700) {
+	for (i=0; i<360; i+=360/900) {
 
 	        var c = Math.cos(i);
 	        var s = Math.sin(i);
@@ -289,11 +289,11 @@ function makeArcWithTriangle(width,height,depth) {
 var cube=makePlaneWithTriangle(canvas.width/5, canvas.width/5, canvas.width/5);
 cube.color="purple";
 var hourAxis=makeArcWithTriangle(canvas.width/2,canvas.width/2,0);
-hourAxis.color="green";
+hourAxis.color="black";
 var minAxis=makeArcWithTriangle(canvas.width/2,canvas.width/2,-300);
-minAxis.color="red";
+minAxis.color="black";
 var secAxis=makeArcWithTriangle(canvas.width/2,canvas.width/2,100);
-secAxis.color="blue";
+secAxis.color="black";
 
 
 
