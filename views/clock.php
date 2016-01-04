@@ -24,15 +24,3 @@ if($uu->id)
 ?><script>showHide();</script><?
 	}
 } ?>
-<!-- 
-<script type="text/javascript" src="<? echo $host; ?>static/js/screenfull.js"></script>
-<script>
-        var e = document.getElementById('clock-canvas');
-        e.addEventListener('dblclick', function () {
-                if (screenfull.enabled) {
-                        screenfull.toggle(e);
-                }
-        });
-</script>
--->
-

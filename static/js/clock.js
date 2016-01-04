@@ -11,7 +11,7 @@ colours['h'] = '#000';
 colours['m'] = '#000';
 colours['s'] = '#000';
 colours['circle'] = '#000';
-colours['circleopen'] = '#00F';
+colours['circleopen'] = '#000';
 
 var lineWidths = new Array();
 

@@ -59,10 +59,12 @@ for($i = 0; $i < count($b_arr); $i++)
 
 <script type="text/javascript" src="<? echo $host; ?>static/js/screenfull.js"></script>	
 <script>
-	var e = document.getElementById('fullscreen');
-	e.addEventListener('click', function () {
-		if (screenfull.enabled) {
-			screenfull.toggle(e);
-		}
-	});
+	var e;
+	if (e = document.getElementById('fullscreen')) {
+		e.addEventListener('click', function () {
+			if (screenfull.enabled) {
+				screenfull.toggle(e);
+			}
+		});
+	}
 </script>
