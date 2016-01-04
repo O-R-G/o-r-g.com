@@ -1,10 +1,6 @@
 <style>
 	/* page specific + overrides */
-
-	body {
-		/* background-color:#000; */
-		/* color:#999; */
-	}
+/*
 	canvas { 
 		margin: 0px;
 		width: 100%; 
@@ -13,23 +9,32 @@
 		top:0px;
 		/* z-index: -10; */
 	}
+*/
+
 	#gyroInfo {		  
 		position:fixed;
 		top:10px;
 		left:10px;
+		visibility: hidden;
 	}
 	#quatInfo {
 		position:fixed;
 		bottom:10px;
 		right:10px;
 		width:120px;
+		visibility: hidden;
 	}
 	#mouseInfo {
 		position:fixed;
 		bottom:10px;
 		left:10px;
+		visibility: hidden;
 	}
 </style>
+
+<div id="canvas-container" class="v-centre">
+        <canvas id="clock-canvas"></canvas>
+</div>
 
 <div id="gyroInfo">		
 	&Alpha;: <span id="alpha"></span><br>
@@ -49,7 +54,7 @@
         Y: <span id="userY"></span><br>
 </div>
 
-<canvas id="gyroCanvas"></canvas>
+<!-- <canvas id="gyroCanvas"></canvas> -->
 
 <script src='static/js/gyroscope.js'></script>
 

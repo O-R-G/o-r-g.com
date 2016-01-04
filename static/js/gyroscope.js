@@ -11,22 +11,18 @@ function debug () {
 		document.getElementById('quatInfo').style.visibility='visible';
 		document.getElementById('mouseInfo').style.visibility='visible';	        
 		debugFlag = true;
-		// console.log(debugFlag);
-		// clearInterval(renderTimer);
 		return true;
 	} else {
 		document.getElementById('gyroInfo').style.visibility='hidden';
 		document.getElementById('quatInfo').style.visibility='hidden';
 		document.getElementById('mouseInfo').style.visibility='hidden';
 		debugFlag = false;
-		// console.log(debugFlag);
-		// var renderTimer = window.setInterval(renderLoop, 50);
 		return false;
 	}
 }
 
 document.addEventListener("click",debug);
-document.addEventListener("touchStart",debug);
+// document.addEventListener("touchStart",debug);
 
 var gyro=quatFromAxisAngle(0,0,0,0);
 
@@ -54,7 +50,8 @@ function processGyro(alpha,beta,gamma)
 
 // canvas context
 
-var canvas = document.getElementById('gyroCanvas');
+// var canvas = document.getElementById('gyroCanvas');
+var canvas = document.getElementById('clock-canvas');
 var context = canvas.getContext('2d');
 context.canvas.width  = window.innerWidth;//resize canvas to whatever window dimensions are
 context.canvas.height = window.innerHeight;
@@ -288,11 +285,11 @@ function makeArcWithTriangle(width,height,depth) {
 // var cube=makeRect(canvas.width/5,canvas.width/5,canvas.width/5);
 var cube=makePlaneWithTriangle(canvas.width/5, canvas.width/5, canvas.width/5);
 cube.color="purple";
-var hourAxis=makeArcWithTriangle(canvas.width/2,canvas.width/2,0);
+var hourAxis=makeArcWithTriangle(canvas.width/1.5,canvas.width/1.5,0);
 hourAxis.color="black";
-var minAxis=makeArcWithTriangle(canvas.width/2,canvas.width/2,-300);
+var minAxis=makeArcWithTriangle(canvas.width/1.5,canvas.width/1.5,-300);
 minAxis.color="black";
-var secAxis=makeArcWithTriangle(canvas.width/2,canvas.width/2,100);
+var secAxis=makeArcWithTriangle(canvas.width/1.5,canvas.width/1.5,100);
 secAxis.color="black";
 
 
@@ -339,7 +336,7 @@ function renderObj(obj,q) {
 		// original w/ focal length
 		context.moveTo(scaleByZ(vertexFrom[0],vertexFrom[2]), ( -scaleByZ(vertexFrom[1],vertexFrom[2])));
 		context.lineTo(scaleByZ(vertexTo[0],vertexTo[2]), ( -scaleByZ(vertexTo[1],vertexTo[2])));
-		if (debugFlag) context.fillText(k,scaleByZ(vertexFrom[0],vertexFrom[2]), ( -scaleByZ(vertexFrom[1],vertexFrom[2])));
+		// if (debugFlag) context.fillText(k,scaleByZ(vertexFrom[0],vertexFrom[2]), ( -scaleByZ(vertexFrom[1],vertexFrom[2])));
 
 		// context.stroke();				// all
 		// if (k % 2 == 0) context.stroke();		// spokes only
@@ -473,8 +470,8 @@ function renderLoop() {
   // renderObj(secAxis,quaternionMultiply([inverseQuaternion(gyro),userQuat]));
   // renderObj(secAxis,userQuat);
   // renderObj(hourAxis,quaternionMultiply([inverseQuaternion(gyro),inverseQuaternion(gyro), inverseQuaternion(gyro)]));
-  renderObj(minAxis,quaternionMultiply([inverseQuaternion(gyro),inverseQuaternion(gyro), inverseQuaternion(gyro)]));
-  renderObj(secAxis,quaternionMultiply([inverseQuaternion(gyro),inverseQuaternion(gyro), inverseQuaternion(gyro)]));
+  renderObj(minAxis,quaternionMultiply([inverseQuaternion(gyro),inverseQuaternion(gyro), userQuat]));
+  renderObj(secAxis,quaternionMultiply([inverseQuaternion(gyro),inverseQuaternion(gyro), inverseQuaternion(gyro), userQuat]));
 }
 
 // using setInterval instead of manual approach suggested
