@@ -1,6 +1,6 @@
 <style>
 	/* page specific + overrides */
-/*
+
 	canvas { 
 		margin: 0px;
 		width: 100%; 
@@ -9,8 +9,6 @@
 		top:0px;
 		/* z-index: -10; */
 	}
-*/
-
 	#gyroInfo {		  
 		position:fixed;
 		top:10px;
