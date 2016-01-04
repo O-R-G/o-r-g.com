@@ -59,8 +59,8 @@ var context = canvas.getContext('2d');
 context.canvas.width  = window.innerWidth;//resize canvas to whatever window dimensions are
 context.canvas.height = window.innerHeight;
 context.translate(canvas.width / 2, canvas.height / 2); //put 0,0,0 origin at center of screen instead of upper left corner
-context.font = "11px Helvetica";
-context.fillStyle = "#666";
+context.font = "10px Helvetica";
+context.fillStyle = "#EEE";
 
 // process gyroscope data
 
@@ -186,7 +186,7 @@ function rotatePointViaQuaternion(pointRa,q) {
 
 
 
-// 2. 3d data
+// 1. 3d data
 
 function makeRect(width,height,depth) {
 
@@ -257,20 +257,28 @@ function makeArcWithTriangle(width,height,depth) {
 	var hw=width/2;
 	var hh=height/2;
 	var hd=depth/2;
+	var thisPoint0 = [];
+	var thisPoint1 = [];
+	var thisPoint2 = [];
 
 	newObj.vertices=[];
 	
 	// push new points [x,y,z] onto vertices[]
 
-	for (i=0; i<=360; i+=360/72) {
+	for (i=0; i<360; i+=360/700) {
 
 	        var c = Math.cos(i);
 	        var s = Math.sin(i);
 
 		// very ugly ** fix **
-		var thisPoint0 = [0,0,hd];
-		var thisPoint1 = [hw,0,hd];	// this y should be dynamic
-		var thisPoint2 = [hw*c,hh*s,hd];
+		thisPoint0 = [0,0,hd];
+		if (i==0) { 
+			thisPoint1 = [hw,0,hd];	
+		} else {
+			thisPoint1 = thisPoint2;	
+		}
+		thisPoint2 = [hw*c,hh*s,hd];
+
 
 		newObj.vertices.push(thisPoint0,thisPoint1,thisPoint2);
 	}  
@@ -279,14 +287,13 @@ function makeArcWithTriangle(width,height,depth) {
 }
 
 // var cube=makeRect(canvas.width/5,canvas.width/5,canvas.width/5);
-var cube=makePlaneWithTriangle(100, 100, canvas.width/5);
+var cube=makePlaneWithTriangle(canvas.width/5, canvas.width/5, canvas.width/5);
 cube.color="purple";
-var hourAxis=makeArcWithTriangle(300,300,0);
+var hourAxis=makeArcWithTriangle(canvas.width/5,canvas.width/5,0);
 hourAxis.color="green";
-var minAxis=makeArcWithTriangle(200,200,-300);
+var minAxis=makeArcWithTriangle(canvas.width/3,canvas.width/3,-300);
 minAxis.color="red";
-var secAxis=makeArcWithTriangle(400,400,100);
-// var secAxis=makeTriangle(400,400,100);
+var secAxis=makeArcWithTriangle(canvas.width/2,canvas.width/2,100);
 secAxis.color="blue";
 
 
@@ -304,7 +311,7 @@ secAxis.color="blue";
 
 
 
-// 3. render
+// 2. render
 
 function renderObj(obj,q) {
 
@@ -336,8 +343,8 @@ function renderObj(obj,q) {
 		if (debugFlag) context.fillText(k,scaleByZ(vertexFrom[0],vertexFrom[2]), ( -scaleByZ(vertexFrom[1],vertexFrom[2])));
 
 		// context.stroke();				// all
-		if (k % 2 == 0) context.stroke();		// spokes only
-		// if (k % 2 != 0) context.stroke();		// points only
+		// if (k % 2 == 0) context.stroke();		// spokes only
+		if (k % 2 != 0) context.stroke();		// points only
 
 		}
 	}
@@ -353,7 +360,7 @@ function renderObj(obj,q) {
 
 
 
-// 1. user input
+// 3. user input
 
 var userQuat=quatFromAxisAngle(0,0,0,0);//a quaternion to represent the users finger swipe movement - default is no rotation
 var prevTouchX = -1; // -1 is flag for no previous touch info

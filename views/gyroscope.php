@@ -2,8 +2,8 @@
 	/* page specific + overrides */
 
 	body {
-		background-color:#000; 
-		color:#666;
+		/* background-color:#000; */
+		/* color:#999; */
 	}
 	canvas { 
 		margin: 0px;
