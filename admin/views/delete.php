@@ -4,11 +4,14 @@
 $all_paths = $oo->traverse(0);
 $l = 0; // is this declaration necessary?
 $is_linked = false;
-foreach($all_paths as $p) {
-	if(end($p) == $uu->id) {
+foreach($all_paths as $p) 
+{
+	if(end($p) == $uu->id)
+	{
 		// break when second link is found
 		// no need to cycle through entire tree
-		if($l) {
+		if($l) 
+		{
 			$is_linked = true;
 			break;
 		}
@@ -19,7 +22,7 @@ foreach($all_paths as $p) {
 ?><div id="body-container">
 	<div id="body" class="centre"><?
 	// display form
-	if(strtolower($rr->submit) != "delete") 
+	if(strtolower($rr->action) != "delete") 
 	{
 		// if this object does not exist elsewhere in the tree,
 		// check to see if its descendents are linked elsewhere
@@ -45,7 +48,8 @@ foreach($all_paths as $p) {
 			$dependents = array_diff($dep, $all);
 			$k = count($dependents);
 		}
-		?><div class="self-container"><?
+		?><div id="form-container">
+		<div class="self-container"><?
 			// display warning
 			if($is_linked)
 			{ 
@@ -53,7 +57,7 @@ foreach($all_paths as $p) {
 			}
 			else
 			{
-			?><p>Warning! you are about to permanently delete this Object.</p><?
+			?><p>Warning! You are about to permanently delete this Object.</p><?
 				if($k) 
 				{ 
 			?><p>The following <? 
@@ -65,35 +69,47 @@ foreach($all_paths as $p) {
 					$padout = floor(log10($k)) + 1;
 					if ($padout < 2) 
 						$padout = 2;
+					$j = 1;
 			?><div class="children-container"><?		
 					foreach($dependents as $d) 
 					{
 						$child = $oo->get($d);
 						$url = $admin_path."browse/".$uu->urls()."/".$child["url"];
 						$child_name = strip_tags($child["name1"]);
+						$j_pad = str_pad($j++, $padout, "0", STR_PAD_LEFT);
 						?><div class="child">
+							<span><? echo $j_pad; ?></span>
 							<a href="<? echo $url; ?>"><? echo $child_name; ?></a>
 						</div><?
 					}
-			?></div><?
+			
 				}
 			}
-		?></div>
-		<div id="form-container">
-			<form 
+		?><form 
 				action="<? echo $admin_path.'delete/'.$uu->urls(); ?>" 
 				method="post"
 			>
 				<div class="form">
+					<input
+						type='hidden'
+						name='action'
+						value='delete'
+					>
 					<input 
+						type='button'
 						name='cancel' 
-						type='button' 
-						value='cancel' 
+						value='Cancel' 
 						onClick="<? echo $js_back; ?>"
 					> 
-					<input name='submit' type='submit' value='delete'>
+					<input
+						type='submit' 
+						name='submit'  
+						value='Delete Object'
+					>
 				</div>
 			</form>
+			</div>
+			</div>
 		</div><?
 	}
 	// processs form

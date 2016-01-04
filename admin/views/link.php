@@ -28,12 +28,14 @@ if($uu->urls())
 		// this code is duplicated in:
 		// + link.php
 		// + add.php
+		if($uu->id)
+		{
 		?><div class="self-container">
 			<div class="self">
 				<a href="<? echo $browse_url; ?>"><? echo $name; ?></a>
 			</div>
 		</div><?
-	
+		}
 	if($rr->action != "link") 
 	{
 		?><div id="form-container">
@@ -107,7 +109,7 @@ if($uu->urls())
 		}
 		else
 		{
-		?><div>Record not linked, please <a href="<? echo $js_back; ?>">try again</a></div><?
+		?><div>Record not linked, please <a href="<? echo $js_back; ?>">try again</a>.</div><?
 		}
 	}
 	?></div>
