@@ -169,88 +169,6 @@ function rotatePointViaQuaternion(pointRa,q) {
 
 
 
-// 1. user input
-
-var userQuat=quatFromAxisAngle(0,0,0,0);//a quaternion to represent the users finger swipe movement - default is no rotation
-var prevTouchX = -1; // -1 is flag for no previous touch info
-var prevTouchY = -1;
-
-// touch
-
-document.addEventListener("touchStart", touchStartFunc, true);//?misspelled
-document.addEventListener("touchmove", touchmoveFunc, true);
-document.addEventListener("touchend", touchEndFunc, true);
-
-
-function touchStartFunc(e)
-{
-	prevTouchY=e.touches[0].clientY;
-	prevTouchX=e.touches[0].clientX;
-}
-
-function touchmoveFunc(e)
-{
-	if( navigator.userAgent.match(/Android/i) ) //stupid android bug cancels touch move if it thinks there's a swipe happening
-	{   
-	  e.preventDefault();
-	}
-	userXYmove(e.touches[0].clientX,e.touches[0].clientY);
-}
-
-function touchEndFunc(e)
-{
-  prevTouchX = -1;
-  prevTouchY = -1;
-}
-
-// mouse
-
-document.addEventListener("mousedown", mouseDownFunc, true);
-document.addEventListener("mousemove", mouseMoveFunc, true);
-document.addEventListener("mouseup", mouseUpFunc, true);
-
-function mouseDownFunc(e)
-{
-  prevTouchX = e.clientX;
-  prevTouchY = e.clientY;
-}
-
-function mouseMoveFunc(e)
-{
-	if (prevTouchX!= -1)
-		userXYmove(e.clientX,e.clientY);
-}
-
-function mouseUpFunc(e)
-{
-  prevTouchX = -1;
-  prevTouchY = -1;
-}
-	
-function userXYmove(x,y)
-{
-
-	document.getElementById("userX").innerHTML=x;
-	document.getElementById("userY").innerHTML=y;
-	
-	if(prevTouchX != -1 ) //need valid prevTouch info to calculate swipe
-	{
-	  var xMovement=x-prevTouchX;
-	  var yMovement=y-prevTouchY;
-	  //var xMovementQuat=quatFromAxisAngle(1,0,0,y/200);//movement on y rotates x and vice versa
-	  //var yMovementQuat=quatFromAxisAngle(0,1,0,x/200);//200 is there to scale the movement way down to an intuitive amount
-	 //userQuot=quaternionMultiply([yMovementQuat,xMovementQuat]);//use reverse order
-	 
-	 
-	 var xMovementQuat=quatFromAxisAngle(1,0,0,yMovement/200);//movement on y rotates x and vice versa
-	 var yMovementQuat=quatFromAxisAngle(0,1,0,xMovement/200);//200 is there to scale the movement way down to an intuitive amount	 
-	  userQuat=quaternionMultiply([gyro,yMovementQuat,xMovementQuat,inverseQuaternion(gyro),userQuat]);//use reverse order
-
-	}
-	prevTouchY=y;
-	prevTouchX=x;
-}
-
 
 
 
@@ -432,6 +350,93 @@ function renderObj(obj,q) {
 
 
 
+
+
+
+// 1. user input
+
+var userQuat=quatFromAxisAngle(0,0,0,0);//a quaternion to represent the users finger swipe movement - default is no rotation
+var prevTouchX = -1; // -1 is flag for no previous touch info
+var prevTouchY = -1;
+
+// touch
+
+document.addEventListener("touchStart", touchStartFunc, true);//?misspelled
+document.addEventListener("touchmove", touchmoveFunc, true);
+document.addEventListener("touchend", touchEndFunc, true);
+
+
+function touchStartFunc(e)
+{
+	prevTouchY=e.touches[0].clientY;
+	prevTouchX=e.touches[0].clientX;
+}
+
+function touchmoveFunc(e)
+{
+	if( navigator.userAgent.match(/Android/i) ) //stupid android bug cancels touch move if it thinks there's a swipe happening
+	{   
+	  e.preventDefault();
+	}
+	userXYmove(e.touches[0].clientX,e.touches[0].clientY);
+}
+
+function touchEndFunc(e)
+{
+  prevTouchX = -1;
+  prevTouchY = -1;
+}
+
+// mouse
+
+document.addEventListener("mousedown", mouseDownFunc, true);
+document.addEventListener("mousemove", mouseMoveFunc, true);
+document.addEventListener("mouseup", mouseUpFunc, true);
+
+function mouseDownFunc(e)
+{
+  prevTouchX = e.clientX;
+  prevTouchY = e.clientY;
+}
+
+function mouseMoveFunc(e)
+{
+	if (prevTouchX!= -1)
+		userXYmove(e.clientX,e.clientY);
+}
+
+function mouseUpFunc(e)
+{
+  prevTouchX = -1;
+  prevTouchY = -1;
+}
+	
+function userXYmove(x,y)
+{
+
+	document.getElementById("userX").innerHTML=x;
+	document.getElementById("userY").innerHTML=y;
+	
+	if(prevTouchX != -1 ) //need valid prevTouch info to calculate swipe
+	{
+	  var xMovement=x-prevTouchX;
+	  var yMovement=y-prevTouchY;
+	  //var xMovementQuat=quatFromAxisAngle(1,0,0,y/200);//movement on y rotates x and vice versa
+	  //var yMovementQuat=quatFromAxisAngle(0,1,0,x/200);//200 is there to scale the movement way down to an intuitive amount
+	 //userQuot=quaternionMultiply([yMovementQuat,xMovementQuat]);//use reverse order
+	 
+	 
+	 var xMovementQuat=quatFromAxisAngle(1,0,0,yMovement/200);//movement on y rotates x and vice versa
+	 var yMovementQuat=quatFromAxisAngle(0,1,0,xMovement/200);//200 is there to scale the movement way down to an intuitive amount	 
+	  userQuat=quaternionMultiply([gyro,yMovementQuat,xMovementQuat,inverseQuaternion(gyro),userQuat]);//use reverse order
+
+	}
+	prevTouchY=y;
+	prevTouchX=x;
+}
+
+
+
 	
 
 
@@ -455,12 +460,12 @@ function renderLoop() {
   }
   
   // renderObj(cube,quaternionMultiply([inverseQuaternion(gyro),userQuat]));
-  renderObj(hourAxis,inverseQuaternion(gyro));
+  renderObj(hourAxis,quaternionMultiply([inverseQuaternion(gyro),userQuat]));
+  // renderObj(hourAxis,inverseQuaternion(gyro));
   // renderObj(minAxis,inverseQuaternion(gyro));
   // renderObj(secAxis,inverseQuaternion(gyro));
   // renderObj(secAxis,quaternionMultiply([inverseQuaternion(gyro),userQuat]));
   // renderObj(secAxis,userQuat);
-  // renderObjStub(secAxis,inverseQuaternion(gyro));
   // renderObj(hourAxis,quaternionMultiply([inverseQuaternion(gyro),inverseQuaternion(gyro), inverseQuaternion(gyro)]));
   renderObj(minAxis,quaternionMultiply([inverseQuaternion(gyro),inverseQuaternion(gyro), inverseQuaternion(gyro)]));
   renderObj(secAxis,quaternionMultiply([inverseQuaternion(gyro),inverseQuaternion(gyro), inverseQuaternion(gyro)]));
