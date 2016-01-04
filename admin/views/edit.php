@@ -112,15 +112,7 @@ if ($rr->action != "update" && $uu->id)
 				for($i = 0; $i < $num_medias; $i++)
 				{
 				?><div>
-					<span class="field-name">Image <? echo str_pad($i+1, 2, "0", STR_PAD_LEFT);?></span>
-					<span class='preview'>
-						<a href="<? echo $medias[$i]['file']; ?>" target="_blank">
-							<img src="<? echo $medias[$i]['display']; ?>">
-						</a>
-					</span>
-					<textarea name="captions[]"><?php
-						echo $medias[$i]["caption"];
-					?></textarea>
+					<div class="field-name">Image <? echo str_pad($i+1, 2, "0", STR_PAD_LEFT);?></div>
 					<span>rank</span>
 					<select name="ranks[<? echo $i; ?>]"><?php
 						for($j = 1; $j <= $num_medias; $j++)
@@ -145,6 +137,14 @@ if ($rr->action != "update" && $uu->id)
 							name="deletes[<? echo $i; ?>]"
 						>
 					delete image</label>
+					<div class='preview'>
+						<a href="<? echo $medias[$i]['file']; ?>" target="_blank">
+							<img src="<? echo $medias[$i]['display']; ?>">
+						</a>
+					</div>
+					<textarea name="captions[]"><?php
+						echo $medias[$i]["caption"];
+					?></textarea>
 					<input 
 						type="hidden"
 						name="medias[<? echo $i; ?>]"

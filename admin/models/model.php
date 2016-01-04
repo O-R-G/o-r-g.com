@@ -112,7 +112,7 @@ class Model
 				WHERE id = '$id'";
 		
 		if($db->query($sql) === TRUE)
-			return "record deleted sucessfully";
+			return "Record deleted sucessfully.";
 		else
 			return "error: " . $db->error;
 	}

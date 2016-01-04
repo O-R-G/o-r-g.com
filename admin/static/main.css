@@ -108,6 +108,11 @@ a:hover {
 	padding-top: 16px;
 }
 
+.children-container,
+.license-container {
+	padding: 16px 0px;
+}
+
 /* forms */
 #object > div {
 	display: inline-block;
