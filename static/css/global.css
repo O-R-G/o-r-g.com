@@ -143,6 +143,10 @@ ul:first-child {
 	visibility: visible;
 }
 
+.column-container-container:last-child > .column-container {
+	padding-bottom: 33vw;
+}
+
 /* vertical iPad / horizontal iPhone */
 @media screen and (max-width: 768px) {
 	.column-container-container {
@@ -153,6 +157,9 @@ ul:first-child {
 	}
 	.column-container {
 		width: 50vw;
+	}
+	.column-container-container:last-child > .column-container {
+		padding-bottom: 0px;
 	}
 
 }
