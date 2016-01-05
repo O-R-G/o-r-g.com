@@ -1,7 +1,3 @@
-# order deny,allow
-# deny from all
-# allow from 108.27.144.135
-
 # Options +FollowSymLinks -Indexes
 Options +FollowSymLinks +Indexes
 # IndexIgnore */*
