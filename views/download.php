@@ -6,7 +6,13 @@
 				<span>Thx</span>
 			</ul>
 		</ul>
-	</div><div class="column-container-container"><div class="column-container"><p>
-<span style='color:#F00;'>Your software is now downloading . . . </span><br /><br />
-<a href='mailto:store@o-r-g.com'>Problems, questions, etc.?</a> Otherwise, please enjoy. 
-	</p></div></section>
+	</div>
+	<div class="column-container-container">
+		<div class="column-container">
+			<p>
+				<span style='color:#F00;'>Your software is now downloading . . . </span><br /><br />
+				<a href='mailto:store@o-r-g.com'>Problems, questions, etc.?</a> Otherwise, please enjoy. 
+			</p>
+		</div>
+	</div>
+</section>

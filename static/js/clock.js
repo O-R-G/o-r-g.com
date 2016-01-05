@@ -102,11 +102,13 @@ function set_size(width, height)
 			width = window.innerWidth;
 			if (!height)
 				height = window.innerHeight * 0.9;
+			width = Math.min(width, height);
+			height = width;
 		}
 	}
 	var min = Math.min(width, height);
 	r = min * 0.8;
-	
+
 	// set the hand lengths
 	hands['h'] = r * 0.5;
 	hands['m'] = r * 0.9;
