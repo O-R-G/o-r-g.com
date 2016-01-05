@@ -1,16 +1,30 @@
 <?php
+
+
+
+
   ////////////////
  //  Database  //
 ////////////////
-function systemDatabase() 
-{
-	$dbMainHost = "db153.pair.com";
-	$dbMainUser = "reinfurt_42_r";
-	$dbMainPass = "8hPxYMS9";
-	$dbMainDbse = "reinfurt_onrungo";
+
+function systemDatabase() {
+
+	$dbMainHost = "db142c.pair.com";
+	$dbMainUser = "reinfurt_31";
+	$dbMainPass = "e6cnWGr7";
+	$dbMainDbse = "reinfurt_servinglibrary";
 
 	$dbConnect = MYSQL_CONNECT($dbMainHost, $dbMainUser, $dbMainPass);
 	MYSQL_SELECT_DB($dbMainDbse, $dbConnect);
 }
 systemDatabase();
+
+
+
+
+
+
+
+
+
 ?>

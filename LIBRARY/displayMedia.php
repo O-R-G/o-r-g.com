@@ -1,61 +1,40 @@
 <?php
 
+
+
+
   /////////////
  //  Media  //
 /////////////
 
 function displayMedia($file = null, $caption = null, $style = null, $link = null) {
+
 	$status = false;
+
 	$temp = explode(".", $file);
 	$type = strtolower($temp[sizeof($temp) - 1]);
 	$link = htmlspecialchars($link);
 
-	switch($type) {
-		case "gif":
-		case "jpeg":
-		case "jpg":
-		case "png":
-			$status = displayMediaImg($file, $caption, $style);
-			break;
-		case "swf":
-			$status = displayMediaFlash($file, $caption, $style, $link);
-			break;
-		case "mov":
-		case "qt":
-			$status = displayMediaQuicktime($file, $caption, $style, $link);
-			break;
-		case "pdf":
-			$status = displayMediaPDF($file, $caption, $style, $link);
-			break;
-	}
+	if ($type == "swf") 			$status = displayMediaFlash($file, $caption, $style, $link);
+	if ($type == "gif") 			$status = displayMediaGIF($file, $caption, $style);
+	if ($type == "jpg" || $type == "jpeg") 	$status = displayMediaJPEG($file, $caption, $style);
+	if ($type == "mov" || $type == "qt") 	$status = displayMediaQuicktime($file, $caption, $style, $link);
+	if ($type == "pdf") 			$status = displayMediaPDF($file, $caption, $style, $link);
 
 	return $status;
 }
 
 
-/* gif, jpeg, jpg, png */
-function displayMediaImg($file, $caption, $style) {
-	$status = false;
-	$media  = "<img src='$file' style='";
-	if ($style)
-		$media .= " ". $style;
-	else {
-		$specs  = getimagesize($file);
-		$media .= "width: " . $specs[0] . "; ";
-		$media .= "height: " . $specs[1] . "; ";
-	}
-	$media .= "'";
-	if ($caption) {
-		$media .= " alt='$caption'";
-		$media .= " title='$caption'";
-	}
-	$media .= " />";
-	$status = $media;
-	return $status;
-}
 
 
-/* swf */
+
+
+
+
+  /////////////
+ //  Flash  //
+/////////////
+
 function displayMediaFlash($file, $caption, $style, $link) {
 
 	$status = false;
@@ -87,26 +66,111 @@ function displayMediaFlash($file, $caption, $style, $link) {
 	return $status;
 }
 
-/* pdf */
-function displayMediaPDF($file, $caption, $style, $link) {
+
+
+
+
+
+  ///////////
+ //  GIF  //
+///////////
+
+function displayMediaGIF($file, $caption, $style) {
+
 	$status = false;
-	$media  = "<a href='$file'";
-	if ($style)
-		$media .= " style='$style' "; 
-	if ($caption)
-		$media .= " title='$caption' "; 
-	if (!$link)
-		$link = $file;
-	$media .= " target='_blank'>";
-	$media .= "<img src='MEDIA/pdf.gif'><br/>";
-	$media .= $link;
-	$media .= "</a>";
+	
+	$media  = "<img src='$file' style='";
+	if ($style) {
+	
+		$media .= " ". $style;
+		
+	} else {
+	
+		$specs  = getimagesize($file);
+		$media .= "width: ". $specs[0] ."px; height: ". $specs[1] ."px;";
+	}
+	
+	$media .= "'";
+	
+	if ($caption) {
+
+		$media .= " alt='$caption'";
+		$media .= " title='$caption'";
+	}
+
+	$media .= " />";
 	$status = $media;
+
 	return $status;
 }
 
 
-/* mov, qt */
+
+
+  ////////////
+ //  JPEG  //
+////////////
+
+function displayMediaJPEG($file, $caption, $style) {
+
+	$status = false;
+	
+	$media  = "<img src='$file' style='";
+	if ($style) {
+	
+		$media .= " ". $style;
+		
+	} else {
+	
+		$specs  = getimagesize($file);
+		$media .= "width: ". $specs[0] ."px; height: ". $specs[1] ."px;";
+	}
+	
+	$media .= "'";
+	
+	if ($caption) {
+
+		$media .= " alt='$caption'";
+		$media .= " title='$caption'";
+	}
+
+	$media .= " />";
+	$status = $media;
+
+	return $status;
+}
+
+
+
+
+  ///////////
+ //  PDF  //
+///////////
+
+function displayMediaPDF($file, $caption, $style, $link) {
+
+	$status = false;
+
+	$media  = "<a href='$file'";
+	if ($style)   $media .= " style='$style' "; 
+	if ($caption) $media .= " title='$caption' "; 
+	if (!$link) $link = $file;
+	$media .= " target='_blank'>";
+	$media  .= "<img src='MEDIA/pdf.gif'><br/>";
+	$media .= $link;
+	$media .= "</a>";
+	$status = $media;
+
+	return $status;
+}
+
+
+
+
+  /////////////////
+ //  Quicktime  //
+/////////////////
+
 function displayMediaQuicktime($file, $caption, $style, $link) {
 
 	$status = false;
@@ -135,6 +199,11 @@ function displayMediaQuicktime($file, $caption, $style, $link) {
 
 	return $status;
 }
+
+
+
+
+
 
 
 
