@@ -1,5 +1,5 @@
 <? ?><script type="text/javascript" src="<? echo $host; ?>static/js/clock.js"></script><?
-if(!$uu->id && $uri[1] != "thx")
+if(!$uu->id)
 {
 ?>
 <div id="canvas-container" class="v-centre">
@@ -16,10 +16,10 @@ else
 <script>init_clock("clock-canvas", "lower-right");</script><?
 }
 ?><script type="text/javascript" src="<? echo $host; ?>static/js/global.js"></script><?
-if($uu->id || $uri[1] == "thx")
+if($uu->id)
 {
 ?><script>showHide();</script><?
-	if(empty($oo->children_ids($uu->id)) || $uri[1] == "thx")
+	if(empty($oo->children_ids($uu->id)))
 	{
 ?><script>showHide();</script><?
 	}
