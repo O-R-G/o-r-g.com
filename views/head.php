@@ -41,6 +41,7 @@ $nav = $oo->nav($uu->ids);
 		<title><? echo $title; ?></title>
 		<link rel="stylesheet" href="<? echo $host; ?>static/css/global.css">
 		<link rel="stylesheet" href="<? echo $host; ?>static/css/sf-text.css">
+		<link rel="apple-touch-icon" href="<? echo $host; ?>MEDIA/PNG/touchicon.png" />
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
