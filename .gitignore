@@ -1,3 +1,4 @@
 # machine-specific configuration files
 config.php
 *.htaccess
+.htpasswd
