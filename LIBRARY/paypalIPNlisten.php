@@ -7,11 +7,18 @@
 
 	// 0. set up sandbox.paypal.com user at developer.paypal.com
 	// 1. set up buttons on sandbox.paypal.com 
-	//    (copy from paypal.com, run both safari + chrome at once)
 	// 2. set up local stub dev page w/ paypal button link to sandbox
- 	//    (paste / comment the btn links for live and sandbox)
 	// 3. turn on IPN notifications on sandbox.paypal.com, point 
-	// 4. dev, debug, repeat
+	// 4. click btn to "purchase" an item, use dev@o-r-g.com as buyer
+	// 5. dev, debug, repeat
+
+	// ** todo ** 
+
+	// working! VERIFIED for o-r-g.com
+	// add in correct buttons on correct pages in OPEN-REC-GEN
+	// write paypalIPNemail to send link to download page
+	// download method may be readfile() or just location header, TBD
+	// finish download.php
 
 	// settings
 	
@@ -152,5 +159,5 @@
 	// IPN protocol verifed, pass variables, validate and write to database
 
 	// if ( $IPNverified == TRUE ) require_once("paypalIPNwrite.php"); 
-	if ( $IPNverified == TRUE ) die('IPNlisten complete, verified.');
+	if ( $debug ) if ( $IPNverified == TRUE ) die('IPNlisten complete, verified.');
 ?>
