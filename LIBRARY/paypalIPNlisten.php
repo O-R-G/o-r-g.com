@@ -18,7 +18,8 @@
 	// add in correct buttons on correct pages in OPEN-REC-GEN
 	// write paypalIPNemail to send link to download page
 	// download method may be readfile() or just location header, TBD
-	// finish download.php
+	// finish download.php (how to pass link to specific file ? hash encode ?) 
+
 
 	// settings
 	
