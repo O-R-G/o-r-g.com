@@ -102,8 +102,6 @@ function set_size(width, height)
 			width = window.innerWidth;
 			if (!height)
 				height = window.innerHeight * 0.9;
-			// width = Math.min(width, height);
-			// height = width;
 		}
 	}
 	var min = Math.min(width, height);
