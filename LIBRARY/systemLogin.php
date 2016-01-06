@@ -1,23 +1,17 @@
 <?php
 $pageFullName = basename($PHP_SELF);
-if ($id) $pageFullName .= "?id=" . $idFull;
-if ($note) $pageFullName .= "&note=" . $note;
-
-
-
-
+if($id)
+	$pageFullName .= "?id=" . $idFull;
+if($note)
+	$pageFullName .= "&note=" . $note;
 
   /////////////
  //  Init   //
 /////////////
 
 // Start the session, seed the random number generator
-
 session_start();
 srand();
-
-
-
 
   //////////////////////
  //  Salt Generator  //
@@ -57,20 +51,17 @@ function user_register($username, $password, $email) {
  //  User Login      //
 //////////////////////
 
-function user_login($username, $password) {
-
+function user_login($username, $password)
+{
 	// Try and get the salt from the database using the username
-
 	$query = "SELECT salt FROM users WHERE username='$username' LIMIT 1";
 	$result = mysql_query($query);
 	$user = mysql_fetch_array($result);
 
 	// Using the salt, encrypt the given password to see if it matches the one in the database
-
 	$encrypted_pass = md5(md5($password).$user['salt']);
 
 	// Try and get the user using the username & encrypted pass
-	
 	$query = "SELECT userid, username FROM users WHERE username='$username' AND password='$encrypted_pass'";
 	$result = mysql_query($query);
 	$user = mysql_fetch_array($result);
@@ -88,53 +79,36 @@ function user_login($username, $password) {
 	$_SESSION['encrypted_id'] = $encrypted_id;
 	$_SESSION['encrypted_name'] = $encrypted_name;
 	
-	if ($numrows == 1) { 
-	
+	if ($numrows == 1)
 		return "Correct";
-	} else {
-	
+	else
 		return false;
-	}
 }
-
-
-
 
   //////////////////////
  //  User Logout     //
 //////////////////////
 
-function user_logout() {
-	
-	// End the session and unset all vars
-	
+function user_logout() 
+{	
+	// End the session and unset all vars	
 	session_unset ();
 	session_destroy ();
 }
-
-
-
 
   //////////////////////
  //  Authorized?     //
 //////////////////////
 
-function is_authed() {
-
+function is_authed()
+{
 	// Check if the encrypted username is the same
-	// as the unencrypted one, if it is, it hasn't been changed
-	
-	if (isset($_SESSION['username']) && (md5($_SESSION['username']) == $_SESSION['encrypted_name'])) {
-	
+	// as the unencrypted one, if it is, it hasn't been changed	
+	if (isset($_SESSION['username']) && (md5($_SESSION['username']) == $_SESSION['encrypted_name']))
 		return true;
-	} else {
-	
+	else
 		return false;
-	}
 }
-
-
-
 
   ///////////////////////
  //  Display Register //
@@ -170,13 +144,12 @@ function displayRegister($pageNameLocal) {
 
 function displayLogin($pageNameLocal) {
 
-	if (isset($login_error)) { 
-
+	if(isset($login_error))
+	{
 		echo "There was an error: ".  $login_error . ", please try again.";
 	} 
 
 	// Display form
-	
 	$html = "\n	<form action='" . $pageNameLocal . ".html?user=login' method='post'>";
 	$html .= "\n	Username: <input type='text' size='20' maxlength='20' name='username'";
 	if (isset($_POST['username'])) $html .= "value='" . $_POST['username'] ."'";
@@ -184,8 +157,7 @@ function displayLogin($pageNameLocal) {
 	$html .= "\n	Password: <input type='password' size='20' maxlength='10' name='password' />&nbsp;";
 	$html .= "\n	<input type='submit' name='submit' value='Login' /></form>";
 		
-	echo $html;
-		
+	echo $html;		
 }
 
 

@@ -1,35 +1,25 @@
 <?php
 
-
-
-
   /////////////
  //  Range  //
 /////////////
 
-function displayDatetimeRange($begin = null, $end = null) {
-
+function displayDatetimeRange($begin = null, $end = null) 
+{
 	$status = false;
-
-	if ($begin) {
-
+	if ($begin)
 		$range = (date("H:i:s", strToTime($begin)) == "00:00:00") ? date("l, d F Y", strToTime($begin)) : date("l, d F Y, g:ia", strToTime($begin));
+
+	if ($begin && $end && ($begin != $end)) 
+	{
+		$range.= "&ndash;";
+		$beginTemp = date("Y-m-d", strToTime($begin));
+		$endTemp = date("Y-m-d", strToTime($end));
+		if ($beginTemp == $endTemp)
+			$range.= date("g:ia", strToTime($end));
+	 	else
+			$range.= (date("H:i:s", strToTime($end)) == "00:00:00") ? date("l, d F Y", strToTime($end)) : date("l, d F Y, g:ia", strToTime($end));
 	}
-	if ($begin && $end && ($begin != $end)) {
-
-		$range         .= "&ndash;";
-		$beginTemp	=  date("Y-m-d", strToTime($begin));
-		$endTemp   	=  date("Y-m-d", strToTime($end));
-		if ($beginTemp ==  $endTemp) {
-
-			$range .= date("g:ia", strToTime($end));
-
-		} else {
-
-			$range .= (date("H:i:s", strToTime($end)) == "00:00:00") ? date("l, d F Y", strToTime($end)) : date("l, d F Y, g:ia", strToTime($end));
-		}
-	}
-
 	$status = $range;
 	return $status;
 }
@@ -41,14 +31,16 @@ function displayDatetimeRange($begin = null, $end = null) {
  //  Span  //
 ////////////
 
-function displayDatetimeSpan($begin = null, $end = null) {
-
+function displayDatetimeSpan($begin = null, $end = null) 
+{
 	$status = false;
 
-	if (!$begin) $begin = "now";
-	if (!$end) $end = "now";
+	if(!$begin)
+		$begin = "now";
+	if(!$end)
+		$end = "now";
 	$begin = date("U", strToTime($begin));
-	$end   = date("U", strToTime($end));
+	$end = date("U", strToTime($end));
 
 	$span = $end - $begin;
 
@@ -68,12 +60,5 @@ function displayDatetimeSpan($begin = null, $end = null) {
 	$status = "$days days, $hours hours, $minutes minutes, $seconds seconds";
 	return $status;
 }
-
-
-
-
-
-
-
 
 ?>

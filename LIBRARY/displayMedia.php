@@ -1,12 +1,8 @@
 <?php
 
-
-
-
   /////////////
  //  Media  //
 /////////////
-
 function displayMedia($file = null, $caption = null, $style = null, $link = null) {
 
 	$status = false;
@@ -15,168 +11,142 @@ function displayMedia($file = null, $caption = null, $style = null, $link = null
 	$type = strtolower($temp[sizeof($temp) - 1]);
 	$link = htmlspecialchars($link);
 
-	if ($type == "swf") 			$status = displayMediaFlash($file, $caption, $style, $link);
-	if ($type == "gif") 			$status = displayMediaGIF($file, $caption, $style);
-	if ($type == "jpg" || $type == "jpeg") 	$status = displayMediaJPEG($file, $caption, $style);
-	if ($type == "mov" || $type == "qt") 	$status = displayMediaQuicktime($file, $caption, $style, $link);
-	if ($type == "pdf") 			$status = displayMediaPDF($file, $caption, $style, $link);
+	if ($type == "swf")
+		$status = displayMediaFlash($file, $caption, $style, $link);
+	if ($type == "gif")
+		$status = displayMediaGIF($file, $caption, $style);
+	if ($type == "jpg" || $type == "jpeg")
+		$status = displayMediaJPEG($file, $caption, $style);
+	if ($type == "mov" || $type == "qt")
+		$status = displayMediaQuicktime($file, $caption, $style, $link);
+	if ($type == "pdf")
+		$status = displayMediaPDF($file, $caption, $style, $link);
 
 	return $status;
 }
-
-
-
-
-
-
-
 
   /////////////
  //  Flash  //
 /////////////
-
-function displayMediaFlash($file, $caption, $style, $link) {
-
+function displayMediaFlash($file, $caption, $style, $link)
+{
 	$status = false;
 
-	if (!$style) $style = "width: 320px; height: 240px;";
-	if (!$link) $link = $file;
+	if (!$style) 
+		$style = "width: 320px; height: 240px;";
+	if (!$link)
+		$link = $file;
 
-	$media  ="<object classid='clsid:d27cdb6e-ae6d-11cf-96b8-444553540000' ";
-	$media .="\n\tcodebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0' ";
-	$media .="\n\tid='$link' ";
-	$media .="\n\talign='middle'";
-	$media .="\n\tstyle='$style'>";
-	$media .="\n\t<param name='allowScriptAccess' value='sameDomain' />";
-	$media .="\n\t<param name='$link' value='$file' />";
-	$media .="\n\t<param name='quality' value='high' />";
-	$media .="\n\t<param name='bgcolor' value='#000000' />";
-
-	$media .="\n\t<embed src='$file' ";
-	$media .="\n\t\talign='middle' ";
-	$media .="\n\t\tname='$link' ";
-	$media .="\n\t\tstyle='$style' ";
-	$media .="\n\t\tquality='high' ";
-	$media .="\n\t\tscale='noborder' ";
-	$media .="\n\t\tallowScriptAccess='sameDomain' ";
-	$media .="\n\t\ttype='application/x-shockwave-flash' pluginspage='http://www.macromedia.com/go/getflashplayer' />";
-	$media .="\n</object>";
+	$media ="<object classid='clsid:d27cdb6e-ae6d-11cf-96b8-444553540000' ";
+	$media.="\n\tcodebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0' ";
+	$media.="\n\tid='$link' ";
+	$media.="\n\talign='middle'";
+	$media.="\n\tstyle='$style'>";
+	$media.="\n\t<param name='allowScriptAccess' value='sameDomain' />";
+	$media.="\n\t<param name='$link' value='$file' />";
+	$media.="\n\t<param name='quality' value='high' />";
+	$media.="\n\t<param name='bgcolor' value='#000000' />";
+	$media.="\n\t<embed src='$file' ";
+	$media.="\n\t\talign='middle' ";
+	$media.="\n\t\tname='$link' ";
+	$media.="\n\t\tstyle='$style' ";
+	$media.="\n\t\tquality='high' ";
+	$media.="\n\t\tscale='noborder' ";
+	$media.="\n\t\tallowScriptAccess='sameDomain' ";
+	$media.="\n\t\ttype='application/x-shockwave-flash' pluginspage='http://www.macromedia.com/go/getflashplayer' />";
+	$media.="\n</object>";
+	
 	$status = $media;
-
 	return $status;
 }
-
-
-
-
-
 
   ///////////
  //  GIF  //
 ///////////
-
-function displayMediaGIF($file, $caption, $style) {
-
-	$status = false;
-	
+function displayMediaGIF($file, $caption, $style)
+{
+	$status = false;	
 	$media  = "<img src='$file' style='";
-	if ($style) {
-	
-		$media .= " ". $style;
-		
-	} else {
-	
+	if ($style) 
+		$media .= " ". $style;	
+	else 
+	{	
 		$specs  = getimagesize($file);
 		$media .= "width: ". $specs[0] ."px; height: ". $specs[1] ."px;";
 	}
 	
 	$media .= "'";
 	
-	if ($caption) {
-
+	if ($caption)
+	{
 		$media .= " alt='$caption'";
 		$media .= " title='$caption'";
 	}
 
 	$media .= " />";
 	$status = $media;
-
 	return $status;
 }
-
-
-
 
   ////////////
  //  JPEG  //
 ////////////
-
-function displayMediaJPEG($file, $caption, $style) {
-
-	$status = false;
-	
+function displayMediaJPEG($file, $caption, $style)
+{
+	$status = false;	
 	$media  = "<img src='$file' style='";
-	if ($style) {
-	
+	if ($style)
 		$media .= " ". $style;
-		
-	} else {
-	
+	else 
+	{
 		$specs  = getimagesize($file);
 		$media .= "width: ". $specs[0] ."px; height: ". $specs[1] ."px;";
 	}
-	
 	$media .= "'";
-	
-	if ($caption) {
-
+	if ($caption)
+	{
 		$media .= " alt='$caption'";
 		$media .= " title='$caption'";
 	}
-
 	$media .= " />";
+	
 	$status = $media;
-
 	return $status;
 }
-
-
-
 
   ///////////
  //  PDF  //
 ///////////
-
-function displayMediaPDF($file, $caption, $style, $link) {
-
+function displayMediaPDF($file, $caption, $style, $link)
+{
 	$status = false;
-
 	$media  = "<a href='$file'";
-	if ($style)   $media .= " style='$style' "; 
-	if ($caption) $media .= " title='$caption' "; 
-	if (!$link) $link = $file;
-	$media .= " target='_blank'>";
-	$media  .= "<img src='MEDIA/pdf.gif'><br/>";
-	$media .= $link;
-	$media .= "</a>";
+	if($style)
+		$media .= " style='$style' "; 
+	if($caption)
+		$media .= " title='$caption' "; 
+	if(!$link) 
+		$link = $file;
+	$media.= " target='_blank'>";
+	$media.= "<img src='MEDIA/pdf.gif'><br/>";
+	$media.= $link;
+	$media.= "</a>";
+	
 	$status = $media;
-
 	return $status;
 }
-
-
-
 
   /////////////////
  //  Quicktime  //
 /////////////////
-
-function displayMediaQuicktime($file, $caption, $style, $link) {
-
+function displayMediaQuicktime($file, $caption, $style, $link)
+{
 	$status = false;
 
-	if (!$style) $style = "width: 320px; height: 255px;";
-	if (!$link) $link = $file;
+	if (!$style) 
+		$style = "width: 320px; height: 255px;";
+	if (!$link) 
+		$link = $file;
 
 	$media  = "<object classid='clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B' ";
 	$media .= "\n\tcodebase='http://www.apple.com/qtactivex/qtplugin.cab' ";
@@ -195,16 +165,8 @@ function displayMediaQuicktime($file, $caption, $style, $link) {
 	$media .= "\n\t\tenablejavascript='true'>";
 	$media .= "\n\t</embed>";
 	$media .= "\n</object>";
+	
 	$status = $media;
-
 	return $status;
 }
-
-
-
-
-
-
-
-
 ?>

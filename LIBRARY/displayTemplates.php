@@ -1,26 +1,10 @@
 <?php
 
-
-
-
   //////////////////
  //  Template 1  //
 //////////////////
 
-function displayTemplate1($objects) {
-
-
+function displayTemplate1($objects) 
+{
 }
-
-
-
-
-
-
-
-
-
-
-
-
 ?>

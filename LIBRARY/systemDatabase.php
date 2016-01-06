@@ -1,13 +1,11 @@
 <?php
 
-
-
-
   ////////////////
  //  Database  //
 ////////////////
 
-function systemDatabase() {
+function systemDatabase()
+{
 
 	$dbMainHost = "db142c.pair.com";
 	$dbMainUser = "reinfurt_31";
@@ -18,13 +16,4 @@ function systemDatabase() {
 	MYSQL_SELECT_DB($dbMainDbse, $dbConnect);
 }
 systemDatabase();
-
-
-
-
-
-
-
-
-
 ?>
