@@ -3,6 +3,16 @@
 	// Paypal IPN listener
 	// O-R-G 6/18/2013
 
+	// dev / debug process
+
+	// 0. set up sandbox.paypal.com user at developer.paypal.com
+	// 1. set up buttons on sandbox.paypal.com 
+	//    (copy from paypal.com, run both safari + chrome at once)
+	// 2. set up local stub dev page w/ paypal button link to sandbox
+ 	//    (paste / comment the btn links for live and sandbox)
+	// 3. turn on IPN notifications on sandbox.paypal.com, point 
+	// 4. dev, debug, repeat
+
 	// settings
 	
 	$debug = TRUE;					// debug via email
