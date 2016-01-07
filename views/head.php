@@ -27,7 +27,7 @@ $name = strip_tags($item["name1"]);
 // document title
 $item = $oo->get($uu->id);
 $title = $item["name1"];
-$db_name = "on-run-go";
+$db_name = "O-R-G";
 if ($title)
 	$title = $db_name ." | ". $title;
 else
