@@ -20,6 +20,14 @@
 	// download method may be readfile() or just location header, TBD
 	// finish download.php (how to pass link to specific file ? hash encode ?) 
 
+	// 0001 Three Minutes of Doing Nothing
+	// 0002 After His Beautiful Machine of 1855
+	// 0003 Breaking Like Surf on a Shore Until
+	// 0004 The Result of Collapsing Two Simultaneous Views
+	// 0005 Al Gore Woke Up One Morning Wondering
+	// 0006 Perhaps There is Something Left to Save
+	// 0007 Six Prototypes for a Screensaver
+
 
 	// settings
 	
@@ -31,16 +39,16 @@
 		// staging
 
 		$IPNserver = "www.sandbox.paypal.com";	
-		$IPNemail = "dev@o-r-g.com";	
-	        $thisreceiver_email = "reinfurt-facilitator@o-r-g.com"; // use in IPNwrite
+		$IPNemail = "store@o-r-g.com";	
+	        $thisreceiver_email = "store-facilitator@o-r-g.com";
 
 	} else {
 
 		// live
 
 		$IPNserver = "www.paypal.com";			
-		$IPNemail = "dev@o-r-g.com";		
-	        $thisreceiver_email = "reinfurt-facilitator@o-r-g.com";
+		$IPNemail = "store@o-r-g.com";		
+	        $thisreceiver_email = "store@o-r-g.com";
 	}
 
 	// Assign payment notification values to local variables
