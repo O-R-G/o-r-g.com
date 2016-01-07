@@ -22,6 +22,7 @@
 	$thispayment_amount_4 = "720.00";
 	$thispayment_currency = "USD";
 
+
 	// Validate transaction details against subscription request
 
 	if (	($txn_type == $thistxn_type) && 
