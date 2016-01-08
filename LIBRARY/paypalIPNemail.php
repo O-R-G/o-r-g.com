@@ -22,9 +22,11 @@
 	
         // Transaction values to match, as specified in paypal button & txn
         // These must be changed per transaction, staging, live etc.
+        // $thisreceiver_email is set in paypalIPNlisten
 
         $thistxn_type = 'cart';
         $thispayment_status = 'Completed';
+
 	$debugString = '0.0 init emailer';
 
 	
