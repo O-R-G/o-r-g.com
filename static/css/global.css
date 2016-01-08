@@ -144,7 +144,7 @@ ul:first-child {
 }
 
 .column-container-container:last-child > .column-container {
-	padding-bottom: 33vw;
+	padding-bottom: 30vw;
 }
 
 /* vertical iPad / horizontal iPhone */
@@ -153,7 +153,7 @@ ul:first-child {
 		display: block;
 	}
 	.column-container-container:last-child {
-		padding-bottom: 50vw;
+		padding-bottom: 44vw;
 	}
 	.column-container {
 		width: 50vw;
@@ -161,7 +161,6 @@ ul:first-child {
 	.column-container-container:last-child > .column-container {
 		padding-bottom: 0px;
 	}
-
 }
 
 /* vertical iPhone */
@@ -185,6 +184,6 @@ ul:first-child {
 	}
 	
 	.column-container-container:last-child {
-		padding-bottom: 50vw;
+		padding-bottom: 44vw;
 	}
 }
