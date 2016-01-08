@@ -17,7 +17,7 @@
 	
 	$debug = TRUE;					// debug via email
 	$IPNstatus = FALSE;				// IPN status via email
-	$sandbox = FALSE;				// dev flag
+	$sandbox = TRUE;				// dev flag
 	if ($sandbox) {
 
 		// staging
@@ -112,26 +112,23 @@
 
 		$res = fgets ($fp, 1024);              	// Get the acknowledgement response
 
-		if (!feof($fp)) {			// Prevent extra looping if slow $fp
-
-			if ($debug) if ($res) $debugString .= "\n 3.0 $res";
+		if ($debug) if ($res) $debugString .= "\n 3.0 $res";
     
-			if (stripos($res, "VERIFIED") !== false) { 	// Response is VERIFIED
+		if (stripos($res, "VERIFIED") !== false) { 	// Response is VERIFIED
 
-				if ($debug) $debugString .= "\n 3.1 IPN VERIFIED";
+			if ($debug) $debugString .= "\n 3.1 IPN VERIFIED";
 				
-				// Notification protocol is complete, OK to process notification contents
+			// Notification protocol is complete, OK to process notification contents
 
-				$IPNverified = TRUE;
-			}	
-			else if (stripos($res, "INVALID") !== false) {		// Response is INVALID
+			$IPNverified = TRUE;
+		}	
+		else if (stripos($res, "INVALID") !== false) {		// Response is INVALID
 
-				if ($debug) $debugString .= '3.1 IPN INVALID';
+			if ($debug) $debugString .= '3.1 IPN INVALID';
 
-				// Notification protocol is NOT complete, begin error handling
+			// Notification protocol is NOT complete, begin error handling
 
-				$IPNverified = FALSE;
-			}
+			$IPNverified = FALSE;
 		}
 	}
 			
@@ -144,9 +141,6 @@
 		$mail_Body = $req;
 		mail($mail_To, $mail_Subject, $mail_Body);
 	}
-
-
-	// $IPN mail 
 
 	if ($debug) mail($debug_email, 'debug listen', $debugString);
 
