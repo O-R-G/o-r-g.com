@@ -4,6 +4,7 @@
 	// O-R-G 6/18/2013
 
 	// This is always and only invoked by paypalIPNlisten.php
+	// to write PayPal tx data to a database
 
 	if ($debug) $debugString = "0.0 init";
 

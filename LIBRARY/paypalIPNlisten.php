@@ -12,23 +12,6 @@
 	// 4. click btn to "purchase" an item, use dev@o-r-g.com as ibuyer
 	// 5. dev, debug, repeat
 
-	// ** todo ** 
-	
-	//  match item to existing item hard coded or just strip out spaces to match
-	//  send link to download page (hashed?)
-
-	// download
-	//  readfile() or location header, TBD
-	//  http://stackoverflow.com/questions/10997516/how-to-hide-the-actual-download-folder-location
-
-	// 0001 Three Minutes of Doing Nothing
-	// 0002 After His Beautiful Machine of 1855
-	// 0003 Breaking Like Surf on a Shore Until
-	// 0004 The Result of Collapsing Two Simultaneous Views
-	// 0005 Al Gore Woke Up One Morning Wondering
-	// 0006 Perhaps There is Something Left to Save
-	// 0007 Six Prototypes for a Screensaver
-
 
 	// settings
 	
@@ -58,11 +41,11 @@
 	// to validate
 
   	$txn_type = $_POST['txn_type'];			// match in IPNwrite
-	$item_name1 = $_POST['item_name1'];		// match in IPNwrite
   	$payment_status = $_POST['payment_status'];	// match in IPNwrite
 	$payment_amount = $_POST['mc_gross'];		// match in IPNwrite
   	$payment_currency = $_POST['mc_currency'];	// match in IPNwrite
   	$receiver_email = $_POST['receiver_email'];	// match in IPNwrite
+	$item_name1 = $_POST['item_name1'];		// match in IPNwrite
 
 	// to harvest
  
@@ -79,7 +62,16 @@
   	$txn_id = $_POST['txn_id'];			// -> notes
 	$memo = $_POST['memo'];				// -> body
 
-	if ($debug) $debugString = "0.0 init";
+	// for multiple items
+
+	$num_cart_items = intval($_POST['num_cart_items']);
+	for ($i = 1; $i <= $num_cart_items; $i++ ) {
+
+		$item_name[$i] = $_POST['item_name' . $i];
+		if ($debug) $debugString .= "item_name" . $i . " = " . $item_name[$i] . "\n";
+	}
+
+	if ($debug) $debugString .= "0.0 init";
 
 	// Read the notification from PayPal and create the acknowledgement response  
 
@@ -147,17 +139,16 @@
 
 		// Send an email announcing the IPN message is VERIFIED
       	
-		$mail_From = "$debug_email";
 		$mail_To = "$debug_email";
 		$mail_Subject = "IPN";
 		$mail_Body = $req;
-		mail($mail_To, $mail_Subject, $mail_Body, $mail_From);
+		mail($mail_To, $mail_Subject, $mail_Body);
 	}
 
 
 	// $IPN mail 
 
-	if ($debug) mail($debug_email, 'debug listen', $debugString, $debug_email);
+	if ($debug) mail($debug_email, 'debug listen', $debugString);
 
 	fclose ($fp);  // close file pointer
 
@@ -165,114 +156,11 @@
 	// IPN protocol verification complete -- process action or die()
 	
 	if ( $IPNverified == TRUE ) {
-		
-		// require_once("paypalIPNwrite.php");  	// not working, so included below
-		// require_once("paypalIPNemail.php");  	// not working, so included below
+
+		// require_once("paypalIPNwrite.php");  	
+		require_once("paypalIPNemail.php");  	
 	} else {
 
 		die("IPN failed. Exiting ... ");
 	}
-
-
-        // Paypal IPN emailer
-        // O-R-G 01/07/2016
-
-        // Transaction values to match, as specified in paypal button & txn
-        // These must be changed per transaction, staging, live etc.
-
-        $thistxn_type = 'cart';
-        $thispayment_status = 'Completed';
-	$debugString = '0.0 init emailer';
-
-	
-        // Validate transaction details against request
-	// Cart automatically sends one IPN per item
- 
-        if (    ($txn_type == $thistxn_type) &&
-                ($payment_status == $thispayment_status) &&
-                ($receiver_email == $thisreceiver_email)) {
-
-                // Pass
-
-                if ($debug) $debugString .=     "\n 1.0 transaction details validated";
- 
-        } else {
-
-                // Fail
-
-                if ($debug) $debugString .=     "\n 1.0 transaction details failed";
-
-        }
-
-
-	// build download url
-
-	$item_name1_clean = cleanURL($item_name1);
-
-	function cleanURL($string) {
-		// $string = strtolower($string);				// l.c.
-		// $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);	// a-z, 0-9
-		$string = preg_replace("/[\s-]+/", " ", $string);		// rm * _
-		$string = preg_replace("/[\s_]/", "-", $string);		// _ to -
-		return $string;
-	}
-
-	$downloadBase = "http://www.o-r-g.com/out/";
-	$downloadFileType = ".dmg";
-	$downloadLink = $downloadBase . $item_name1_clean . $downloadFileType;
-
-	// loop thru cart to get multiple items !!
-	// $item_name1, $item_name2, etc.
-
-	// build buyer email 
-
-
-	if ($debug) $debugString .=     "\n txn_type = " . $txn_type .
-                                        "\n thistxn_type = " . $thistxn_type .
-					"\n payment_status = " . $payment_status .
-					"\n thispayment_status = " . $thispayment_status .
-					"\n receiver_email = " . $receiver_email .
-					"\n thisreceiver_email = " . $thisreceiver_email .
-					"\n item_name1 = " . $item_name1 .
-					"\n item_name1_clean = " . $item_name1_clean . 
-					"\n downloadLink = " . $downloadLink;
-
-        if ($debug) mail($debug_email, 'debug email', $debugString, $debug_email);
-        
-
-	// Email with download link to buyer
-	
-	// if ($debug) $payer_email = $debug_email;
-
-	$to = ($debug ? $debug_email : $payer_email);
-	$subject = "O-R-G / " . $item_name1;
-	$message = 	"\n*
-			\nThank you very much for your purchase of
-			\n$item_name1
-			\nPlease find a download link for your screensaver software here:
-			\n$downloadLink
-			\nEnjoy, tell your friends, and so forth.
-			\n*
-			\nhttp://www.o-r-g.com";
-	$headers = 	"From: store@o-r-g.com" . "\r\n" .
-    			"Reply-To: store@o-r-g.com" . "\r\n" .
-			"X-Mailer: PHP/" . phpversion();
-
-	mail($to, $subject, $message, $headers);
-
-
-	// Done.
-
-	exit("** Transaction complete. **");
-
-
-	// ** to do **
-
-	// loop thru cart to get multiple items !!
-
-	// email a link to o-r-g.com/thx?xxx-xxx
-	// which then forces a download from out/xxx-xxx.dmg
-	// though with the actual filesource hidden 	
-	// http://stackoverflow.com/questions/10997516/how-to-hide-the-actual-download-folder-location
-
 ?>

@@ -1,45 +1,98 @@
 <?php
 
-	// Prepare link to email
+        // Paypal IPN emailer
+        // O-R-G 01/07/2016
 
-	if ($debug) $debugString = "0.0 init";
+	// Always and only called by paypalIPNlisten
+	// Builds download url from PayPal tx data
+	// Sends email to buyer
 
-	// Transaction values to match, as specified in paypal button & txn
-	// These must be changed per transaction, staging, live etc.
+	// ** to do **
 
-// removed many of the transaction details and using just $item_name to generate link
-// either automatically with - for spaces or else manually in an array TBD
-// link in email may have diff url than real url
+	// email a link to o-r-g.com/thx?xxx-xxx
+	// which then forces a download from out/xxx-xxx.dmg
+	// the query could be encoded before sent or written into mail
+	// with php hash() function and could be dehashed in views/download.php
+	// in download.php, then could dehash, and then invoke a download 
+	// still with the actual filesource hidden based on this:
+	// http://stackoverflow.com/questions/10997516/how-to-hide-the-actual-download-folder-location
+
+	// simpler way to hide link might be just write the email as html
+	// but even that is a little tedious in php and certainly not robust
 	
-	$thistxn_type = "cart";
-	$thispayment_status = "Completed";
+        // Transaction values to match, as specified in paypal button & txn
+        // These must be changed per transaction, staging, live etc.
+
+        $thistxn_type = 'cart';
+        $thispayment_status = 'Completed';
+	$debugString = '0.0 init emailer';
+
 	
-	// Validate transaction details against subscription request
+        // 0. Validate transaction details against request
+ 
+        if (    ($txn_type == $thistxn_type) &&
+                ($payment_status == $thispayment_status) &&
+                ($receiver_email == $thisreceiver_email)) {
 
-// need to loop for multiple items in the cart
+                // Pass
+                if ($debug) $debugString .=     "\n 1.0 transaction details validated";
+ 
+        } else {
 
-	if (	($txn_type == $thistxn_type) && 
-		($payment_status == $thispayment_status) && 
-		($receiver_email == $thisreceiver_email)) {
+                // Fail
+                if ($debug) $debugString .=     "\n 1.0 transaction details failed";
+        }
 
-		// Pass
 
-		if ($debug) $debugString .= "\n 1.0 transaction details validated";
-		if ($debug) $debugString .= "\n item_name1 = " . $item_name1;
+	// 1. Build download link
 
-	} else {
-	
-		// Fail
+	$downloadBase = "http://www.o-r-g.com/out/";		// move this to the top?
+	$downloadFileType = ".dmg";				// 
+	$downloadPage = "http://www.o-r-g.com/thx";
 
-		if ($debug) $debugString .= 	"\n 1.0 transaction details failed
-						\n $txn_type = " . $txn_type;
-						\n $thistxn_type = " . $thistxn_type;
-						\n $payment_status = " . $payment_status;
-						\n $thispayment_status = " . $thispayment_status;
-						\n $receiver_email = " . $receiver_email;
-						\n $thisreceiver_email = " . $thisreceiver_email;
-						";
+        foreach ($item_name as $key => $value) {
+
+		$item_name_clean[$key] = cleanURL($value);
+		$downloadLink[$key] = $downloadBase . $item_name_clean[$key] . $downloadFileType;	// o-r-g.com/out/xxx
+		// $downloadLink[$key] = $downloadPage . "?" . $item_name_clean[$key];			// o-r-g.com/thx?xxx
+
+		if ($debug) $debugString .= "\nkey = " . $key . " value = " . $value;
+		if ($debug) $debugString .= "\ndownloadLink = " . $downloadLink[$key];
 	}
 
-	// if ($debug) mail($IPNemail, 'debug email', $debugString, $IPNemail);
+	function cleanURL($string) {
+		// $string = strtolower($string);				// l.c.
+		// $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);	// a-z, 0-9
+		$string = preg_replace("/[\s-]+/", " ", $string);		// rm * _
+		$string = preg_replace("/[\s_]/", "-", $string);		// _ to -
+		return $string;
+	}
+
+
+	// 2. Build email
+
+	$to = ($debug ? $debug_email : $payer_email);
+	$subject = "O-R-G small software purchase";
+	$message = "*\n\nThank you very much. Here's where to download your software:\n";
+	foreach ($downloadLink as $value) $message .= "\n" . $value;
+	$message .= "\n\nEnjoy, tell your friends, and so forth.\n\n*\n\nhttp://www.o-r-g.com";
+	$headers = "From: store@o-r-g.com" . "\r\n" . "Reply-To: store@o-r-g.com" . "\r\n" . "X-Mailer: PHP/" . phpversion();
+
+	if ($debug) $debugString .=     "\n txn_type = " . $txn_type .
+                                        "\n thistxn_type = " . $thistxn_type .
+					"\n payment_status = " . $payment_status .
+					"\n thispayment_status = " . $thispayment_status .
+					"\n receiver_email = " . $receiver_email .
+					"\n thisreceiver_email = " . $thisreceiver_email .
+					"\n item_name1 = " . $item_name1 .
+					"\n item_name1_clean = " . $item_name1_clean . 
+					"\n downloadLink = " . $downloadLink;
+
+        if ($debug) mail($debug_email, 'debug email', $debugString);
+
+
+	// 3. Send email
+	
+	mail($to, $subject, $message, $headers);
+	exit("** Finished **");
 ?>
