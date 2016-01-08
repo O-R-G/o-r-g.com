@@ -15,7 +15,7 @@
 
 	// settings
 	
-	$debug = TRUE;					// debug via email
+	$debug = FALSE;					// debug via email
 	$IPNstatus = FALSE;				// IPN status via email
 	$sandbox = FALSE;				// dev flag
 	if ($sandbox) {
