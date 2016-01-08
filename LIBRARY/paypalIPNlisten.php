@@ -17,7 +17,7 @@
 	
 	$debug = TRUE;					// debug via email
 	$IPNstatus = FALSE;				// IPN status via email
-	$sandbox = TRUE;				// dev flag
+	$sandbox = FALSE;				// dev flag
 	if ($sandbox) {
 
 		// staging
@@ -32,7 +32,7 @@
 
 		$IPNserver = "www.paypal.com";
 		$debug_email = "store@o-r-g.com";		// local debug
-	        $thisreceiver_email = "store@o-r-g.com";// paypal
+	        $thisreceiver_email = "store@o-r-g.com";	// paypal
 	}
 
 	// Assign payment notification values to local variables
