@@ -17,7 +17,7 @@
 	
 	$debug = TRUE;					// debug via email
 	$IPNstatus = FALSE;				// IPN status via email
-	$sandbox = TRUE;				// dev flag
+	$sandbox = FALSE;				// dev flag
 	if ($sandbox) {
 
 		// staging
