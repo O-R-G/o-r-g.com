@@ -31,7 +31,7 @@
 		// live
 
 		$IPNserver = "www.paypal.com";
-		$debug_email = "store@o-r-g.com";		// local debug
+		$debug = FALSE;					
 	        $thisreceiver_email = "store@o-r-g.com";	// paypal
 	}
 
