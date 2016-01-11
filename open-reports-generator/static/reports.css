@@ -1,0 +1,43 @@
+/*
+css that is specific to the open-reports-generator
+*/
+
+/* div as table things */
+.table {
+	display: table;
+	width: auto;
+}
+
+.table-tr {
+	display: table-row;
+	width: auto;
+	clear: both;
+}
+
+.table-th,
+.table-td {
+	display: table-cell;
+	min-width: 200px;
+	padding-right: 16px;
+}
+
+.table-td {
+	padding-bottom: 16px;
+}
+
+.table-th {
+	background-color: #CCCCCC;
+	text-align: left;
+}
+
+.table-tr:nth-child(2n) {
+	background: #EFEFEF;
+}
+
+.table-tr:nth-child(2n+1) {
+	background: #e9e9e9;
+}
+
+.nowrap {
+	white-space: nowrap;
+}

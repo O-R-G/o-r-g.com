@@ -1,0 +1,9 @@
+OPEN REPORTS GENERATOR 
+Version 1.0
+O-R-G inc.
+Last updated July 15, 2013
+
+--
+
+1.0 -- July 2013: forked OPEN-RECORDS-GENERATOR v2.7 with separate display for _Subscriptions. edit.php and add.php are considerably revised. Doesn't use the media table at all, but retains the OPEN-REC-GEN 
+db structure.
