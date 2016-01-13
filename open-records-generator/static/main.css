@@ -140,7 +140,7 @@ input[type="datetime-local"] {
 }
 
 textarea {
-	resize: vertical;
+	/*resize: vertical;*/
 }
 
 textarea.large {

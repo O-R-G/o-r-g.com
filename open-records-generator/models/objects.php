@@ -75,6 +75,23 @@ class Objects extends Model
 		return $ids;
 	}
 	
+	public function children_ids_nav($o)
+	{
+		$fields = array("objects.id AS id");
+		$tables = array("objects", "wires");
+		$where	= array("wires.fromid = '".$o."'",
+						"wires.active = 1",
+						"wires.toid = objects.id",
+						"objects.active = '1'",
+						"objects.name1 not like '.%'");
+		$order 	= array("objects.rank", "objects.name1");
+		$res = $this->get_all($fields, $tables, $where, $order);
+		$ids = array();
+		foreach($res as $r)
+			$ids[] = $r['id'];
+
+		return $ids;
+	}
 	public function siblings($o)
 	{
 		$all = $this->traverse(0);
@@ -268,7 +285,7 @@ class Objects extends Model
 	public function nav($ids, $root=0)
 	{
 		$nav = array();
-		$top = $this->children_ids($root);
+		$top = $this->children_ids_nav($root);
 		$pass = true;
 		foreach($top as $t)
 		{
@@ -282,10 +299,10 @@ class Objects extends Model
 			{
 				$pass = false; // short-circuit if statement
 
-				$kids = $this->children_ids(end($ids));
+				$kids = $this->children_ids_nav(end($ids));
 				if(empty($kids) && count($ids) > 1)
 				{
-					$kids = $this->children_ids($ids[count($ids)-2]);
+					$kids = $this->children_ids_nav($ids[count($ids)-2]);
 					array_pop($ids); // leaf is included in siblings
 				}
 				array_shift($ids);
