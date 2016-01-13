@@ -110,7 +110,8 @@ a:hover {
 	padding-top: 16px;
 }
 
-.license-container {
+.license-container,
+.existing-image {
 	padding: 16px 0px;
 }
 
