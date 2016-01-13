@@ -16,22 +16,24 @@
 	// settings
 	
 	$debug = FALSE;					// debug via email
-	$IPNstatus = FALSE;				// IPN status via email
+	$IPNstatus = TRUE;				// IPN status via email
 	$sandbox = FALSE;				// dev flag
+	$debug_email = "store@o-r-g.com";		// local debug
+	$IPNstatus_email = "store@o-r-g.com";		// local confirm
+
 	if ($sandbox) {
 
 		// staging
 
-		$IPNserver = "www.sandbox.paypal.com";	
-		$debug_email = "store@o-r-g.com";		// local debug
+		$IPNserver = "www.sandbox.paypal.com";
 	        $thisreceiver_email = "store-facilitator@o-r-g.com"; // paypal
 
 	} else {
 
 		// live
 
-		$IPNserver = "www.paypal.com";
 		$debug = FALSE;					
+		$IPNserver = "www.paypal.com";
 	        $thisreceiver_email = "store@o-r-g.com";	// paypal
 	}
 
@@ -134,12 +136,14 @@
 			
 	if ($IPNstatus) {
 
-		// Send an email announcing the IPN message is VERIFIED
+		// Send an email announcing the IPN message is VERIFIED or NOT
       	
-		$mail_To = "$debug_email";
-		$mail_Subject = "IPN";
-		$mail_Body = $req;
-		mail($mail_To, $mail_Subject, $mail_Body);
+	        $to = "$IPNstatus_email";
+        	$subject = "IPN $IPNverified";
+	        $message = $req;
+        	$headers = "From: store@o-r-g.com" . "\r\n" . "Reply-To: store@o-r-g.com" . "\r\n" . "X-Mailer: PHP/" . phpversion();
+
+		mail($to, $subject, $message, $headers);
 	}
 
 	if ($debug) mail($debug_email, 'debug listen', $debugString);
