@@ -50,6 +50,7 @@ function init_clock(canvasId, canvasPos, canvasHands)
 		var tilt = 0 - e.gamma;
 		device_orientation_handler(tilt);
 	}, false);
+	
 }
 
 function device_orientation_handler(tilt)

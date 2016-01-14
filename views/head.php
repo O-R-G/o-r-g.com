@@ -35,6 +35,18 @@ else
 
 $nav = $oo->nav($uu->ids);
 
+
+
+$show_menu = false;
+if($uu->id)
+{
+	$is_leaf = empty($oo->children_ids($uu->id));
+	$internal = (substr($_SERVER['HTTP_REFERER'], 0, strlen($host)) === $host);
+	
+	if(!$is_leaf && $internal)
+		$show_menu = true;
+}
+
 ?><!DOCTYPE html>
 <html>
 	<head>
@@ -51,9 +63,13 @@ $nav = $oo->nav($uu->ids);
 			{
 			?><header id="header" class="hidden homepage"><?
 			}
-			else
+			else if($show_menu)
 			{
 			?><header id="header" class="visible"><?
+			}
+			else
+			{
+			?><header id="header" class="hidden"><?
 			}
 				?><ul>
 					<li><?

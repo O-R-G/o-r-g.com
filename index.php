@@ -18,7 +18,7 @@ if($uri[1] == "dev" || $uri[1] == "dev.php")
 else if($uri[1] == "thx" || $uri[1] == "thx.php")
         $view.= "download.php";
 else
-        $view.= "object-fullscreen.php";
+        $view.= "object.php";
 
 // show the things
 require_once("views/head.php");

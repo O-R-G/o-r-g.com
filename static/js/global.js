@@ -1,4 +1,4 @@
-var isHidden = true;
+// var isHidden;
 var scrollPos = 0;
 
 function showHide()
@@ -79,7 +79,7 @@ function switchClasses(c1, c2)
 	}
 }
 
-document.getElementById("clock-canvas").addEventListener("click", showHide);
+
 // document.getElementById("ex-container").addEventListener("click", showHide);
 
 
