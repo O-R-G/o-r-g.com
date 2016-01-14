@@ -21,7 +21,7 @@ function debug () {
 	}
 }
 
-document.addEventListener("click",debug);
+// document.addEventListener("click",debug);
 // document.addEventListener("touchStart",debug);
 
 var gyro=quatFromAxisAngle(0,0,0,0);
@@ -363,7 +363,8 @@ var prevTouchY = -1;
 
 // touch
 
-document.addEventListener("touchStart", touchStartFunc, true);//?misspelled
+// document.addEventListener("touchStart", touchStartFunc, true);//?misspelled
+document.addEventListener("touchstart", touchStartFunc, true);
 document.addEventListener("touchmove", touchmoveFunc, true);
 document.addEventListener("touchend", touchEndFunc, true);
 
@@ -372,6 +373,7 @@ function touchStartFunc(e)
 {
 	prevTouchY=e.touches[0].clientY;
 	prevTouchX=e.touches[0].clientX;
+	debug();
 }
 
 function touchmoveFunc(e)
@@ -399,6 +401,7 @@ function mouseDownFunc(e)
 {
   prevTouchX = e.clientX;
   prevTouchY = e.clientY;
+  debug();
 }
 
 function mouseMoveFunc(e)
