@@ -261,7 +261,7 @@ function makeArcWithTriangle(width,height,depth) {
 	
 	// push new points [x,y,z] onto vertices[]
 
-	for (i=0; i<360; i+=360/900) {
+	for (i=0; i<2*Math.PI; i+=2*Math.PI/100) {
 
 	        var c = Math.cos(i);
 	        var s = Math.sin(i);
