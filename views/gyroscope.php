@@ -7,13 +7,15 @@
 		height: 100%;		
 		position: fixed;
 		top:0px;
-		/* z-index: -10; */
+		background-color:#000;
+		z-index: -10;
 	}
 	#gyroInfo {		  
 		position:fixed;
 		top:10px;
 		left:10px;
 		visibility: hidden;
+		color:#333;
 	}
 	#quatInfo {
 		position:fixed;
@@ -21,12 +23,14 @@
 		right:10px;
 		width:120px;
 		visibility: hidden;
+		color:#333;
 	}
 	#mouseInfo {
 		position:fixed;
 		bottom:10px;
 		left:10px;
 		visibility: hidden;
+		color:#333;
 	}
 </style>
 
