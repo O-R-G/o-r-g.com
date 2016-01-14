@@ -7,7 +7,7 @@
 		height: 100%;		
 		position: fixed;
 		top:0px;
-		background-color:#000;
+		/* background-color:#000;*/
 		z-index: -10;
 	}
 	#gyroInfo {		  

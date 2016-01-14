@@ -285,11 +285,11 @@ function makeArcWithTriangle(width,height,depth) {
 // var cube=makePlaneWithTriangle(canvas.width/5, canvas.width/5, canvas.width/5);
 // cube.color="purple";
 var hourAxis=makeArcWithTriangle(canvas.width/1.5,canvas.width/1.5,0);
-hourAxis.color="white";
+hourAxis.color="black";
 var minAxis=makeArcWithTriangle(canvas.width/1.5,canvas.width/1.5,0);
-minAxis.color="white";
+minAxis.color="black";
 var secAxis=makeArcWithTriangle(canvas.width/1.5,canvas.width/1.5,0);
-secAxis.color="white";
+secAxis.color="black";
 
 
 
