@@ -33,7 +33,7 @@ else
 			<li><?
 				if(!$uu->id)
 				{
-				?> O-R-G is a small software company.<?
+				?> O-R-G is <a href="now">*now*</a> a small software company.<?
 				}
 				else
 				{

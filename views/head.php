@@ -22,7 +22,7 @@ if($uu->id)
 	$item = $oo->get($uu->id);
 else
 	$item = $oo->get(0);
-$name = strip_tags($item["name1"]);
+$name = ltrim(strip_tags($item["name1"]), ".");
 
 // document title
 $item = $oo->get($uu->id);
