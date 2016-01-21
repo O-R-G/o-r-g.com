@@ -6,7 +6,7 @@ if(!$uu->id)
 <div id="canvas-container" class="v-centre">
 	<canvas id="clock-canvas"></canvas>
 </div>
-<script>init_clock("clock-canvas", "centre", "true");</script><?
+<script>init_clock("clock-canvas", "centre", true);</script><?
 }
 else
 {

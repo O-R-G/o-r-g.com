@@ -13,7 +13,7 @@ var handTimer;
 // colour info
 var colours = 
 {
-	bg: 'rgba(255, 255, 255, 0.0)',
+	bg: 'rgba(255, 255, 255, 1.0)',
 	h: '#000',
 	m: '#000',
 	s: '#000',
@@ -120,7 +120,7 @@ function device_orientation_handler(tilt)
 
 function draw_blank_clock()
 {
-	set_size();
+	set_size(1000, 1000);
 	fill_bg();
 	draw_circle();
 }
