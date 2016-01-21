@@ -30,7 +30,10 @@ function set_size(width, height)
 	{
 		if(pos == "lower-right")
 		{
-			if(window.innerWidth > 768)
+			// silly mobile safari bug
+			if(window.innerWidth == 980 && screen.width < 768)
+				width = screen.width * 0.5;
+			else if(window.innerWidth > 768)
 				width = window.innerWidth * 0.33;
 			else
 				width = window.innerWidth * 0.5;
@@ -93,8 +96,9 @@ function init_clock(canvasId, a_pos, show_hands)
 	if(show_hands)
 		open_clock();
 	else
+	{
 		draw_blank_clock();
-	
+	}
 	window.onresize = function(event) 
 	{
 		// draw_blank_clock();	 
