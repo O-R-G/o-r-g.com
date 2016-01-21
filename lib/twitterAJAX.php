@@ -19,9 +19,6 @@ $file = $media_dir.$time.$type;
 // save image
 file_put_contents($file, $data);
 
-// debugging
-echo $file."<br>";
-
 $can_tweet = true;
 
 $tweet_url = "https://twitter.com/org_clock/status/";
@@ -37,7 +34,7 @@ if($connection && $can_tweet)
 	$result = $connection->post('statuses/update', $parameters);
 
 	$can_tweet = false;
-	echo "<a href='".$tweet_url.$result->id_str."'>here's your tweet</a>";
+	echo "<a href='".$tweet_url.$result->id_str."' target='new'>here's your tweet</a><br>";
 }
 else
 	echo "tweet not sent.<br>";
