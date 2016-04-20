@@ -23,7 +23,7 @@ else
 // show the things
 require_once("views/head.php");
 require_once($view);
-if($show_clock)
-        require_once("views/clock.php");
+// if($show_clock)
+//        require_once("views/clock.php");
 require_once("views/foot.php");
 ?>
