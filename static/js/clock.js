@@ -17,7 +17,7 @@ var colours =
 	h: '#000',
 	m: '#000',
 	s: '#000',
-	circle: '#000',
+	circle: '#FFF',
 	circleopen: '#000'
 };
 
