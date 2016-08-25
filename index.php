@@ -10,13 +10,14 @@ $show_clock = true;
         + /thx > download
         + everything else > object-fullscreen
 ------------------------------------------------------ */
-if($uri[1] == "dev" || $uri[1] == "dev.php")
-{
+if($uri[1] == "dev" || $uri[1] == "dev.php") {
         $view.= "gyroscope.php";
         $show_clock = false;
 }
 else if($uri[1] == "thx" || $uri[1] == "thx.php")
         $view.= "download.php";
+else if($uri[1] == "subscribe" || $uri[1] == "subscribe.php")
+        $view.= "subscribe.php";
 else
         $view.= "object.php";
 
