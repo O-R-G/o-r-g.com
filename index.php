@@ -16,15 +16,16 @@ if($uri[1] == "dev" || $uri[1] == "dev.php") {
 }
 else if($uri[1] == "thx" || $uri[1] == "thx.php")
         $view.= "download.php";
-else if($uri[1] == "subscribe" || $uri[1] == "subscribe.php")
-        $view.= "subscribe.php";
 else
         $view.= "object.php";
+// show subscribe form
+if($uri[1] == "subscribe")
+	$showsubscribe = true;
 
 // show the things
 require_once("views/head.php");
 require_once($view);
-if($show_clock)
+if ($show_clock)
        require_once("views/clock.php");
 require_once("views/foot.php");
 ?>

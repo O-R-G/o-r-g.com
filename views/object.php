@@ -53,6 +53,8 @@ for($i = 0; $i < count($b_arr); $i++)
 	}
 	?><div class="column-container"><? 
 		echo $b_arr[$i];
+		if ($showsubscribe)
+		       require_once("views/subscribe.php");
 		if($i == 0 && $marr[0])
 		{
 		?><div><img src="<? echo m_url($marr[0]);?>" id="fullscreen"></div><?
