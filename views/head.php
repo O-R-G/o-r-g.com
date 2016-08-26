@@ -47,7 +47,8 @@ if($uu->id)
 		$show_menu = true;
 }
 
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html>
 	<head>
 		<title><? echo $title; ?></title>
