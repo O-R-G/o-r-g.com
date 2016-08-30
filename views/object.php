@@ -53,7 +53,18 @@ for($i = 0; $i < count($columns); $i++)
 		if($i == 0 && $media[0]) {
 			$j = 0;
 			foreach($media as $m) {
-				?><div><img src="<? echo m_url($media[$j]);?>" class="fullscreen"></div><?
+				if ($media[$j]["type"] == "mp4") {
+					// should fix this width in a css class, but in html element for now
+					// add looping to the video tag
+					// autoplay?
+					?><div>
+						<video width="100%" controls class="fullscreen">
+							<source src="<? echo m_url($media[$j]);?>" type="video/mp4">
+						</video>
+					</div><?
+				} else {
+					?><div><img src="<? echo m_url($media[$j]);?>" class="fullscreen"></div><?
+				}
 				$j++;
 			}
 		}
@@ -64,8 +75,8 @@ for($i = 0; $i < count($columns); $i++)
 	}
 } 
 ?></section>
-
-<script type="text/javascript" src="<? echo $host; ?>static/js/screenfull.js"></script>	
+<script type="text/javascript" src="<? 
+echo $host; ?>static/js/screenfull.js"></script>	
 <script>
 	var fullscreens = document.getElementsByClassName('fullscreen');
 	for (var i = 0; i < fullscreens.length; i++) {

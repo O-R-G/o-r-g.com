@@ -1,5 +1,5 @@
 # machine-specific configuration files
 config.php
 twitterConnect.php
-*.htaccess
+.htaccess
 .htpasswd
