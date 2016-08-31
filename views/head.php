@@ -40,12 +40,20 @@ $nav = $oo->nav($uu->ids);
 $show_menu = false;
 if($uu->id)
 {
-	$is_leaf = empty($oo->children_ids($uu->id));
+	// if linked from outside, dont show menu
+	$is_leaf = empty($oo->children_ids_nav($uu->id));
 	$internal = (substr($_SERVER['HTTP_REFERER'], 0, strlen($host)) === $host);
-	
+
 	if(!$is_leaf && $internal)
-		$show_menu = true;
+		$show_menu = true;	
 }
+
+/*
+if($oo->id)
+{
+
+}
+*/
 
 ?>
 <!DOCTYPE html>

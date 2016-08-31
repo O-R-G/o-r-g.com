@@ -57,13 +57,13 @@ for($i = 0; $i < count($columns); $i++)
 					// should fix this width in a css class, but in html element for now
 					// add looping to the video tag
 					// autoplay?
-					?><div>
-						<video width="100%" controls class="fullscreen">
+					?><div class="img-container">
+						<video id="img-<? echo $j; ?>" width="100%" controls loop class="fullscreen">
 							<source src="<? echo m_url($media[$j]);?>" type="video/mp4">
 						</video>
 					</div><?
 				} else {
-					?><div><img src="<? echo m_url($media[$j]);?>" class="fullscreen"></div><?
+					?><div class="img-container"><img id="img-<? echo $j; ?>" class="fullscreen" src="<? echo m_url($media[$j]);?>"></div><?
 				}
 				$j++;
 			}

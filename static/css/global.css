@@ -36,6 +36,10 @@ img {
 	height: auto;
 }
 
+.img-container {
+	padding-bottom: 15px;
+}
+
 a:link,
 a:visited {
     color: #0000ff;
