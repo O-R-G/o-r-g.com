@@ -1,5 +1,4 @@
-<?php
-
+<?
 $uri = explode('/', $_SERVER['REQUEST_URI']);
 $view = "views/";
 $show_clock = true;
