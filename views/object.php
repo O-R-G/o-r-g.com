@@ -52,7 +52,7 @@ for($i = 0; $i < count($columns); $i++)
 		       require_once("views/subscribe.php");
 		if($i == 0 && $media[0]) {
 			$j = 0;
-			foreach($media as $m) {
+			// foreach($media as $m) {
 				if ($media[$j]["type"] == "mp4") {
 					// should fix this width in a css class, but in html element for now
 					// add looping to the video tag
@@ -66,7 +66,7 @@ for($i = 0; $i < count($columns); $i++)
 					?><div class="img-container"><img id="img-<? echo $j; ?>" class="fullscreen" src="<? echo m_url($media[$j]);?>"></div><?
 				}
 				$j++;
-			}
+			// }
 		}
 	?></div><?
 	if($i % 2 == 1)
