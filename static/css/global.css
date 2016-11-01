@@ -100,7 +100,10 @@ ul:first-child {
 }
 
 a.buynow {
-    background-color:#FF0000;
+    color:#FFFFFF;
+    background-color:#00CC00;
+    padding-left: 2px;
+    padding-right: 10px;
 }
 
 #breadcrumbs {
