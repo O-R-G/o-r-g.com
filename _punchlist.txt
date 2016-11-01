@@ -1,1 +1,3 @@
 - refine the paypal downloading / ipn mechanism for auto downloads
+- also look at the "Take customers to this URL when they finish checkout" in paypal
+  and how that works with lib/paypalIPN*
