@@ -99,6 +99,10 @@ ul:first-child {
 	padding: 20px;
 }
 
+a.buynow {
+    background-color:#FF0000;
+}
+
 #breadcrumbs {
 	padding: 20px;
 	padding-bottom: 0px;
@@ -190,4 +194,20 @@ ul:first-child {
 	.column-container-container:last-child {
 		padding-bottom: 44vw;
 	}
+}
+
+/* animation */
+.blink {
+  animation: blink 2s steps(2, start) infinite;
+  -webkit-animation: blink 2s steps(2, start) infinite;
+}
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+@-webkit-keyframes blink {
+  to {
+    visibility: hidden;
+  }
 }
