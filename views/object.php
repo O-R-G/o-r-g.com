@@ -58,7 +58,7 @@ for($i = 0; $i < count($columns); $i++)
 					// add looping to the video tag
 					// autoplay?
 					?><div class="img-container">
-						<video id="img-<? echo $j; ?>" width="100%" controls loop class="fullscreen">
+						<video id="img-<? echo $j; ?>" width="100%" controls loop>
 							<source src="<? echo m_url($media[$j]);?>" type="video/mp4">
 						</video>
 					</div><?
