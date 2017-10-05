@@ -1,7 +1,7 @@
 <?php
-
-        // Paypal IPN emailer
-        // O-R-G 01/07/2016
+        
+    // Paypal IPN emailer
+    // O-R-G 01/07/2016
 
 	// Always and only called by paypalIPNlisten
 	// Builds download url from PayPal tx data
@@ -27,7 +27,7 @@
         $thistxn_type = 'cart';
         $thispayment_status = 'Completed';
 
-	$debugString = '0.0 init emailer';
+    	$debugString = '0.0 init emailer';
 
 	
         // 0. Validate transaction details against request
@@ -52,9 +52,14 @@
 	$downloadFileType = ".dmg";				// 
 	$downloadPage = "http://www.o-r-g.com/thx";
 
-        foreach ($item_name as $key => $value) {
+    foreach ($item_name as $key => $value) {
 
 		$item_name_clean[$key] = cleanURL($value);
+
+        // if paypal item name includes "zip" then serve .zip
+        if (strpos($item_name_clean[$key], 'zip') !== false)
+        	$downloadFileType = ".zip";				    
+
 		$downloadLink[$key] = $downloadBase . $item_name_clean[$key] . $downloadFileType;	// o-r-g.com/out/xxx
 		// $downloadLink[$key] = $downloadPage . "?" . $item_name_clean[$key];			// o-r-g.com/thx?xxx
 
