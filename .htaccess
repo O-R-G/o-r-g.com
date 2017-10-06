@@ -1,5 +1,5 @@
-# Options +FollowSymLinks -Indexes
-Options +FollowSymLinks +Indexes
+Options +FollowSymLinks -Indexes
+# Options +FollowSymLinks +Indexes
 # IndexIgnore */*
 
 ErrorDocument 403 "you don't even *go* here."
