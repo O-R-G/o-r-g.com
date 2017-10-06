@@ -8,6 +8,7 @@
 			Select file to upload (.dmg / .zip):
 			<input type="file" name="fileToUpload" id="fileToUpload">
 			<input type="submit" value="Upload" name="submit">
+			<input type="text" value="email" name="email">
 		</form><?
 
 	} else {
@@ -45,8 +46,18 @@
     				$status = "Sorry, there was an error uploading your file.";
     			}
 		}
-        echo $status;
-        mail("reinfurt@o-r-g.com", $status, "http://o-r-g.com/views/upload.php', "");
-	}
+
+		// email confirmation
+		$email = $_POST["email"];
+		$url = "http://o-r-g.com/out/" .  basename( $_FILES["fileToUpload"]["name"]);
+	        $headers = "From: store@o-r-g.com" . "\r\n" . "Reply-To: store@o-r-g.com" . "\r\n" . "X-Mailer: PHP/" . phpversion();
+
+		mail($email, $status, $url, $headers);
+
+		if ($email != "email") $status .= " A confirmation email has been sent to " . $email . ".";
+		mail("reinfurt@o-r-g.com", $status, $url, $headers);
+
+	        echo $status;
+ 	}
 ?></body>
 </html>
