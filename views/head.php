@@ -34,7 +34,7 @@ else
 	$title = $db_name;
 
 $nav = $oo->nav($uu->ids);
-
+print_r($uu->ids);
 
 
 $show_menu = false;

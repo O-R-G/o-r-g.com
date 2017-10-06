@@ -33,18 +33,20 @@
 		*/
 		// Allow certain file formats
 		if($imageFileType != "dmg" && $imageFileType != "zip") {
-			echo "Sorry, only .dmg and .zip files are allowed.";
-    			$uploadOk = 0;
+            $status = "Sorry, only .dmg and .zip files are allowed.";
+    		$uploadOk = 0;
 		}
 		if ($uploadOk == 0) {
-    			echo "Sorry, your file was not uploaded.";
+                $status = "Sorry, your file was not uploaded.";
 		} else {
     			if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        			echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+        			$status = "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
     			} else {
-				echo "Sorry, there was an error uploading your file.";
+    				$status = "Sorry, there was an error uploading your file.";
     			}
 		}
+        echo $status;
+        mail("reinfurt@o-r-g.com", $status, "http://o-r-g.com/views/upload.php', "");
 	}
 ?></body>
 </html>
