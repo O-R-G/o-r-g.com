@@ -27,6 +27,7 @@ $name = ltrim(strip_tags($item["name1"]), ".");
 // document title
 $item = $oo->get($uu->id);
 $title = $item["name1"];
+if ($title == "P!DF") $title = "P!DF by Prem Krishnamurthy";
 $db_name = "O-R-G";
 if ($title)
 	$title = $db_name ." | ". $title;
