@@ -40,8 +40,10 @@ foreach($codesLines as $codesLine) {
     $codeRange = explode("-", $codeMeta[0]);
 
     // any match (not necessarily integer)
-    if (sizeof($codeRange) == 1 && trim($codeRange[0]) == $code) {
-      $output['valid'] = trim($codeMeta[1]);
+    if (sizeof($codeRange) == 1) {
+      if (trim($codeRange[0]) == $code) {
+        $output['valid'] = trim($codeMeta[1]);  
+      }
     } else {
       // match if range (must be integer)
       if (intval($codeRange[0]) <= intval($code) && intval($code) <= intval($codeRange[1])) {
