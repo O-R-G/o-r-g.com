@@ -62,7 +62,7 @@ function insertCode($licenseEntryId, $code) {
 					<option value="<?= $entry['id'] ?>"><?= $entry['name1']; ?></option>
 				<? endforeach; ?>
 			</select>
-			<input type="submit" value="Upload" name="submit">
+			<input type="submit" value="Add" name="submit">
 		</form><?
 
 	} else {
