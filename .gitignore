@@ -4,3 +4,13 @@ twitterConnect.php
 .htaccess
 tools/.htaccess
 .htpasswd
+media/*.jpg
+media/*.png
+media/*.gif
+media/*.mp4
+media/*.pdf
+.DS_Store
+out/*.dmg
+out/
+out/*
+.gitignore~

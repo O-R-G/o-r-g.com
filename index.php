@@ -1,5 +1,8 @@
 <?
-$uri = explode('/', $_SERVER['REQUEST_URI']);
+$request = $_SERVER['REQUEST_URI'];
+$requestclean = strtok($request,"?");
+$uri = explode('/', $requestclean);
+
 $view = "views/";
 $show_clock = true;
 
