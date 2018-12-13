@@ -33,6 +33,7 @@ $output = array(
    "valid" => false
  );
 
+// check Notes
 foreach($codesLines as $codesLine) {
   if ($type == 'screensaver') {
     // Example: 2390-2391,free
@@ -42,7 +43,7 @@ foreach($codesLines as $codesLine) {
     // any match (not necessarily integer)
     if (sizeof($codeRange) == 1) {
       if (trim($codeRange[0]) == $code) {
-        $output['valid'] = trim($codeMeta[1]);  
+        $output['valid'] = trim($codeMeta[1]);
       }
     } else {
       // match if range (must be integer)
@@ -54,11 +55,33 @@ foreach($codesLines as $codesLine) {
     if ($output['valid'] != false && sizeof($codeMeta) == 3) {
       $output['meta'] = trim($codeMeta[2]);
     }
+  }
 
-  } else if ($type == 'ios-app') {
-    $codes = explode(",", $codesLine);
-    if (trim($codes[0]) == $code) {
-      $output['valid'] = trim($codes[1]);
+  if ($output['valid'])
+    break;
+}
+
+// check .License
+$licenseEntryId = -1;
+$children = $oo->children($obj['id']);
+foreach($children as $child) {
+  if ($child['name1'] == '.Licenses') {
+    $licenseEntryId = $child['id'];
+  }
+}
+
+if ($licenseEntryId != -1) {
+  $licenses = $oo->children($licenseEntryId);
+  foreach($licenses as $license) {
+    if ($license['name1'] == $code) {
+      $output['valid'] = 'license';
+      if ($type == 'screensaver') {
+        $path = '/out/' . md5($obj['name1'] . $obj['id']) . '/' . $obj['name1'];
+        $extension = pathinfo(glob('..' . $path . '.*')[0], PATHINFO_EXTENSION);
+        $output['meta'] = '//' . $_SERVER['HTTP_HOST'] . $path . '.' . $extension;
+      } else if ($type == 'ios-app') {
+        $output['meta'] = $license['notes'];
+      }
     }
   }
 }
