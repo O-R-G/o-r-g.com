@@ -76,7 +76,7 @@ if ($licenseEntryId != -1) {
     if ($license['name1'] == $code) {
       $output['valid'] = 'license';
       if ($type == 'screensaver') {
-        $path = '/out/' . md5($obj['name1'] . $obj['id']) . '/' . $obj['name1'];
+        $path = '/out/' . md5($obj['name1'] . $obj['id']) . '/' . trim(str_replace('*','', $obj['name1']));
         $extension = pathinfo(glob('..' . $path . '.*')[0], PATHINFO_EXTENSION);
         $output['meta'] = '//' . $_SERVER['HTTP_HOST'] . $path . '.' . $extension;
       } else if ($type == 'ios-app') {

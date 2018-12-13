@@ -73,7 +73,7 @@ $res = $oo->get_all($fields, $tables, $where, $order);
 			$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
 			// $target_file = $target_dir . str_replace(' ', '-', $name1) . '.' . $imageFileType;
-			$target_file = $target_dir . $name1 . '.' . $imageFileType;
+			$target_file = $target_dir . trim(str_replace('*','', $name1)) . '.' . $imageFileType;
 		}
 
 		$uploadOk = 1;
