@@ -29,6 +29,16 @@ function insertCode($licenseEntryId, $code) {
   global $oo;
   global $ww;
 
+  // no duplicates
+  $fields = array("id");
+  $tables = array("objects");
+  $where = array("objects.active = 1","objects.id IN (SELECT wires.toid FROM wires WHERE wires.fromid = $licenseEntryId AND wires.active = 1)", "objects.name1 = '$code'");
+  $order 	= array("objects.name1");
+  $res = $oo->get_all($fields, $tables, $where, $order);
+
+  if (sizeof($res) > 0)
+    return false;
+
   $insert = array(
     "name1" => $code,
     "url" => $code
