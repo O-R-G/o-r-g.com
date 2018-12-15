@@ -52,7 +52,7 @@
 		<div class="column-container">
 			<p>
 				<? if ($valid_key): ?>
-					<span style='color:#F00;'>Your software is now downloading . . . </span>
+					<span style='color:#F00;'>Your copy of <?= $obj['name1'] ?> is now downloading . . . </span>
 					<script>
 						setTimeout(function() { location.href="<?= $download_link; ?>" }, 100)
 					</script>
