@@ -1,5 +1,7 @@
 <?
         $licenseId = $_GET['key'];
+        // $txId = $_GET['tx_id'];
+
 				$is_download = true;
 
 				$valid_key = true;
@@ -27,7 +29,7 @@
 
 					$obj = $obj_arr[0];
 
-					$path = '/out/' . md5($obj['name1'] . $obj['id']) . '/' . trim(str_replace('*','', $obj['name1']));
+					$path = '/out/' . md5($obj['name1'] . $obj['id']) . '/' . trim(ltrim(str_replace('*','', $obj['name1']), '.'));
 	        $extension = pathinfo(glob('.' . $path . '.*')[0], PATHINFO_EXTENSION);
 	        $download_link = '//' . $_SERVER['HTTP_HOST'] . $path . '.' . $extension;
 
