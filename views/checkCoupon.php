@@ -85,9 +85,9 @@ if ($licenseEntryId != -1) {
         } else {
           $output['meta'] = 'pending';
           $to = 'support@o-r-g.com';
-          $subject = 'Request to generate' . $obj['name1'] . 'iOS Code';
+          $subject = '[O-R-G] Request to generate ' . $obj['name1'] . ' iOS Code';
           $body = 'App name: ' . $obj['name1'] .
-            '\n' . 'Code: ' . $code;
+            "\n" . 'Code: ' . $code;
           $headers = "From: support@o-r-g.com" . "\r\n" . "Reply-To: support@o-r-g.com" . "\r\n" . "X-Mailer: PHP/" . phpversion();
           mail($to, $subject, $body, $headers);
         }
