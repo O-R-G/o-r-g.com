@@ -88,7 +88,8 @@ if ($licenseEntryId != -1) {
           $subject = 'Request to generate' . $obj['name1'] . 'iOS Code';
           $body = 'App name: ' . $obj['name1'] .
             '\n' . 'Code: ' . $code;
-          mail($to, $subject, $body);
+          $headers = "From: support@o-r-g.com" . "\r\n" . "Reply-To: support@o-r-g.com" . "\r\n" . "X-Mailer: PHP/" . phpversion();
+          mail($to, $subject, $body, $headers);
         }
       }
     }
