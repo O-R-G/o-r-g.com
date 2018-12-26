@@ -64,12 +64,14 @@ foreach($codesLines as $codesLine) {
 // check .License
 $licenseEntryId = -1;
 $children = $oo->children($obj['id']);
+// Find license child
 foreach($children as $child) {
   if ($child['name1'] == '.Licenses') {
     $licenseEntryId = $child['id'];
   }
 }
 
+// If license child, find valid license entry.
 if ($licenseEntryId != -1) {
   $licenses = $oo->children($licenseEntryId);
   foreach($licenses as $license) {
@@ -78,7 +80,16 @@ if ($licenseEntryId != -1) {
       if ($type == 'screensaver') {
         $output['meta'] = '//' . $_SERVER['HTTP_HOST'] . '/thx?key=' . $code;
       } else if ($type == 'ios-app') {
-        $output['meta'] = $license['notes'];
+        if ($license['notes'] != '') {
+          $output['meta'] = $license['notes'];
+        } else {
+          $output['meta'] = 'pending';
+          $to = 'support@o-r-g.com';
+          $subject = 'Request to generate' . $obj['name1'] . 'iOS Code';
+          $body = 'App name: ' . $obj['name1'] .
+            '\n' . 'Code: ' . $code;
+          mail($to, $subject, $body);
+        }
       }
     }
   }
