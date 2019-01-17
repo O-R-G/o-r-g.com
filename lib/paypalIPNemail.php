@@ -1,5 +1,5 @@
 <?php
-        
+
     // Paypal IPN emailer
     // O-R-G 01/07/2016
 
@@ -13,13 +13,13 @@
 	// which then forces a download from out/xxx-xxx.dmg
 	// the query could be encoded before sent or written into mail
 	// with php hash() function and could be dehashed in views/download.php
-	// in download.php, then could dehash, and then invoke a download 
+	// in download.php, then could dehash, and then invoke a download
 	// still with the actual filesource hidden based on this:
 	// http://stackoverflow.com/questions/10997516/how-to-hide-the-actual-download-folder-location
 
 	// simpler way to hide link might be just write the email as html
 	// but even that is a little tedious in php and certainly not robust
-	
+
         // Transaction values to match, as specified in paypal button & txn
         // These must be changed per transaction, staging, live etc.
         // $thisreceiver_email is set in paypalIPNlisten
@@ -29,16 +29,16 @@
 
     	$debugString = '0.0 init emailer';
 
-	
+
         // 0. Validate transaction details against request
- 
+
         if (    ($txn_type == $thistxn_type) &&
                 ($payment_status == $thispayment_status) &&
                 ($receiver_email == $thisreceiver_email)) {
 
                 // Pass
                 if ($debug) $debugString .=     "\n 1.0 transaction details validated";
- 
+
         } else {
 
                 // Fail
@@ -49,7 +49,7 @@
 	// 1. Build download link
 
 	$downloadBase = "http://www.o-r-g.com/out/";		// move this to the top?
-	$downloadFileType = ".dmg";				// 
+	$downloadFileType = ".dmg";				//
 	$downloadPage = "http://www.o-r-g.com/thx";
 
     foreach ($item_name as $key => $value) {
@@ -58,7 +58,7 @@
 
         // if paypal item name includes "zip" then serve .zip
         if (strpos($item_name_clean[$key], 'zip') !== false)
-        	$downloadFileType = ".zip";				    
+        	$downloadFileType = ".zip";
 
 		$downloadLink[$key] = $downloadBase . $item_name_clean[$key] . $downloadFileType;	// o-r-g.com/out/xxx
 		// $downloadLink[$key] = $downloadPage . "?" . $item_name_clean[$key];			// o-r-g.com/thx?xxx
@@ -83,7 +83,7 @@
 	$message = "*\n\nThank you very much. Here's where to download your software:\n";
 	foreach ($downloadLink as $value) $message .= "\n" . $value;
 	$message .= "\n\nEnjoy, tell your friends, and so forth.\n\n*\n\nhttp://www.o-r-g.com";
-	$headers = "From: store@o-r-g.com" . "\r\n" . "Reply-To: store@o-r-g.com" . "\r\n" . "X-Mailer: PHP/" . phpversion();
+	$headers = "From: store@o-r-g.com" . "\r\n" . "Reply-To: store@o-r-g.com" . "\r\n" . "Cc: store@o-r-g.com" . "\r\n" . "X-Mailer: PHP/" . phpversion();
 
 	if ($debug) $debugString .=     "\n txn_type = " . $txn_type .
                                         "\n thistxn_type = " . $thistxn_type .
@@ -92,14 +92,14 @@
 					"\n receiver_email = " . $receiver_email .
 					"\n thisreceiver_email = " . $thisreceiver_email .
 					"\n item_name1 = " . $item_name1 .
-					"\n item_name1_clean = " . $item_name1_clean . 
+					"\n item_name1_clean = " . $item_name1_clean .
 					"\n downloadLink = " . $downloadLink;
 
         if ($debug) mail($debug_email, 'debug email', $debugString);
 
 
 	// 3. Send email
-	
+
 	mail($to, $subject, $message, $headers);
 	exit("** Finished **");
 ?>
