@@ -2,18 +2,17 @@
 // namespace stuff
 use \Michelf\Markdown;
 
-// 1. split into sections based by '++'
-// 2. trim whitespace
-// 3. convert from markdown to html
-// 4. replace ~elsewhere~ with elsewhere html
+// 1. replace ~elsewhere~ with elsewhere html
+// 2. split into sections based by '++'
+// 3. trim whitespace
+// 4. convert from markdown to html
 function process_body($b) {
+	if (strpos($b, "~elsewhere~"))
+		$b = str_replace("~elsewhere~", getElsewhere(), $b);
 	$columns = explode("++", $b);
 	foreach($columns as &$b) {
 		$b = trim($b);
 		$b = Markdown::defaultTransform($b);
-		if (strpos($b, "~elsewhere~")) {
-			$b = str_replace("~elsewhere~", getElsewhere(), $b);
-		}
 	}
 	return $columns;
 }
@@ -108,13 +107,13 @@ function getElsewhere() {
 	$order 	= array("objects.name1");
 	$obj_arr = $oo->get_all($fields, $tables, $where, $order);
 
-	$out = '<div class="elsewhere">';
+	$out = '';
 	foreach ($obj_arr as $obj) {
-		$processed = trim($obj['body']);
-		$processed = Markdown::defaultTransform($processed);
+		$processed = $obj['body'];
 		$out .= $processed;
+		$out .= '<br />';
 	}
-	$out .= '</div>';
+	$out .= '';
 
 	return $out;
 }
