@@ -5,14 +5,19 @@ use \Michelf\Markdown;
 // 1. split into sections based by '++'
 // 2. trim whitespace
 // 3. convert from markdown to html
+// 4. replace ~elsewhere~ with elsewhere html
 function process_body($b) {
 	$columns = explode("++", $b);
 	foreach($columns as &$b) {
 		$b = trim($b);
 		$b = Markdown::defaultTransform($b);
+		if (strpos($b, "~elsewhere~")) {
+			$b = str_replace("~elsewhere~", getElsewhere(), $b);
+		}
 	}
 	return $columns;
 }
+
 $objects = $oo->get($uu->id);
 $body = $objects["body"];
 $columns = process_body($body);
@@ -46,7 +51,7 @@ for($i = 0; $i < count($columns); $i++)
 	{
 	?><div class="column-container-container"><?
 	}
-	?><div class="column-container"><? 
+	?><div class="column-container"><?
 		echo $columns[$i];
 		if ($showsubscribe)
 		       require_once("views/subscribe.php");
@@ -73,17 +78,17 @@ for($i = 0; $i < count($columns); $i++)
 	{
 	?></div><?
 	}
-} 
+}
 ?></section>
-<script type="text/javascript" src="<? 
-echo $host; ?>static/js/screenfull.js"></script>	
+<script type="text/javascript" src="<?
+echo $host; ?>static/js/screenfull.js"></script>
 <script>
 	var fullscreens = document.getElementsByClassName('fullscreen');
 	for (var i = 0; i < fullscreens.length; i++) {
     		( function () {
         		// ( closure ) -- retains state of local variables
         		// by making capturing context, here using j
-        		// + listener wrapped in function to pass variable		
+        		// + listener wrapped in function to pass variable
 			var fullscreen = fullscreens[i];
         		fullscreen.addEventListener('click', function() {
 					if (screenfull.enabled) {
@@ -93,3 +98,24 @@ echo $host; ?>static/js/screenfull.js"></script>
     		})();
 	}
 </script>
+
+<?
+function getElsewhere() {
+	global $oo;
+	$fields = array("objects.*");
+	$tables = array("objects, wires");
+	$where = array("objects.id = wires.toid","wires.fromid IN (SELECT objects.id FROM objects where objects.url = 'inventory')", "wires.active = 1");
+	$order 	= array("objects.name1");
+	$obj_arr = $oo->get_all($fields, $tables, $where, $order);
+
+	$out = '<div class="elsewhere">';
+	foreach ($obj_arr as $obj) {
+		$processed = trim($obj['body']);
+		$processed = Markdown::defaultTransform($processed);
+		$out .= $processed;
+	}
+	$out .= '</div>';
+
+	return $out;
+}
+?>
