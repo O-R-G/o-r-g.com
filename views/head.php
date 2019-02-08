@@ -22,11 +22,10 @@ if($uu->id)
 	$item = $oo->get($uu->id);
 else
 	$item = $oo->get(0);
-$name = ltrim(strip_tags($item["name1"]), ".");
 
 // document title
 $item = $oo->get($uu->id);
-$title = $item["name1"];
+$title = ltrim(strip_tags($item["name1"]), ".");
 if ($title == "P!DF") $title = "P!DF by Prem Krishnamurthy";
 $db_name = "O-R-G";
 if ($title)
@@ -46,7 +45,7 @@ if($uu->id)
 	$internal = (substr($_SERVER['HTTP_REFERER'], 0, strlen($host)) === $host);
 
 	if(!$is_leaf && $internal)
-		$show_menu = true;	
+		$show_menu = true;
 }
 
 /*
