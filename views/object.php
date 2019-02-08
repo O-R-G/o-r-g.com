@@ -2,13 +2,10 @@
 // namespace stuff
 use \Michelf\Markdown;
 
-// 1. replace ~elsewhere~ with elsewhere html
-// 2. split into sections based by '++'
-// 3. trim whitespace
-// 4. convert from markdown to html
+// 1. split into sections based by '++'
+// 2. trim whitespace
+// 3. convert from markdown to html
 function process_body($b) {
-	if (strpos($b, "~elsewhere~"))
-		$b = str_replace("~elsewhere~", getElsewhere(), $b);
 	$columns = explode("++", $b);
 	foreach($columns as &$b) {
 		$b = trim($b);
@@ -97,24 +94,3 @@ echo $host; ?>static/js/screenfull.js"></script>
     		})();
 	}
 </script>
-
-<?
-function getElsewhere() {
-	global $oo;
-	$fields = array("objects.*");
-	$tables = array("objects, wires");
-	$where = array("objects.id = wires.toid","wires.fromid IN (SELECT objects.id FROM objects where objects.url = 'inventory')", "wires.active = 1");
-	$order 	= array("objects.name1");
-	$obj_arr = $oo->get_all($fields, $tables, $where, $order);
-
-	$out = '';
-	foreach ($obj_arr as $obj) {
-		$processed = $obj['body'];
-		$out .= $processed;
-		$out .= '<br />';
-	}
-	$out .= '';
-
-	return $out;
-}
-?>
