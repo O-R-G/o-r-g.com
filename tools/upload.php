@@ -66,7 +66,9 @@ $res = $oo->get_all($fields, $tables, $where, $order);
 			$target_dir .= '/';
 
 			if (!file_exists($target_dir)) {
+				$out_tmp = umask(0);
 		    mkdir($target_dir, 0777, true);
+				umask($out_tmp);
 			}
 
 			$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
