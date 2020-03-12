@@ -26,3 +26,17 @@ RewriteRule ^.*$ index.php [L]
 # change upload limit
 php_value upload_max_filesize 100M
 php_value post_max_size 102M
+
+# exceptions
+
+#--- START Redirects
+
+# ^ begin expr
+# $ end expr
+# ? = / or !/
+# 301 permanent
+# 302 temporary
+# rules applied in order
+# first match sticks
+
+Redirect 302 /likeminds /screensavers/perhaps-there-is-something-left-to-save
