@@ -68,6 +68,10 @@ if($oo->id)
 		<script src="static/js/analytics.js"></script>
 	</head>
 	<body>
+
+<!-- sanctuary.computer embed -->
+<iframe src="https://sanctuarycomputer.github.io/blm-resource-embed/iframe.html" style="height:100%;width:100%;position:fixed;border:0;margin:0;padding:0;top:0;left:0;right:0;bottom:0;z-index:0;"></iframe>
+
 		<div id="page"><?
 			if(!$uu->id)
 			{
