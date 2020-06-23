@@ -3,6 +3,9 @@ var scrollPos = 0;
 
 function showHide()
 {
+	/* sanctuary.computer embed */
+	var sanctuary = document.getElementById("sanctuary");
+
 	var cols = document.getElementsByClassName("column-container");
 	var body = document.getElementById("body");
 	var header = document.getElementById("header");
@@ -14,6 +17,10 @@ function showHide()
 			cols[i].className = cols[i].className.replace( /(?:^|\s)hidden(?!\S)/g , ' visible' );
 		header.className = header.className.replace( /(?:^|\s)hidden(?!\S)/g , ' visible' );
 		body.className = body.className.replace( /(?:^|\s)visible(?!\S)/g , ' hidden' );
+
+		/* sanctuary.computer embed */
+		sanctuary.className = sanctuary.className.replace( /(?:^|\s)visible(?!\S)/g , ' hidden' );
+
 		close_clock();
 		// fill_circle();
 		window.scrollTo(0, 0);
@@ -26,6 +33,10 @@ function showHide()
 			cols[i].className = cols[i].className.replace( /(?:^|\s)visible(?!\S)/g , ' hidden' );
 		header.className = header.className.replace( /(?:^|\s)visible(?!\S)/g , ' hidden' );
 		body.className = body.className.replace( /(?:^|\s)hidden(?!\S)/g , ' visible' );
+		
+		/* sanctuary.computer embed */
+		sanctuary.className = sanctuary.className.replace( /(?:^|\s)hidden(?!\S)/g , ' visible' );
+
 		open_clock();
 		window.scrollTo(0, scrollPos);
 	}
