@@ -73,7 +73,15 @@ function set_size(width, height)
 	canvas.height = height*2;
 	canvas.style.width = width.toString().concat('px');
 	canvas.style.height = height.toString().concat('px');
-	
+
+	/*
+	// sanctuary.computer embed
+	canvas.width = 800;
+	canvas.style.width = '400px';
+	canvas.style.backgroundColor = '#ffff00';
+	canvas.style.opacity = '0.1';
+	*/
+
 	// set the center x and y coordinates
 	center = 
 	{
