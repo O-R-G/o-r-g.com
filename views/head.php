@@ -69,14 +69,8 @@ if($oo->id)
 	</head>
 	<body>
 
-        <!-- sanctuary.computer embed -->
-        <?		
-                if (!$uri[1]) {
-                        ?><iframe src="https://sanctuarycomputer.github.io/blm-resource-embed/iframe.html" style="height:100%;width:auto;position:fixed;border:0;margin:0;padding:0;top:0;left:0;right:0;bottom:0;z-index:100;mix-blend-mode:multiply;padding-top:50px;padding-left: 10px;"></iframe><?
-                }
-        ?>
-        <!-- end sanctuary.computer embed -->
-
+<!-- sanctuary.computer embed -->
+<iframe src="https://sanctuarycomputer.github.io/blm-resource-embed/iframe.html" style="height:100%;width:100%;position:fixed;border:0;margin:0;padding:0;top:0;left:0;right:0;bottom:0;z-index:0;"></iframe>
 
 		<div id="page"><?
 			if(!$uu->id)
