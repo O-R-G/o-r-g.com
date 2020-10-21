@@ -1,41 +1,61 @@
 <?
-        $licenseId = $_GET['key'];
+        $name = $_GET['name'];
+        $key = $_GET['key'];
+	$licenseId = $key;
         // $txId = $_GET['tx_id'];
 
-				$is_download = true;
+	if (preg_match('/^[a-f0-9]{32}$/', $key)) {
 
-				$valid_key = true;
+		// download link
 
-				$fields = array("*");
-				$tables = array("objects");
-				$where = array("objects.active = 1","objects.name1 = '$licenseId'");
-				$order 	= array("objects.name1");
-				$res = $oo->get_all($fields, $tables, $where, $order);
+		// if $key valid md5 hash (32 alphanum digits) then paypal download
+		// accessed from an email link sent in lib/paypalIPNemail 
 
-				if (sizeof($res) > 0) {
-					$licenseEntryId = $res[0]['id'];
-					$fields = array("*");
-					$tables = array("objects");
-					$where = array("objects.active = 1","objects.id IN (SELECT wires.fromid FROM wires WHERE wires.toid = $licenseEntryId AND wires.active = 1)");
-					$order 	= array("objects.name1");
-					$resLicense = $oo->get_all($fields, $tables, $where, $order);
+                $path = '/out/' . $licenseId . '/' . trim(ltrim(str_replace('*','', $name), '.'));	
+                $extension = pathinfo(glob('.' . $path . '.*')[0], PATHINFO_EXTENSION);
+                $download_link = '//' . $_SERVER['HTTP_HOST'] . $path . '.' . $extension;
 
-					$licensesEntryId = $resLicense[0]['id'];
-					$fields = array("*");
-					$tables = array("objects");
-					$where = array("objects.active = 1","objects.id IN (SELECT wires.fromid FROM wires WHERE wires.toid = $licensesEntryId AND wires.active = 1)");
-					$order 	= array("objects.name1");
-					$obj_arr = $oo->get_all($fields, $tables, $where, $order);
+		$valid_key = true;
+	
+	} else {
 
-					$obj = $obj_arr[0];
+		// download code 
 
-					$path = '/out/' . md5($obj['name1'] . $obj['id']) . '/' . trim(ltrim(str_replace('*','', $obj['name1']), '.'));
-	        $extension = pathinfo(glob('.' . $path . '.*')[0], PATHINFO_EXTENSION);
-	        $download_link = '//' . $_SERVER['HTTP_HOST'] . $path . '.' . $extension;
+		$is_download = true;
+		$valid_key = true;
 
-				} else {
-					$valid_key = false;
-				}
+		$fields = array("*");
+		$tables = array("objects");
+		$where = array("objects.active = 1","objects.name1 = '$licenseId'");
+		$order 	= array("objects.name1");
+		$res = $oo->get_all($fields, $tables, $where, $order);
+
+		if (sizeof($res) > 0) {
+			$licenseEntryId = $res[0]['id'];
+			$fields = array("*");
+			$tables = array("objects");
+			$where = array("objects.active = 1","objects.id IN (SELECT wires.fromid FROM wires WHERE wires.toid = $licenseEntryId AND wires.active = 1)");
+			$order 	= array("objects.name1");
+			$resLicense = $oo->get_all($fields, $tables, $where, $order);
+
+			$licensesEntryId = $resLicense[0]['id'];
+			$fields = array("*");
+			$tables = array("objects");
+			$where = array("objects.active = 1","objects.id IN (SELECT wires.fromid FROM wires WHERE wires.toid = $licensesEntryId AND wires.active = 1)");
+			$order 	= array("objects.name1");
+			$obj_arr = $oo->get_all($fields, $tables, $where, $order);
+
+			$obj = $obj_arr[0];
+
+			# md5 hash
+			$path = '/out/' . md5($obj['name1'] . $obj['id']) . '/' . trim(ltrim(str_replace('*','', $obj['name1']), '.'));
+		        $extension = pathinfo(glob('.' . $path . '.*')[0], PATHINFO_EXTENSION);
+		        $download_link = '//' . $_SERVER['HTTP_HOST'] . $path . '.' . $extension;
+
+		} else {
+			$valid_key = false;
+		}
+	}
 
 ?>
 
