@@ -66,9 +66,10 @@
                 $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
                 mysqli_close($dbConnect);
                 $hash = md5($row['name1'] . $row['id']);
-                $name = urlencode($row['name1']);
 
-		$item_name_clean[$key] = cleanURL($value);
+                // $name = urlencode($row['name1']);
+		// $item_name_clean[$key] = cleanURL($value);
+                $item_name_encoded[$key] = urlencode($value);
 
 	        // if paypal item name includes "zip" then serve .zip
         	if (strpos($item_name_clean[$key], 'zip') !== false)
@@ -76,7 +77,7 @@
 
 		// $downloadLink[$key] = $downloadBase . $item_name_clean[$key] . $downloadFileType;	// o-r-g.com/out/xxx
 		// $downloadLink[$key] = $downloadPage . "?" . $item_name_clean[$key];			// o-r-g.com/thx?xxx
-                $downloadLink[$key] = $downloadPage . "?name=" . $name .  "&key=" . $hash;		// o-r-g.com/thx?name=name&key=hash
+                $downloadLink[$key] = $downloadPage . "?name=" . $item_name_encoded[$key] .  "&key=" . $hash;	// o-r-g.com/thx?name=name&key=hash
 
 		if ($debug) $debugString .= "\nkey = " . $key . " value = " . $value;
 		if ($debug) $debugString .= "\ndownloadLink = " . $downloadLink[$key];
