@@ -8,6 +8,9 @@
 	// http://o-r-g.com/thx?name=A+%2ANew%2A+Program+for+Graphic+Design&key=833e9166990fdf78d11c6981b7ca4e85
 	// http://o-r-g.com/thx?name=A+%2ANew%2A+Program+for+Graphic+Design+sample&key=833e9166990fdf78d11c6981b7ca4e85
 	// http://o-r-g.com/thx?name=A+%2ANew%2A+Program+for+Graphic+Design&key=DEMONEW
+	// http://o-r-g.com/thx?name=A+%2APre-%2A+Program+for+Graphic+Design&key=41bff5943154e9f2fcf6936406484d77
+	// http://o-r-g.com/thx?name=A+%2APre-%2A+Program+for+Graphic+Design+sample&key=41bff5943154e9f2fcf6936406484d77
+	// http://o-r-g.com/thx?name=A+%2APre-%2A+Program+for+Graphic+Design&key=DEMOPRE
 
 	?><script>
 	// if iOS, serve .epub not .dmg
@@ -97,7 +100,7 @@
 		<div class="column-container">
 			<p>
 				<? if ($valid_key): ?>
-					<span style='color:#F00;'>Your copy of <?= $obj['name1'] ?> is now downloading . . . </span>
+					<span style='color:#F00;'>Your copy of <?= $name ?> is now downloading . . . </span>
 					<script>
 							
 						extension="<?= $extension; ?>";
