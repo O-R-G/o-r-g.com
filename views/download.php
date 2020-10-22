@@ -4,6 +4,30 @@
 	$licenseId = $key;
         // $txId = $_GET['tx_id'];
 
+	// dev links
+	// http://o-r-g.com/thx?name=A+%2ANew%2A+Program+for+Graphic+Design&key=833e9166990fdf78d11c6981b7ca4e85
+	// http://o-r-g.com/thx?name=A+%2ANew%2A+Program+for+Graphic+Design+sample&key=833e9166990fdf78d11c6981b7ca4e85
+	// http://o-r-g.com/thx?name=A+%2ANew%2A+Program+for+Graphic+Design&key=DEMONEW
+
+	?><script>
+	// if iOS, serve .epub not .dmg
+	// feature detection not sniffing (more robust)
+	function iOS() {
+		return [
+    		'iPad Simulator',
+    		'iPhone Simulator',
+    		'iPod Simulator',
+    		'iPad',
+    		'iPhone',
+    		'iPod'
+  		].includes(navigator.platform)
+  		// iPad on iOS 13 detection
+  		|| (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+	}
+	var ios = iOS();
+	console.log(ios);
+	</script><?
+
 	if (preg_match('/^[a-f0-9]{32}$/', $key)) {
 
 		// download link
@@ -11,9 +35,9 @@
 		// if $key valid md5 hash (32 alphanum digits) then paypal download
 		// accessed from an email link sent in lib/paypalIPNemail 
 
-                $path = '/out/' . $licenseId . '/' . trim(ltrim(str_replace('*','', $name), '.'));	
-                $extension = pathinfo(glob('.' . $path . '.*')[0], PATHINFO_EXTENSION);
-                $download_link = '//' . $_SERVER['HTTP_HOST'] . $path . '.' . $extension;
+                $path = '/out/' . $key . '/' . trim(ltrim(str_replace('*','', $name), '.'));	
+                if (pathinfo(glob('.' . $path . '.*')[0], PATHINFO_EXTENSION) == "zip") $extension=".zip";
+                $download_path = '//' . $_SERVER['HTTP_HOST'] . $path;	// minus extension
 
 		$valid_key = true;
 	
@@ -23,7 +47,7 @@
 
 		$is_download = true;
 		$valid_key = true;
-
+		
 		$fields = array("*");
 		$tables = array("objects");
 		$where = array("objects.active = 1","objects.name1 = '$licenseId'");
@@ -46,17 +70,18 @@
 			$obj_arr = $oo->get_all($fields, $tables, $where, $order);
 
 			$obj = $obj_arr[0];
+			$name = $obj['name1'];
 
 			# md5 hash
-			$path = '/out/' . md5($obj['name1'] . $obj['id']) . '/' . trim(ltrim(str_replace('*','', $obj['name1']), '.'));
-		        $extension = pathinfo(glob('.' . $path . '.*')[0], PATHINFO_EXTENSION);
-		        $download_link = '//' . $_SERVER['HTTP_HOST'] . $path . '.' . $extension;
+	                $key = md5($obj['name1'] . $obj['id']);
+	                $path = '/out/' . $key . '/' . trim(ltrim(str_replace('*','', $name), '.'));	
+	                if (pathinfo(glob('.' . $path . '.*')[0], PATHINFO_EXTENSION) == "zip") $extension=".zip";
+                	$download_path = '//' . $_SERVER['HTTP_HOST'] . $path;	// minus extension
 
 		} else {
 			$valid_key = false;
 		}
 	}
-
 ?>
 
 <section id="body" class="visible">
@@ -74,7 +99,19 @@
 				<? if ($valid_key): ?>
 					<span style='color:#F00;'>Your copy of <?= $obj['name1'] ?> is now downloading . . . </span>
 					<script>
-						setTimeout(function() { location.href="<?= $download_link; ?>" }, 100)
+							
+						extension="<?= $extension; ?>";
+						if (!extension) {
+							console.log('no extension specified');
+							if (ios) {
+								extension=".epub";
+							} else {
+								extension=".dmg";
+							}
+						}
+						url="<?= $download_path; ?>" + extension;
+						console.log(url);
+						setTimeout(function() { location.href=url }, 100)
 					</script>
 				<? else: ?>
 					<span style='color:#F00;'>Invalid key . . . </span>
