@@ -1,3 +1,6 @@
-- refine the paypal downloading / ipn mechanism for auto downloads
+
+/ refine the paypal downloading / ipn mechanism for auto downloads
+  considerable work in refining the hashing mechanism around epubs/ launch
+  but more to do
 - also look at the "Take customers to this URL when they finish checkout" in paypal
   and how that works with lib/paypalIPN*
