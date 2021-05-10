@@ -94,11 +94,24 @@
 
 	// 2. Build email
 
+	require_once('static/php/cm-createsend-php/csrest_general.php'); 
+
+    $cm_id = end($oo->urls_to_ids(array('other', 'campaign-monitor')));
+    $cm_items = $oo->get($cm_id);
+    $bracket_pattern = '#\[(.*)\]#is';
+    preg_match_all($bracket_pattern, $cm_items['deck'], $api_key_temp);
+    $api_key = $api_key_temp[1][0];
+    preg_match_all($bracket_pattern, $cm_items['body'], $client_id_temp);
+    $client_id = $client_id_temp[1][0];
+    $auth = array('api_key' => $api_key);
+    $wrap = new CS_REST_Transactional_ClassicEmail($auth, $client_id);
+
 	$to = ($debug ? $debug_email : $payer_email);
 	$subject = "O-R-G small software purchase";
 	$message = "*\n\nThank you very much. Here's where to download your software:\n";
-	foreach ($downloadLink as $value) $message .= "\n" . $value;
+	// foreach ($downloadLink as $value) $message .= "\n" . $value;
 	$message .= "\n\nEnjoy, tell your friends, and so forth.\n\n*\n\nhttp://www.o-r-g.com";
+	$from = "store@o-r-g.com";
 	$headers = "From: store@o-r-g.com" . "\r\n" . "Reply-To: store@o-r-g.com" . "\r\n" . "Cc: store@o-r-g.com" . "\r\n" . "X-Mailer: PHP/" . phpversion();
 
 	if ($debug) $debugString .=     "\n txn_type = " . $txn_type .
@@ -113,9 +126,20 @@
 
         if ($debug) mail($debug_email, 'debug email', $debugString);
 
+    $mail_arr = array(
+        "Subject" => $subject,
+        "From" => $from,
+        "ReplyTo" => $from,
+        "to" => $to,
+        "CC" => array( $from ),
+        "Html" => $message
+    );
+    $group_name = 'PHP test group';
+    $consent_to_track = 'yes';
+    $result = $wrap->send($mail_arr, $group_name,$consent_to_track);
 
 	// 3. Send email
 
-	mail($to, $subject, $message, $headers);
+	// mail($to, $subject, $message, $headers);
 	exit("** Finished **");
 ?>

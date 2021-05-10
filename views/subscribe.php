@@ -16,6 +16,7 @@
         $body = "";
         $headers = "From: " . $address;
         mail($to,$subject,$body,$headers);
+        
         ?><p>Thanks.</p><?
     } else {
         ?><p>Please <a href="">enter a valid email address.</a></p><?

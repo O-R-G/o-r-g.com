@@ -15,18 +15,21 @@
 
 	// settings
 	
-	$debug = FALSE;					// debug via email
+	$debug = TRUE;					// debug via email
 	$IPNstatus = TRUE;				// IPN status via email
-	$sandbox = FALSE;				// dev flag
-	$debug_email = "store@o-r-g.com";		// local debug
-	$IPNstatus_email = "store@o-r-g.com";		// local confirm
+	$sandbox = TRUE;				// dev flag
+	// $debug_email = "store@o-r-g.com";		// local debug
+	// $IPNstatus_email = "store@o-r-g.com";		// local confirm
+	$debug_email = "weiwanghasbeenused@gmail.com";		// local debug
+	$IPNstatus_email = "weiwanghasbeenused@gmail.com";		// local confirm
 
 	if ($sandbox) {
 
 		// staging
 
 		$IPNserver = "www.sandbox.paypal.com";
-	        $thisreceiver_email = "store-facilitator@o-r-g.com"; // paypal
+	        // $thisreceiver_email = "store-facilitator@o-r-g.com"; // paypal
+	        $thisreceiver_email = "weiwanghasbeenused@gmail.com"; // paypal
 
 	} else {
 
