@@ -27,7 +27,8 @@
 
 		// staging
 
-		$IPNserver = "www.sandbox.paypal.com";
+		// $IPNserver = "www.sandbox.paypal.com";
+		$IPNserver = "ipnpb.sandbox.paypal.com";
 	        // $thisreceiver_email = "store-facilitator@o-r-g.com"; // paypal
 	        $thisreceiver_email = "weiwanghasbeenused@gmail.com"; // paypal
 
