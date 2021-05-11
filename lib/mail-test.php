@@ -11,8 +11,8 @@
     try{
         mail($to, $subject, $message, $headers);
     }
-    catch($err)
+    catch(Exception $e)
     {
-        var_dump($err);
+         echo 'Caught exception: ',  $e->getMessage(), "\n";
     }
 ?>
