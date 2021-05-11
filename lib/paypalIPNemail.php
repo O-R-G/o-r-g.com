@@ -3,22 +3,22 @@
     // Paypal IPN emailer
     // O-R-G 01/07/2016
 
-	// Always and only called by paypalIPNlisten
-	// Builds download url from PayPal tx data
-	// Sends email to buyer
+    // Always and only called by paypalIPNlisten
+    // Builds download url from PayPal tx data
+    // Sends email to buyer
 
-	// ** to do **
+    // ** to do **
 
-	// email a link to o-r-g.com/thx?xxx-xxx
-	// which then forces a download from out/xxx-xxx.dmg
-	// the query could be encoded before sent or written into mail
-	// with php hash() function and could be dehashed in views/download.php
-	// in download.php, then could dehash, and then invoke a download
-	// still with the actual filesource hidden based on this:
-	// http://stackoverflow.com/questions/10997516/how-to-hide-the-actual-download-folder-location
+    // email a link to o-r-g.com/thx?xxx-xxx
+    // which then forces a download from out/xxx-xxx.dmg
+    // the query could be encoded before sent or written into mail
+    // with php hash() function and could be dehashed in views/download.php
+    // in download.php, then could dehash, and then invoke a download
+    // still with the actual filesource hidden based on this:
+    // http://stackoverflow.com/questions/10997516/how-to-hide-the-actual-download-folder-location
 
-	// simpler way to hide link might be just write the email as html
-	// but even that is a little tedious in php and certainly not robust
+    // simpler way to hide link might be just write the email as html
+    // but even that is a little tedious in php and certainly not robust
 
         // Transaction values to match, as specified in paypal button & txn
         // These must be changed per transaction, staging, live etc.
@@ -27,7 +27,7 @@
         $thistxn_type = 'cart';
         $thispayment_status = 'Completed';
 
-    	$debugString = '0.0 init emailer';
+        $debugString = '0.0 init emailer';
 
 
         // 0. Validate transaction details against request
@@ -46,13 +46,13 @@
         }
 
 
-	// 1. Build download link
+    // 1. Build download link
 
-	$downloadBase = "http://www.o-r-g.com/out/";		// move this to the top?
-	$downloadFileType = ".dmg";				//
-	$downloadPage = "http://www.o-r-g.com/thx";
+    $downloadBase = "http://www.o-r-g.com/out/";        // move this to the top?
+    $downloadFileType = ".dmg";             //
+    $downloadPage = "http://www.o-r-g.com/thx";
 
-    	foreach ($item_name as $key => $value) {
+        foreach ($item_name as $key => $value) {
 
                 // generate hash
 
@@ -68,79 +68,55 @@
                 $hash = md5($row['name1'] . $row['id']);
 
                 // $name = urlencode($row['name1']);
-		// $item_name_clean[$key] = cleanURL($value);
-                // $item_name_encoded[$key] = urlencode($value);
-                $item_name_clean[$key] = urlencode($value);
+        // $item_name_clean[$key] = cleanURL($value);
+                $item_name_encoded[$key] = urlencode($value);
+                $item_name_clean[$key] = $item_name_encoded[$key];
+                
+            // if paypal item name includes "zip" then serve .zip
+            if (strpos($item_name_clean[$key], 'zip') !== false)
+                $downloadFileType = ".zip";
 
-	        // if paypal item name includes "zip" then serve .zip
-        	if (strpos($item_name_clean[$key], 'zip') !== false)
-        		$downloadFileType = ".zip";
+        // $downloadLink[$key] = $downloadBase . $item_name_clean[$key] . $downloadFileType;    // o-r-g.com/out/xxx
+        // $downloadLink[$key] = $downloadPage . "?" . $item_name_clean[$key];          // o-r-g.com/thx?xxx
+                $downloadLink[$key] = $downloadPage . "?name=" . $item_name_encoded[$key] .  "&key=" . $hash;   // o-r-g.com/thx?name=name&key=hash
 
-		// $downloadLink[$key] = $downloadBase . $item_name_clean[$key] . $downloadFileType;	// o-r-g.com/out/xxx
-		// $downloadLink[$key] = $downloadPage . "?" . $item_name_clean[$key];			// o-r-g.com/thx?xxx
-                $downloadLink[$key] = $downloadPage . "?name=" . $item_name_encoded[$key] .  "&key=" . $hash;	// o-r-g.com/thx?name=name&key=hash
+        if ($debug) $debugString .= "\nkey = " . $key . " value = " . $value;
+        if ($debug) $debugString .= "\ndownloadLink = " . $downloadLink[$key];
+    }
 
-		if ($debug) $debugString .= "\nkey = " . $key . " value = " . $value;
-		if ($debug) $debugString .= "\ndownloadLink = " . $downloadLink[$key];
-	}
-
-	function cleanURL($string) {
-		// $string = strtolower($string);				// l.c.
-		// $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);	// a-z, 0-9
-		$string = preg_replace("/[\s-]+/", " ", $string);		// rm * _
-		$string = preg_replace("/[\s_]/", "-", $string);		// _ to -
-		return $string;
-	}
+    function cleanURL($string) {
+        // $string = strtolower($string);               // l.c.
+        // $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);  // a-z, 0-9
+        $string = preg_replace("/[\s-]+/", " ", $string);       // rm * _
+        $string = preg_replace("/[\s_]/", "-", $string);        // _ to -
+        return $string;
+    }
 
 
-	// 2. Build email
-    /*
-	require_once('static/php/cm-createsend-php/csrest_general.php'); 
+    // 2. Build email
 
-    $cm_id = end($oo->urls_to_ids(array('other', 'campaign-monitor')));
-    $cm_items = $oo->get($cm_id);
-    $bracket_pattern = '#\[(.*)\]#is';
-    preg_match_all($bracket_pattern, $cm_items['deck'], $api_key_temp);
-    $api_key = $api_key_temp[1][0];
-    preg_match_all($bracket_pattern, $cm_items['body'], $client_id_temp);
-    $client_id = $client_id_temp[1][0];
-    $auth = array('api_key' => $api_key);
-    $wrap = new CS_REST_Transactional_ClassicEmail($auth, $client_id);
-    */
-	$to = ($debug ? $debug_email : $payer_email);
-	$subject = "O-R-G small software purchase";
-	$message = "*\n\nThank you very much. Here's where to download your software:\n";
-	// foreach ($downloadLink as $value) $message .= "\n" . $value;
-	$message .= "\n\nEnjoy, tell your friends, and so forth.\n\n*\n\nhttp://www.o-r-g.com";
-	$from = "store@o-r-g.com";
-	$headers = "From: store@o-r-g.com" . "\r\n" . "Reply-To: store@o-r-g.com" . "\r\n" . "Cc: store@o-r-g.com" . "\r\n" . "X-Mailer: PHP/" . phpversion();
-    
-	if ($debug) $debugString .=     "\n txn_type = " . $txn_type .
+    $to = ($debug ? $debug_email : $payer_email);
+    $subject = "O-R-G small software purchase";
+    $message = "*\n\nThank you very much. Here's where to download your software:\n";
+    foreach ($downloadLink as $value) $message .= "\n" . $value;
+    $message .= "\n\nEnjoy, tell your friends, and so forth.\n\n*\n\nhttp://www.o-r-g.com";
+    $headers = "From: store@o-r-g.com" . "\r\n" . "Reply-To: store@o-r-g.com" . "\r\n" . "Cc: store@o-r-g.com" . "\r\n" . "X-Mailer: PHP/" . phpversion();
+
+    if ($debug) $debugString .=     "\n txn_type = " . $txn_type .
                                         "\n thistxn_type = " . $thistxn_type .
-					"\n payment_status = " . $payment_status .
-					"\n thispayment_status = " . $thispayment_status .
-					"\n receiver_email = " . $receiver_email .
-					"\n thisreceiver_email = " . $thisreceiver_email .
-					"\n item_name1 = " . $item_name1 .
-					"\n item_name1_clean = " . $item_name1_clean .
-					"\n downloadLink = " . $downloadLink;
+                    "\n payment_status = " . $payment_status .
+                    "\n thispayment_status = " . $thispayment_status .
+                    "\n receiver_email = " . $receiver_email .
+                    "\n thisreceiver_email = " . $thisreceiver_email .
+                    "\n item_name1 = " . $item_name1 .
+                    "\n item_name1_clean = " . $item_name1_clean .
+                    "\n downloadLink = " . $downloadLink;
 
         if ($debug) mail($debug_email, 'debug email', $debugString);
 
-    $mail_arr = array(
-        "Subject" => $subject,
-        "From" => $from,
-        "ReplyTo" => $from,
-        "to" => $to,
-        "CC" => array( $from ),
-        "Html" => $message
-    );
-    $group_name = 'PHP test group';
-    $consent_to_track = 'yes';
-    $result = $wrap->send($mail_arr, $group_name,$consent_to_track);
 
-	// 3. Send email
+    // 3. Send email
 
-	// mail($to, $subject, $message, $headers);
-	exit("** Finished **");
+    mail($to, $subject, $message, $headers);
+    exit("** Finished **");
 ?>
