@@ -69,7 +69,8 @@
 
                 // $name = urlencode($row['name1']);
 		// $item_name_clean[$key] = cleanURL($value);
-                $item_name_encoded[$key] = urlencode($value);
+                // $item_name_encoded[$key] = urlencode($value);
+                $item_name_clean[$key] = urlencode($value);
 
 	        // if paypal item name includes "zip" then serve .zip
         	if (strpos($item_name_clean[$key], 'zip') !== false)
@@ -93,7 +94,7 @@
 
 
 	// 2. Build email
-
+    /*
 	require_once('static/php/cm-createsend-php/csrest_general.php'); 
 
     $cm_id = end($oo->urls_to_ids(array('other', 'campaign-monitor')));
@@ -105,7 +106,7 @@
     $client_id = $client_id_temp[1][0];
     $auth = array('api_key' => $api_key);
     $wrap = new CS_REST_Transactional_ClassicEmail($auth, $client_id);
-
+    */
 	$to = ($debug ? $debug_email : $payer_email);
 	$subject = "O-R-G small software purchase";
 	$message = "*\n\nThank you very much. Here's where to download your software:\n";
@@ -113,7 +114,7 @@
 	$message .= "\n\nEnjoy, tell your friends, and so forth.\n\n*\n\nhttp://www.o-r-g.com";
 	$from = "store@o-r-g.com";
 	$headers = "From: store@o-r-g.com" . "\r\n" . "Reply-To: store@o-r-g.com" . "\r\n" . "Cc: store@o-r-g.com" . "\r\n" . "X-Mailer: PHP/" . phpversion();
-
+    
 	if ($debug) $debugString .=     "\n txn_type = " . $txn_type .
                                         "\n thistxn_type = " . $thistxn_type .
 					"\n payment_status = " . $payment_status .

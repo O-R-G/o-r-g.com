@@ -27,8 +27,8 @@
 
 		// staging
 
-		// $IPNserver = "www.sandbox.paypal.com";
-		$IPNserver = "ipnpb.sandbox.paypal.com";
+		$IPNserver = "www.sandbox.paypal.com";
+		// $IPNserver = "ipnpb.sandbox.paypal.com";
 	        // $thisreceiver_email = "store-facilitator@o-r-g.com"; // paypal
 	        $thisreceiver_email = "weiwanghasbeenused@gmail.com"; // paypal
 
@@ -40,33 +40,33 @@
 		$IPNserver = "www.paypal.com";
 	        $thisreceiver_email = "store@o-r-g.com";	// paypal
 	}
-
+	$debugString = '';
 	// Assign payment notification values to local variables
 	// these are only a subset of possible values
 	
 	// to validate
 
-  	$txn_type = $_POST['txn_type'];			// match in IPNwrite
-  	$payment_status = $_POST['payment_status'];	// match in IPNwrite
-	$payment_amount = $_POST['mc_gross'];		// match in IPNwrite
-  	$payment_currency = $_POST['mc_currency'];	// match in IPNwrite
-  	$receiver_email = $_POST['receiver_email'];	// match in IPNwrite
-	$item_name1 = $_POST['item_name1'];		// match in IPNwrite
+  	$txn_type = isset($_POST['txn_type']) ? $_POST['txn_type'] : 'empty';			// match in IPNwrite
+  	$payment_status = isset($_POST['payment_status']) ? $_POST['payment_status'] : 'empty';	// match in IPNwrite
+	$payment_amount = isset($_POST['mc_gross']) ? $_POST['mc_gross'] : 'empty';		// match in IPNwrite
+  	$payment_currency = isset($_POST['mc_currency']) ? $_POST['mc_currency'] : 'empty';	// match in IPNwrite
+  	$receiver_email = isset($_POST['receiver_email']) ? $_POST['receiver_email'] : 'empty';	// match in IPNwrite
+	$item_name1 = isset($_POST['item_name1']) ? $_POST['item_name1'] : 'empty';		// match in IPNwrite
 
 	// to harvest
  
-	$first_name = $_POST['first_name'];		// -> name1
-	$last_name = $_POST['last_name'];		// -> name2
-	$address_street = $_POST['address_street'];	// -> address1
-	$address_city = $_POST['address_city'];		// -> city
-	$address_state = $_POST['address_state'];	// -> state
-	$address_zip = $_POST['address_zip'];		// -> zip
-	$address_country = $_POST['address_country'];	// -> country
-	$contact_phone = $_POST['contact_phone'];	// -> phone
-	$payer_email = $_POST['payer_email'];		// -> email
-	$payment_date = $_POST['payment_date'];		// -> date
-  	$txn_id = $_POST['txn_id'];			// -> notes
-	$memo = $_POST['memo'];				// -> body
+	$first_name = isset($_POST['first_name']) ? $_POST['first_name'] : 'empty';		// -> name1
+	$last_name = isset($_POST['last_name']) ? $_POST['last_name'] : 'empty';		// -> name2
+	$address_street = isset($_POST['address_street']) ? $_POST['address_street'] : 'empty';	// -> address1
+	$address_city = isset($_POST['address_city']) ? $_POST['address_city'] : 'empty';		// -> city
+	$address_state = isset($_POST['address_state']) ? $_POST['address_state'] : 'empty';	// -> state
+	$address_zip = isset($_POST['address_zip']) ? $_POST['address_zip'] : 'empty';		// -> zip
+	$address_country = isset($_POST['address_country']) ? $_POST['address_country'] : 'empty';	// -> country
+	$contact_phone = isset($_POST['contact_phone']) ? $_POST['contact_phone'] : 'empty';	// -> phone
+	$payer_email = isset($_POST['payer_email']) ? $_POST['payer_email'] : 'empty';		// -> email
+	$payment_date = isset($_POST['payment_date']) ? $_POST['payment_date'] : 'empty';		// -> date
+  	$txn_id = isset($_POST['txn_id']) ? $_POST['txn_id'] : 'empty';			// -> notes
+	$memo = isset($_POST['memo']) ? $_POST['memo'] : 'empty';				// -> body
 
 	// for multiple items
 
