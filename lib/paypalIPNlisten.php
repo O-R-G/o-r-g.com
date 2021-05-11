@@ -151,6 +151,7 @@
 	}
 
 	if ($debug) mail($debug_email, 'debug listen', $debugString);
+	echo $debugString;
 
 	fclose ($fp);  // close file pointer
 
