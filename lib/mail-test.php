@@ -1,6 +1,6 @@
-<?
-    $to = 'test-bkz4hsuwv@srv1.mail-tester.com';
-    $subject = "O-R-G small software purchase";
+<?php
+    $to = 'weiwanghasbeenused@gmail.com';
+    $subject = "tt";
     $message = "*\n\nThank you very much. Here's where to download your software:\n";
     // foreach ($downloadLink as $value) $message .= "\n" . $value;
     $message .= "\n\nEnjoy, tell your friends, and so forth.\n\n*\n\nhttp://www.o-r-g.com";
