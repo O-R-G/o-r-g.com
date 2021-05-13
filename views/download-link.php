@@ -41,9 +41,9 @@ if(!$res){
             $keyarray[urldecode($temp[0])] = urldecode($temp[1]);
         }
 
-        $num_cart_items = intval($_POST['num_cart_items']);
+        $num_cart_items = intval($keyarray['num_cart_items']);
         for ($i = 0; $i < $num_cart_items; $i++ ) {
-            $item_name[$i] = $_POST['item_name' . ($i+1)];
+            $item_name[$i] = $keyarray['item_name' . ($i+1)];
         }
         // 1. Build download link
 
