@@ -3,7 +3,7 @@
     PDT php example: 
     https://github.com/paypal/pdt-code-samples/blob/master/paypal_pdt.php
 */
-
+$is_download_link = true;
 
 $paypal_id = end($oo->urls_to_ids(array('shop', 'paypal')));
 $paypal_items = $oo->get($paypal_id);
@@ -40,24 +40,49 @@ if(!$res){
             $temp = explode("=", $lines[$i],2);
             $keyarray[urldecode($temp[0])] = urldecode($temp[1]);
         }
-    var_dump($keyarray);
-    // check the payment_status is Completed
-    // check that txn_id has not been previously processed
-    // check that receiver_email is your Primary PayPal email
-    // check that payment_amount/payment_currency are correct
-    // process payment
-    // $firstname = $keyarray['first_name'];
-    // $lastname = $keyarray['last_name'];
-    // $itemname = $keyarray['item_name'];
-    // $amount = $keyarray['payment_gross'];
-     
-    // echo ("<p><h3>Thank you for your purchase!</h3></p>");
-     
-    // echo ("<b>Payment Details</b><br>\n");
-    // echo ("<li>Name: $firstname $lastname</li>\n");
-    // echo ("<li>Item: $itemname</li>\n");
-    // echo ("<li>Amount: $amount</li>\n");
-    // echo ("");
+
+        // 1. Build download link
+
+        $downloadBase = "http://www.o-r-g.com/out/";
+        $downloadFileType = ".dmg";             
+        $downloadPage = "http://www.o-r-g.com/thx";
+        foreach ($item_name as $key => $value) {
+
+            // generate hash
+
+            $dbMainHost = "db153.pair.com";
+            $dbMainUser = "reinfurt_42";
+            $dbMainPass = "vNDEC89e";
+            $dbMainDbse = "reinfurt_onrungo";
+            $dbConnect = MYSQLI_CONNECT($dbMainHost, $dbMainUser, $dbMainPass, $dbMainDbse);
+            $sql = "SELECT id, name1 FROM objects WHERE name1 LIKE '$value' LIMIT 1";
+            $result = MYSQLI_QUERY($dbConnect, $sql);
+            $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+            mysqli_close($dbConnect);
+            $hash = md5($row['name1'] . $row['id']);
+
+            // $name = urlencode($row['name1']);
+            // $item_name_clean[$key] = cleanURL($value);
+            $item_name_encoded[$key] = urlencode($value);
+            $item_name_clean[$key] = $item_name_encoded[$key];
+            
+            // if paypal item name includes "zip" then serve .zip
+            if (strpos($item_name_clean[$key], 'zip') !== false)
+                $downloadFileType = ".zip";
+
+            // $downloadLink[$key] = $downloadBase . $item_name_clean[$key] . $downloadFileType;    // o-r-g.com/out/xxx
+            // $downloadLink[$key] = $downloadPage . "?" . $item_name_clean[$key];          // o-r-g.com/thx?xxx
+            $downloadLink[$key] = $downloadPage . "?name=" . $item_name_encoded[$key] .  "&key=" . $hash;   // o-r-g.com/thx?name=name&key=hash
+
+            if ($debug) $debugString .= "\nkey = " . $key . " value = " . $value;
+            if ($debug) $debugString .= "\ndownloadLink = " . $downloadLink[$key];
+        }
+
+        foreach($downloadLink as $key => $link){
+            ?>
+            <div><a href="<?= $link; ?>" target="_blank" ><?= $item_name_clean[$key]; ?></a></div>
+            <?
+        }
     }
     else if (strcmp ($lines[0], "FAIL") == 0) {
         // log for manual investigation
