@@ -1,5 +1,5 @@
 <?php
-    $to = 'weiwanghasbeenused@gmail.com';
+    $to = 'test-imep75s9e@srv1.mail-tester.com';
     $subject = "tt";
     $message = "*\n\nThank you very much. Here's where to download your software:\n";
     // foreach ($downloadLink as $value) $message .= "\n" . $value;
