@@ -40,10 +40,10 @@ if(!$res){
             $temp = explode("=", $lines[$i],2);
             $keyarray[urldecode($temp[0])] = urldecode($temp[1]);
         }
-        
+
         $num_cart_items = intval($_POST['num_cart_items']);
-        for ($i = 1; $i <= $num_cart_items; $i++ ) {
-            $item_name[$i] = $_POST['item_name' . $i];
+        for ($i = 0; $i < $num_cart_items; $i++ ) {
+            $item_name[$i] = $_POST['item_name' . ($i+1)];
         }
         // 1. Build download link
 
@@ -77,9 +77,6 @@ if(!$res){
             // $downloadLink[$key] = $downloadBase . $item_name_clean[$key] . $downloadFileType;    // o-r-g.com/out/xxx
             // $downloadLink[$key] = $downloadPage . "?" . $item_name_clean[$key];          // o-r-g.com/thx?xxx
             $downloadLink[$key] = $downloadPage . "?name=" . $item_name_encoded[$key] .  "&key=" . $hash;   // o-r-g.com/thx?name=name&key=hash
-
-            if ($debug) $debugString .= "\nkey = " . $key . " value = " . $value;
-            if ($debug) $debugString .= "\ndownloadLink = " . $downloadLink[$key];
         }
 
         foreach($downloadLink as $key => $link){
