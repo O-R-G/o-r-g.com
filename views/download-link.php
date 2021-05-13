@@ -40,7 +40,11 @@ if(!$res){
             $temp = explode("=", $lines[$i],2);
             $keyarray[urldecode($temp[0])] = urldecode($temp[1]);
         }
-
+        
+        $num_cart_items = intval($_POST['num_cart_items']);
+        for ($i = 1; $i <= $num_cart_items; $i++ ) {
+            $item_name[$i] = $_POST['item_name' . $i];
+        }
         // 1. Build download link
 
         $downloadBase = "http://www.o-r-g.com/out/";
