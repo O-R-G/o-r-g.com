@@ -47,7 +47,6 @@ if($uu->id)
 	if(!$is_leaf && $internal)
 		$show_menu = true;
 }
-
 /*
 if($oo->id)
 {
@@ -69,7 +68,7 @@ if($oo->id)
 	</head>
 	<body>
 		<div id="page"><?
-			if(!$uu->id)
+			if(!$uu->id && $uri[1])
 			{
 			?><header id="header" class="hidden homepage"><?
 			}

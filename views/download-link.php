@@ -5,10 +5,8 @@
 */
 $is_download_link = true;
 
-$paypal_id = end($oo->urls_to_ids(array('shop', 'paypal')));
-$paypal_items = $oo->get($paypal_id);
 $bracket_pattern = '#\[(.*)\]#is';
-preg_match_all($bracket_pattern, $paypal_items['deck'], $temp);
+preg_match_all($bracket_pattern, $items['deck'], $temp);
 $auth_token = $temp[1][0];
 
 // $pp_hostname = "www.paypal.com";
@@ -42,11 +40,10 @@ if(!$res){
         }
 
         $num_cart_items = intval($keyarray['num_cart_items']);
-        for ($i = 0; $i < $num_cart_items; $i++ ) {
-            $item_name[$i] = $keyarray['item_name' . ($i+1)];
+        for ($i = 1; $i <= $num_cart_items; $i++ ) {
+            $item_name[$i] = $keyarray['item_name' . ($i)];
         }
-        // 1. Build download link
-
+        
         $downloadBase = "http://www.o-r-g.com/out/";
         $downloadFileType = ".dmg";             
         $downloadPage = "http://www.o-r-g.com/thx";
@@ -65,80 +62,38 @@ if(!$res){
             mysqli_close($dbConnect);
             $hash = md5($row['name1'] . $row['id']);
 
-            // $name = urlencode($row['name1']);
-            // $item_name_clean[$key] = cleanURL($value);
             $item_name_encoded[$key] = urlencode($value);
             $item_name_clean[$key] = $item_name_encoded[$key];
             
             // if paypal item name includes "zip" then serve .zip
             if (strpos($item_name_clean[$key], 'zip') !== false)
                 $downloadFileType = ".zip";
-
-            // $downloadLink[$key] = $downloadBase . $item_name_clean[$key] . $downloadFileType;    // o-r-g.com/out/xxx
-            // $downloadLink[$key] = $downloadPage . "?" . $item_name_clean[$key];          // o-r-g.com/thx?xxx
             $downloadLink[$key] = $downloadPage . "?name=" . $item_name_encoded[$key] .  "&key=" . $hash;   // o-r-g.com/thx?name=name&key=hash
         }
 
-        foreach($downloadLink as $key => $link){
-            ?>
-            <div><a href="<?= $link; ?>" target="_blank" ><?= $item_name_clean[$key]; ?></a></div>
-            <?
-        }
+        ?>
+        <div id="breadcrumbs">
+            <ul class="nav-level">
+                <li><a href="<? echo $host.$a_url; ?>">O-R-G</a></li>
+            </ul>
+        </div>
+        <div class="column-container-container">
+            <div class="column-container">
+                Thank you very much. Here's where to download your software:<br>
+                <?
+                foreach($downloadLink as $key => $link){
+                    ?>
+                    <br><div><a href="<?= $link; ?>" target="_blank" ><?= $item_name_clean[$key]; ?></a></div>
+                    <?
+                }
+                ?>
+                <br><br>Enjoy, tell your friends, and so forth.
+            </div>
+        </div>
+        <?
     }
     else if (strcmp ($lines[0], "FAIL") == 0) {
         // log for manual investigation
     }
 }
-
-/*
-var_dump($_POST);
-$num_cart_items = intval($_POST['num_cart_items']);
-for ($i = 1; $i <= $num_cart_items; $i++ ) {
-	$item_name[$i] = $_POST['item_name' . $i];
-}
-
-// 1. Build download link
-
-$downloadBase = "http://www.o-r-g.com/out/";
-$downloadFileType = ".dmg";             
-$downloadPage = "http://www.o-r-g.com/thx";
-foreach ($item_name as $key => $value) {
-
-    // generate hash
-
-    $dbMainHost = "db153.pair.com";
-    $dbMainUser = "reinfurt_42";
-    $dbMainPass = "vNDEC89e";
-    $dbMainDbse = "reinfurt_onrungo";
-    $dbConnect = MYSQLI_CONNECT($dbMainHost, $dbMainUser, $dbMainPass, $dbMainDbse);
-    $sql = "SELECT id, name1 FROM objects WHERE name1 LIKE '$value' LIMIT 1";
-    $result = MYSQLI_QUERY($dbConnect, $sql);
-    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-    mysqli_close($dbConnect);
-    $hash = md5($row['name1'] . $row['id']);
-
-    // $name = urlencode($row['name1']);
-    // $item_name_clean[$key] = cleanURL($value);
-    $item_name_encoded[$key] = urlencode($value);
-    $item_name_clean[$key] = $item_name_encoded[$key];
-    
-    // if paypal item name includes "zip" then serve .zip
-    if (strpos($item_name_clean[$key], 'zip') !== false)
-        $downloadFileType = ".zip";
-
-    // $downloadLink[$key] = $downloadBase . $item_name_clean[$key] . $downloadFileType;    // o-r-g.com/out/xxx
-    // $downloadLink[$key] = $downloadPage . "?" . $item_name_clean[$key];          // o-r-g.com/thx?xxx
-    $downloadLink[$key] = $downloadPage . "?name=" . $item_name_encoded[$key] .  "&key=" . $hash;   // o-r-g.com/thx?name=name&key=hash
-
-    if ($debug) $debugString .= "\nkey = " . $key . " value = " . $value;
-    if ($debug) $debugString .= "\ndownloadLink = " . $downloadLink[$key];
-}
-
-foreach($downloadLink as $key => $link){
-    ?>
-    <div><a href="<?= $link; ?>"><?= $item_name_clean[$key]; ?></a></div>
-    <?
-}
-*/
 ?>
-
