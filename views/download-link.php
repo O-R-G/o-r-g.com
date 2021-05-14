@@ -6,8 +6,9 @@
 $is_download_link = true;
 
 $bracket_pattern = '#\[(.*)\]#is';
-preg_match_all($bracket_pattern, $items['deck'], $temp);
+preg_match_all($bracket_pattern, $item['deck'], $temp);
 $auth_token = $temp[1][0];
+var_dump($uu->id);
 
 // $pp_hostname = "www.paypal.com";
 $pp_hostname = "www.sandbox.paypal.com";
