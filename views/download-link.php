@@ -7,7 +7,7 @@ $is_download_link = true;
 $download_link_id = end($oo->urls_to_ids(array('shop', 'download-link')));
 $download_link_item = $oo->get($download_link_id);
 
-$bracket_pattern = '#\[(.*)\]#is';
+$bracket_pattern = '#\[(.*?)\]#is';
 preg_match_all($bracket_pattern, $download_link_item['deck'], $temp);
 $auth_token = $temp[1][0];
 
@@ -28,9 +28,19 @@ curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
 curl_setopt($ch, CURLOPT_HTTPHEADER, array("Host: $pp_hostname"));
 $res = curl_exec($ch);
 curl_close($ch);
-
+?>
+<div id="breadcrumbs">
+    <ul class="nav-level">
+        <li><a href="<? echo $host.$a_url; ?>">O-R-G</a></li>
+    </ul>
+</div>
+<div class="column-container-container">
+    <div class="column-container">
+<?
 if(!$res){
     //HTTP ERROR
+    $msg = 'An error happened. Please contact <a href="mailto:support@o-r-g.com">support@o-r-g.com</a> for help.';
+    ?><script>console.log('HTTP ERROR');</script><?
 }else{
      // parse the data
     $lines = explode("\n", trim($res));
@@ -49,14 +59,19 @@ if(!$res){
         $downloadBase = "http://www.o-r-g.com/out/";
         $downloadFileType = ".dmg";             
         $downloadPage = "http://www.o-r-g.com/thx";
+
+        $db_id = end($oo->urls_to_ids(array('shop', 'reinfurt-onrungo')));
+        $db_item = $oo->get($db_id);
+        preg_match_all($bracket_pattern, $db_item['deck'], $temp);
+        $dbMainHost = $temp[1][0];
+        $dbMainUser = $temp[1][1];
+        $dbMainPass = $temp[1][2];
+        $dbMainDbse = $temp[1][3];
+
         foreach ($item_name as $key => $value) {
 
             // generate hash
 
-            $dbMainHost = "db153.pair.com";
-            $dbMainUser = "reinfurt_42";
-            $dbMainPass = "vNDEC89e";
-            $dbMainDbse = "reinfurt_onrungo";
             $dbConnect = MYSQLI_CONNECT($dbMainHost, $dbMainUser, $dbMainPass, $dbMainDbse);
             $sql = "SELECT id, name1 FROM objects WHERE name1 LIKE '$value' LIMIT 1";
             $result = MYSQLI_QUERY($dbConnect, $sql);
@@ -72,30 +87,23 @@ if(!$res){
                 $downloadFileType = ".zip";
             $downloadLink[$key] = $downloadPage . "?name=" . $item_name_encoded[$key] .  "&key=" . $hash;   // o-r-g.com/thx?name=name&key=hash
         }
-
-        ?>
-        <div id="breadcrumbs">
-            <ul class="nav-level">
-                <li><a href="<? echo $host.$a_url; ?>">O-R-G</a></li>
-            </ul>
-        </div>
-        <div class="column-container-container">
-            <div class="column-container">
-                Thank you very much. Here's where to download your software:<br>
-                <?
-                foreach($downloadLink as $key => $link){
-                    ?>
-                    <br><div><a href="<?= $link; ?>" target="_blank" ><?= $item_name_clean[$key]; ?></a></div>
-                    <?
-                }
-                ?>
-                <br><br>Enjoy, tell your friends, and so forth.
-            </div>
-        </div>
-        <?
+        $msg = 'Thank you very much. Here\'s where to download your software:<br>';
+        foreach($downloadLink as $key => $link){
+            $msg .= '<br><div><a href="<?= $link; ?>" target="_blank" ><?= $item_name_clean[$key]; ?></a></div>';
+        }
+        $msg .= '<br><br>Enjoy, tell your friends, and so forth.';
     }
     else if (strcmp ($lines[0], "FAIL") == 0) {
         // log for manual investigation
+        $msg = 'An error happened. Please contact <a href="mailto:support@o-r-g.com">support@o-r-g.com</a> for help.';
+        ?><script>console.log('strcmp ($lines[0], "FAIL") == 0');</script><?
     }
 }
+<<<<<<< HEAD
 ?>
+=======
+echo $msg;
+?>
+    </div>
+</div>
+>>>>>>> e374f5d0f4063a1531090e6d3b83a2d72d517a12
