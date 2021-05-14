@@ -89,7 +89,7 @@ if(!$res){
         }
         $msg = 'Thank you very much. Here\'s where to download your software:<br>';
         foreach($downloadLink as $key => $link){
-            $msg .= '<br><div><a href="<?= $link; ?>" target="_blank" ><?= $item_name_clean[$key]; ?></a></div>';
+            $msg .= '<br><div><a href="' . $link . '" target="_blank" >' . $item_name_clean[$key] . '</a></div>';
         }
         $msg .= '<br><br>Enjoy, tell your friends, and so forth.';
     }
