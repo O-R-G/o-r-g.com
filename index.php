@@ -20,7 +20,7 @@ else if($uri[1] == "thx" || $uri[1] == "thx.php")
         $view.= "download.php";
 else
         $view.= "object.php";
-if($uri[1] == 'shop' && $uri[2] == 'download-link')
+if($uri[1] == 'download-link')
     $view = 'views/download-link.php';
 // show subscribe form
 if($uri[1] == "subscribe")
