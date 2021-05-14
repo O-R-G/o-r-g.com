@@ -4,11 +4,12 @@
     https://github.com/paypal/pdt-code-samples/blob/master/paypal_pdt.php
 */
 $is_download_link = true;
+$download_link_id = end($oo->urls_to_ids(array('shop', 'download-link')));
+$download_link_item = $oo->get($download_link_id);
 
 $bracket_pattern = '#\[(.*)\]#is';
-preg_match_all($bracket_pattern, $item['deck'], $temp);
+preg_match_all($bracket_pattern, $download_link_item['deck'], $temp);
 $auth_token = $temp[1][0];
-var_dump($uu->id);
 
 // $pp_hostname = "www.paypal.com";
 $pp_hostname = "www.sandbox.paypal.com";
