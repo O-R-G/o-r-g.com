@@ -99,11 +99,7 @@ if(!$res){
         ?><script>console.log('strcmp ($lines[0], "FAIL") == 0');</script><?
     }
 }
-<<<<<<< HEAD
-?>
-=======
 echo $msg;
 ?>
     </div>
 </div>
->>>>>>> e374f5d0f4063a1531090e6d3b83a2d72d517a12
